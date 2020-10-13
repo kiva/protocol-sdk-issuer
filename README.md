@@ -1,2 +1,2 @@
-# Protocol SDK Issuer
-Web SDK to embed SSI credential issuing capabilities in existing applications.
+# Protocol Verifier
+Web SDK to embed SSI credential verification capabilities in existing applications.
