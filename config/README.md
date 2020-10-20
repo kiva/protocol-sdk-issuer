@@ -8,6 +8,9 @@ Rather than use other environment variables to control values that should be tie
 This allows us to modify just one file when we need to make changes and makes it easy to control inheritance between environments.
 
 ## Environment-specific variables
+### `token`
+Bearer token required to authenticate the backend API.
+
 ### `ekycURI`
 This the URL that will be used to make backend requests.
 
