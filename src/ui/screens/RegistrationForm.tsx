@@ -131,6 +131,7 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
   render() {
     return (
       <Grid
+        id="dialog-box"
         container
         style={{
           paddingTop: "45px"

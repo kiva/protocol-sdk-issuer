@@ -3,7 +3,7 @@
     "locale": "en",
     "agent_port": "7567",
     "cloudAgent": "kiva",
-    "token": "",
+    "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJrTXpRVEEyUkRrMVJqSTBOVEUyTlVZNU1rTkJRekF6TWtGRU4wSTROalk1T0RreVFqVkJNZyJ9.eyJodHRwczovL2VreWMuc2wua2l2YS5vcmcvZmlyc3ROYW1lIjoiSGFycnkiLCJodHRwczovL2VreWMuc2wua2l2YS5vcmcvbGFzdE5hbWUiOiJQb3R0ZXIiLCJodHRwczovL2VreWMuc2wua2l2YS5vcmcvYnJhbmNoTG9jYXRpb24iOiJLSVZBLUhRIiwiaHR0cHM6Ly9la3ljLnNsLmtpdmEub3JnL2luc3RpdHV0aW9uIjoiS2l2YSBFbmdpbmVlcmluZyBDb3JwcyIsImh0dHBzOi8vZWt5Yy5zbC5raXZhLm9yZy9mc3BJZCI6IlVubTJnaTlkUXVmdzZVSjhoRkJ6YVoiLCJodHRwczovL2VreWMuc2wua2l2YS5vcmcvZWt5Y0NoYWluIjoiVW5tMmdpOWRRdWZ3NlVKOGhGQnphWiIsImh0dHBzOi8vZWt5Yy5zbC5raXZhLm9yZy9yb2xlcyI6Im9wZXJhdG9yLW1hbmFnZW1lbnQsc2FuZGJveC1oZWxwZXJzLCBzYW5kYm94LW1hbmFnZW1lbnQsIGNyZWRpdC1yZXBvcnRpbmciLCJodHRwczovL2VreWMuc2wua2l2YS5vcmcvcmVjb3JkU2Vzc2lvbiI6ZmFsc2UsIm5pY2tuYW1lIjoibWljaGVsbGVkIiwibmFtZSI6Im1pY2hlbGxlZEBraXZhLm9yZyIsInBpY3R1cmUiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci82NjcwZGZjYzU4MmM1NjlkYjViNWM2MDA0NTExMjU2ND9zPTQ4MCZyPXBnJmQ9aHR0cHMlM0ElMkYlMkZjZG4uYXV0aDAuY29tJTJGYXZhdGFycyUyRm1pLnBuZyIsInVwZGF0ZWRfYXQiOiIyMDIwLTEwLTIwVDAwOjI2OjA1LjA5MFoiLCJlbWFpbCI6Im1pY2hlbGxlZEBraXZhLm9yZyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2tpdmEtcHJvdG9jb2wuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZmE1YjFmNjgzOTMwMDAxMzNlZjliNyIsImF1ZCI6ImRFMkJLZlk4UXg0ZWNzRjFIaGlmVTJ1R1hlMEI1aGZUIiwiaWF0IjoxNjAzMTUzNTY2LCJleHAiOjE2MDMxODk1NjYsIm5vbmNlIjoiUmNFb1JBQ0VlNnVFUzRTay1BaFMwREpiNEg2c3J6dnkifQ.et1Lc24yVWgnsjCVL7jQNghSx1zrBXd7on-HyfLluRFGjG5g9d35aEFyf2AdX-Kpng2EvCF0CqApSnMpFhz15vI77wqXqNb6CMRB7RgyWhXZopWPD71gJX-v4scEwSTjzBs7f5y3z5-G6pbkV3y9LldLbYuEdzbQBruEnnluJqpxOTGyqnvyqlMlhR8XAEXZ0nQ5iEFDNAfFfiUuH6kNfsbDCWwkZEEQ_Gx351nR9KxByCj66f-f-6yfUQ8fY0IY9kmktDbnBeg18A9PSI75O5-cRFcjRGYvma11y8piEo_OEj-hChBtmE6RTmWNM8DT6VIN5AOfEBMSnViN34MCfg",
     "verification_options": [
         {
             "id": "QR",
@@ -51,7 +51,7 @@
             "inherits": ["prod"]
         },
         "qa": {
-            "ekycURI": "QA!",
+            "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]

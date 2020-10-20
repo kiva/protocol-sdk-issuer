@@ -257,17 +257,23 @@ export default class CredentialIssuance extends React.Component<Props, State> {
                 <Grid container
                     justify="space-around">
                     <Grid item>
-                        <CreditCardIcon
-                            style={{
-                                margin: "0 auto",
-                                fontSize: 190,
-                                color: '#AAA'
-                            }}
-                            className={classNames({
-                                'credential-icon': true,
-                                verified: true,
-                                hidden: !this.props.connected
+                        <div id="credential-box">
+                            <CreditCardIcon
+                                style={{
+                                    margin: "0 auto",
+                                    fontSize: 190,
+                                    color: '#AAA'
+                                }}
+                                className={classNames({
+                                    'credential-icon': true,
+                                    verified: true
+                                })} />
+                            <CheckCircleIcon className={classNames({
+                                'qr-icon': true,
+                                'dialog-icon': true,
+                                verified: true
                             })} />
+                        </div>
                     </Grid>
                 </Grid>
             </div>
