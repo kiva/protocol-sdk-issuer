@@ -7,7 +7,6 @@
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "@sentry/browser": "^5.26.0",
-    "@trinsic/service-clients": "^1.1.4220",
     "axios": "^0.19.1",
     "classnames": "^2.2.6",
     "fs-extra": "^9.0.1",
