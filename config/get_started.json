@@ -3,13 +3,14 @@
     "locale": "en",
     "agent_port": "7567",
     "cloudAgent": "kiva",
+    "token": "",
     "verification_options": [
         {
             "id": "QR",
             "title": "Scan QR code",
             "description": "Customer will verify their identity via a QR code on their phone.",
             "guardian": false,
-            "sequence": ["agency_qr"]
+            "sequence": ["registrationForm", "issuance"]
         }
     ],
     "pii_map": {
@@ -50,7 +51,7 @@
             "inherits": ["prod"]
         },
         "qa": {
-            "ekycURI": "QA!",
+            "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]

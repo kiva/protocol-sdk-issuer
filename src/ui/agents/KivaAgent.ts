@@ -13,7 +13,6 @@ export default class KivaAgent implements Agent {
     public token: string;
     public axiosInstance: AxiosInstance;
     private _connectionId?: string;
-    private _verificationId?: string;
     private _credentialId?: string;
 
     static init(token: string, callback: any): KivaAgent {
@@ -31,6 +30,7 @@ export default class KivaAgent implements Agent {
         this.token = token;
         this.setError = callback;
         this.axiosInstance = axios.create(axiosConfig);
+        
     }
 
     isConnected(response: any): boolean {
@@ -41,33 +41,23 @@ export default class KivaAgent implements Agent {
         return false;
     }
 
-    isVerified(response: any): boolean {
-        if (response.state === "verified") {
+    isOffered(response: any): boolean {
+        if (response.state === "offer_sent") {
             return true;
         }
         return false;
     }
 
-    isCredentialCreated(response: any): boolean {
-        if (response.state === "created") {
+    isIssued(response: any): boolean {
+        if (response.state === "credential_issued") {
             return true;
         }
         return false;
-    }
-
-    formatProof(response: any): void {
-        // TODO: Define an actual credential schema structure so that we can know that we're mapping data to actual PII map keys
-        const proof: any = {};
-        for (let key in response) {
-            let k: string = PII[key].alternateKey || key;
-            proof[k] = response[key].raw;
-        }
-        return proof;
     }
 
     async establishConnection(ignore: string) {
         try {
-            let connection: any = await this.axiosInstance.post('/v2/mobile/connection', {});
+            let connection: any = await this.axiosInstance.post('/v2/demo/mobile/connection', {});
             this._connectionId = connection.data.connection_id;
 
             const invitationData = btoa(JSON.stringify(connection.data.invitation));
@@ -81,7 +71,7 @@ export default class KivaAgent implements Agent {
 
     async getConnection(ignore: string) {
         try {
-            let connection: any = await this.axiosInstance.get('/v2/mobile/connection/' + this._connectionId);
+            let connection: any = await this.axiosInstance.get('/v2/demo/mobile/connection/' + this._connectionId);
 
             return Promise.resolve(connection.data);
         } catch (e) {
@@ -90,20 +80,9 @@ export default class KivaAgent implements Agent {
         }
     }
 
-    async checkVerification(ignore: string) {
-        try {
-            const verification: any = await this.axiosInstance.get('/v2/mobile/verify/' + this._verificationId);
-
-            return Promise.resolve(verification.data);
-        } catch (e) {
-            this.captureAndSendError(e, 'UNKNOWN_ERROR');
-            return Promise.reject(e);
-        }
-    }
-
     async checkCredentialStatus(ignore: string) {
         try {
-            const credential: any = await this.axiosInstance.get('/v2/mobile/verify/' + this._credentialId);
+            const credential: any = await this.axiosInstance.get('/v2/demo/mobile/issue/' + this._credentialId);
 
             return Promise.resolve(credential.data);
         } catch (e) {
@@ -112,37 +91,18 @@ export default class KivaAgent implements Agent {
         }
     }
 
-    async sendVerification(connectionId: string) {
+    async createCredential(credentialData: object) {
         try {
-            const verification: any = await this.axiosInstance.post('/v2/mobile/verify', {
-                connection_id: this._connectionId,
-                proof_profile_path: "unrestricted.proof.request.json"
+            const credential: any = await this.axiosInstance.post('/v2/demo/mobile/issue', {
+                connectionId: this._connectionId,
+                ...credentialData
             });
-            this._verificationId = verification.data.presentation_exchange_id;
-
-            return Promise.resolve(verification.data);
-        } catch (e) {
-            this.captureAndSendError(e, 'UNKNOWN_ERROR');
-            return Promise.reject(e);
-        }
-    }
-
-    async createCredential(connectionId: string) {
-        try {
-            const credential: any = await this.axiosInstance.post('/v2/mobile/verify', {
-                connection_id: this._connectionId,
-            });
-            this._credentialId = credential.data.credential_id;
-
+            this._credentialId = credential.data.credential_exchange_id;
             return Promise.resolve(credential.data);
         } catch (e) {
             this.captureAndSendError(e, 'UNKNOWN_ERROR');
             return Promise.reject(e);
         }
-    }
-
-    getProof(data: any) {
-        return this.formatProof(data.presentation.requested_proof.revealed_attrs);
     }
 
     captureAndSendError(error: any, message: string) {

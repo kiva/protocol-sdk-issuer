@@ -24,7 +24,8 @@ export interface Constants {
     agencyInfo: AgencyInfo,
     agent_port: string,
     cloudAgent: string,
-    headerImage: string
+    headerImage: string,
+    token: string
 }
 
 export interface MessageMap {

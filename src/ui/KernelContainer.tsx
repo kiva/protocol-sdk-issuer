@@ -70,7 +70,8 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
 
         });
         this.setState({
-            isLoading: false
+            isLoading: false,
+            token: CONSTANTS.token
         });
     }
 

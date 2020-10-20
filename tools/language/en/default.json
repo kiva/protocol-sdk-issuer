@@ -42,7 +42,7 @@
         "text": {
             "retrieving": "Retrieving your QR code. Please be patient...",
             "scanQR": "Citizen should scan the QR code with their mobile Wallet.",
-            "connected": "Connection established! Please click the \"Verify\" button below...",
+            "connected": "Connection established!",
             "resetConnection": "Reset"
         }
     }

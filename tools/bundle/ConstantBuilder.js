@@ -40,7 +40,8 @@ class ConstantBuilder {
             'verification_options',
             'agent_port',
             'cloudAgent',
-            'headerImage'
+            'headerImage',
+            'token'
         ];
         constants.forEach((c, idx) => {
             this.setVariable(c);
