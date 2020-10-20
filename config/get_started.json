@@ -51,7 +51,7 @@
             "inherits": ["prod"]
         },
         "qa": {
-            "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org",
+            "ekycURI": "QA!",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]
