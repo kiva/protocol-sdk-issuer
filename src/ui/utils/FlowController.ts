@@ -37,6 +37,7 @@ export default class FlowController {
     }
 
     goTo(direction: string, additionalData?: any) {
+        debugger;
         const destination: string | undefined = this.getStep(direction);
         try {
             if (destination) {
@@ -72,7 +73,10 @@ export default class FlowController {
         this.initial_steps = template;
     }
 
+    // Create an object that indicates the NEXT and BACK steps for each step in
+    // the sequence
     foldSequence(option: AuthOption) {
+        debugger;
         const sequence: string[] = option.sequence;
         const folded: any = {
             [sequence[0]]: {
@@ -90,10 +94,10 @@ export default class FlowController {
             folded[sequence[0]]['BACK'] = 'confirmation';
         }
 
-        for (let i = 1; i < sequence.length - 2; i++) {
+        for (let i = 1; i <= sequence.length - 2; i++) {
             folded[sequence[i]] = {
-                BACK: [sequence[i - 1]],
-                NEXT: [sequence[i + 1]]
+                BACK: sequence[i - 1],
+                NEXT: sequence[i + 1]
             };
         }
 

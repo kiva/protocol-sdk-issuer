@@ -85,7 +85,10 @@ class Screen extends React.Component<ScreenProps, ScreenState> {
 
     renderWebcamCaptureTool() {
         return (
-            <WebcamCaptureTool />
+            <WebcamCaptureTool
+                setCredentialCreationData={this.setCredentialCreationData}
+                credentialCreationData={this.state.credentialCreationData}
+            />
         )
     }
 

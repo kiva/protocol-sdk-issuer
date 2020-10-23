@@ -3,19 +3,13 @@ import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import {flowController} from "../KernelContainer";
-import {forEach} from 'lodash';
-
-import Camera from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
 
 interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
-
   credentialCreationData: any
 }
 
 interface State {
-  faceImage?: string;
 }
 
 export default class RegistrationForm extends React.Component<Props, State> {
@@ -27,10 +21,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
     };
   }
 
-  saveCredentialCreationData() {
-    this.props.setCredentialCreationData({
-      faceImage: this.state.faceImage
-    });
+  next() {
     flowController.goTo('NEXT');
   }
 
@@ -58,19 +49,9 @@ export default class RegistrationForm extends React.Component<Props, State> {
   componentDidMount() {
   }
 
-  handleTakePhoto = (dataUri: string) => {
-    const faceImage = dataUri.replace("data:image/png;base64,","")
-    this.setState({
-      faceImage
-    });
-  }
-
   render() {
     return (
       <div className="registrationForm">
-        <Camera
-          onTakePhoto = { (dataUri : any) => { this.handleTakePhoto(dataUri); } }
-        />
         <Grid
           style={{
             paddingTop: "30px"
@@ -136,7 +117,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
         </Grid>
         <RegistrationFormButtons
           onClickBack={() => flowController.goTo('BACK')}
-          onSubmit={() => this.saveCredentialCreationData()}
+          onSubmit={() => this.next()}
           onPopulateForm={() => this.onPopulateForm()}
         ></RegistrationFormButtons>
       </div>
