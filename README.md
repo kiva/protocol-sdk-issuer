@@ -1,7 +1,7 @@
 # Protocol Issuer
 Web SDK to embed SSI credential issuance capabilities in existing applications.
 
-![Build Status](https://github.com/kiva/protocol-sdk-verifier/workflows/build-main/badge.svg)
+![Build Status](https://github.com/kiva/protocol-sdk-issuer/workflows/build-main/badge.svg)
 
 # Microfrontend application
 This module can be embedded as an iframe into your existing application to issue credentials out of the box or used as a standalone credential issuance tool.
