@@ -1,0 +1,98 @@
+{
+  "id": "backstop_default",
+  "viewports": [
+    {
+      "label": "tablet",
+      "width": 1024,
+      "height": 768
+    }
+  ],
+  "onBeforeScript": "puppet/onBefore.js",
+  "onReadyScript": "puppet/onReady.js",
+  "scenarios": [
+    {
+      "label": "EKYC SDK Webpage- Intro Page",
+      "url": "http://localhost:3000/app",
+      "misMatchThreshold" : 0.15,
+      "delay" : 500, 
+      "requireSameDimensions": true
+    }, 
+    {
+      "label": "EKYC SDK Webpage- Header",
+      "url": "http://localhost:3000/app",
+      "selectors": [".AppHeader"],
+      "misMatchThreshold" : 0.15,
+      "delay" : 500, 
+      "requireSameDimensions": true
+    },
+    {
+      "label": "EKYC SDK Webpage- Fingerprint Scan Selected",
+      "url":"http://localhost:3000/app",
+      "clickSelector": ".accept",
+      "misMatchThreshold" : 0.15,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "EKYC SDK Webpage- QR Code Selected",
+      "url":"http://localhost:3000/app",
+      "clickSelectors": [".accept", ".auth_option:nth-child(2)"],
+      "misMatchThreshold" : 0.15,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "EKYC SDK Webpage- National ID Login",
+      "url":"http://localhost:3000/app",
+      "clickSelectors": [".accept", "#select-auth-method"],
+      "onReadyScript": "puppet/nationalIDPathway.js",
+      "misMatchThreshold" : 0.15,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "EKYC SDK Webpage- Alternate Search",
+      "url":"http://localhost:3000/app",
+      "clickSelectors": [".accept", "#select-auth-method", "#alternate-search"],
+      "misMatchThreshold" : 0.15,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "EKYC SDK Webpage- Scan Fingerprint",
+      "url":"http://localhost:3000/app",
+      "clickSelectors": [".accept", "#select-auth-method", "#scan-fingerprint"],
+      "onReadyScript": "puppet/scanFingerprintPathway.js",
+      "misMatchThreshold" : 0.15,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "EKYC SDK Webpage- Scan Different Fingerprint",
+      "url":"http://localhost:3000/app",
+      "onReadyScript": "puppet/scanDiffFingerprintPathway.js",
+      "misMatchThreshold" : 0.15,
+      "requireSameDimensions": true
+    }, 
+    {
+      "label": "EKYC SDK Webpage- Another Scanning of a Different Fingerprint",
+      "url":"http://localhost:3000/app",
+      "onReadyScript": "puppet/scanDiffFingerprintPathway02.js",
+      "misMatchThreshold" : 0.15,
+      "requireSameDimensions": true
+    }
+
+
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "args": ["--no-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}

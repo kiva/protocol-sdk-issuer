@@ -1,0 +1,48 @@
+{
+    "DeployKeys": {
+        "title": "Kiva EKYC SDK",
+        "authAgency": "Kiva HQ",
+        "authAgencyAcronym": "Kiva",
+        "ekycRecord": "Record de eKYC"
+    },
+    "Standard": {
+        "or": "o",
+        "back": "Regresar",
+        "next": "Siguiente",
+        "use": "Usar",
+        "required": "requerido",
+        "accept": "Aceptar",
+        "poweredBy": "Desarrollado por",
+        "supportedBy": "Soportado por",
+        "sandboxMode": "Modo Sandbox - Toda la información que se muestra es información de prueba y solo puede usarse para capacitación.",
+        "record": "Registro",
+        "digitalId_full": "ID Digital",
+        "idNumber": "Código de ID",
+        "ekycId_normal": "Código de Evento",
+        "requestInProgress": "Solicitud ya está en progreso"
+    },
+    "Errors": {
+        "unknownError": "Ha ocurrido un problema.",
+        "qr": {
+            "noInviteUrl": "Se produjo un error creando el código QR. Por favor intente de nuevo. Si el problema persiste, comuníquese con su equipo de IT.",
+            "connectionError": "Se produjo un error estableciendo una conexión. Por favor intente de nuevo. Si el problema persiste, comuníquese con su equipo de IT.",
+            "notConnected": "Por favor escanee el código QR y establezca una conexión antes de verificar."
+        }
+    },
+    "ConfirmationScreen": {
+        "text": {
+            "pleaseReview": "Haga que el cliente revise la siguiente información",
+            "agreement-1": "Acepto que la siguiente información personal se compartirá con",
+            "agreement-2": "como parte de la verificación \"eKYC\".",
+            "infoShareIncludes": "La información compartida incluye su:"
+        }
+    },
+    "QR": {
+        "text": {
+            "retrieving": "Retrieving your QR code. Please be patient...",
+            "scanQR": "Citizen should scan the QR code with their mobile Wallet.",
+            "connected": "Connection established! Please click the \"Verify\" button below...",
+            "resetConnection": "Reset"
+        }
+    }
+}

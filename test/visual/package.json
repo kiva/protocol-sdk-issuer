@@ -1,0 +1,23 @@
+{
+  "name": "kiva_visual_regression_project",
+  "version": "1.0.0",
+  "description": "blob",
+  "main": "index.js",
+  "scripts": {
+    "test": "backstop test",
+    "visual:approve": "backstop approve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiarascoleman/kiva_visual_regression_project.git"
+  },
+  "author": "Tiara S. Coleman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiarascoleman/kiva_visual_regression_project/issues"
+  },
+  "homepage": "https://github.com/tiarascoleman/kiva_visual_regression_project#readme",
+  "dependencies": {
+    "backstopjs": "^5.0.1"
+  }
+}

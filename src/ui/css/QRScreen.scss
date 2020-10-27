@@ -1,0 +1,51 @@
+@import "mixins/_fonts";
+@import "mixins/_colors";
+
+.qr-loading-title {
+    color: $secondary-offset !important;
+    padding-top: 15px;
+}
+
+#qr-loader {
+    display: flex;
+    justify-content: center;
+}
+
+.qr-icon {
+    position: absolute;
+    margin-top: 0;
+    background: #fff;
+    border-radius: 50%;
+}
+
+#qr-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#credential-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrButtons {
+    padding-top: 30px;
+    margin-bottom: 30px;
+    button {
+        margin: 100px 20px;
+        text-transform: none;
+        font-size: 1.2em !important;
+        width: 200px;
+    }
+}
+
+.qr-reset {
+    background-color: salmon !important;
+    color: #fff !important;
+}
+
+.agency-toggle {
+    margin: 0 auto;
+}
