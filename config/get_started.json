@@ -30,7 +30,7 @@
             "rendered": true,
             "wide": true
         },
-        "photo~attach": {
+        "faceImage": {
             "name": "Photo",
             "alternateKey": "photoHash"
         }
