@@ -325,8 +325,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
                 <Grid container
                     direction="column"
                     justify="center"
-                    alignItems="center"
-                    spacing={16}>
+                    alignItems="center">
                         {this.renderBody()}
                 </Grid>
                 <QRScreenButtons

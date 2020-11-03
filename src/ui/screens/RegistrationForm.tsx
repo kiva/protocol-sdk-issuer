@@ -63,8 +63,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
             container
             direction="row"
             xs={6}
-            justify="space-between"
-            spacing={16}>
+            justify="space-between">
             <Grid item
                   xs={6}
                   md={5}>
