@@ -23,7 +23,6 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
   }
 
   saveCredentialCreationData() {
-    debugger;
     this.props.setCredentialCreationData({
       faceImage: this.state.faceImage
     });
@@ -37,7 +36,6 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
   }
 
   handleTakePhoto = (dataUri: string) => {
-    debugger;
     const faceImage = dataUri.replace("data:image/png;base64,","")
     this.setState({
       faceImage

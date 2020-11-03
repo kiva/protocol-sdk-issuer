@@ -37,7 +37,6 @@ export default class FlowController {
     }
 
     goTo(direction: string, additionalData?: any) {
-        debugger;
         const destination: string | undefined = this.getStep(direction);
         try {
             if (destination) {
@@ -76,7 +75,6 @@ export default class FlowController {
     // Create an object that indicates the NEXT and BACK steps for each step in
     // the sequence
     foldSequence(option: AuthOption) {
-        debugger;
         const sequence: string[] = option.sequence;
         const folded: any = {
             [sequence[0]]: {
