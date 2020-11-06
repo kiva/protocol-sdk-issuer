@@ -60,57 +60,61 @@ export default class RegistrationForm extends React.Component<Props, State> {
           direction="row"
           justify="space-around">
           <Grid
-            container
-            direction="row"
+            item
             xs={6}
-            justify="space-between">
-            <Grid item
-                  xs={6}
-                  md={5}>
-              <Input
-                onChange={inputField => this.handleInputChange(inputField)}
-                fullWidth
-                value={this.props.credentialCreationData.firstName}
-                name="firstName"
-                id="firstName"
-                placeholder="First Name"
-              />
-            </Grid>
-            <Grid item
-                  xs={6}
-                  md={5}>
-              <Input
-                onChange={inputField => this.handleInputChange(inputField)}
-                fullWidth
-                value={this.props.credentialCreationData.lastName}
-                name="lastName"
-                id="lastName"
-                placeholder="Last Name"
-              />
-            </Grid>
-            <Grid item
-                  xs={6}
-                  md={5}>
-              <Input
-                onChange={inputField => this.handleInputChange(inputField)}
-                value={this.props.credentialCreationData.birthDate}
-                fullWidth
-                name="birthDate"
-                id="birthDate"
-                placeholder="Date of Birth"
-              />
-            </Grid>
-            <Grid item
-                  xs={6}
-                  md={5}>
-              <Input
-                onChange={inputField => this.handleInputChange(inputField)}
-                value={this.props.credentialCreationData.nationalId}
-                fullWidth
-                name="nationalId"
-                id="nationalId"
-                placeholder="National ID"
-              />
+          >
+            <Grid
+              container
+              direction="row"
+              justify="space-between">
+              <Grid item
+                    xs={6}
+                    md={5}>
+                <Input
+                  onChange={inputField => this.handleInputChange(inputField)}
+                  fullWidth
+                  value={this.props.credentialCreationData.firstName}
+                  name="firstName"
+                  id="firstName"
+                  placeholder="First Name"
+                />
+              </Grid>
+              <Grid item
+                    xs={6}
+                    md={5}>
+                <Input
+                  onChange={inputField => this.handleInputChange(inputField)}
+                  fullWidth
+                  value={this.props.credentialCreationData.lastName}
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Last Name"
+                />
+              </Grid>
+              <Grid item
+                    xs={6}
+                    md={5}>
+                <Input
+                  onChange={inputField => this.handleInputChange(inputField)}
+                  value={this.props.credentialCreationData.birthDate}
+                  fullWidth
+                  name="birthDate"
+                  id="birthDate"
+                  placeholder="Date of Birth"
+                />
+              </Grid>
+              <Grid item
+                    xs={6}
+                    md={5}>
+                <Input
+                  onChange={inputField => this.handleInputChange(inputField)}
+                  value={this.props.credentialCreationData.nationalId}
+                  fullWidth
+                  name="nationalId"
+                  id="nationalId"
+                  placeholder="National ID"
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -144,35 +148,40 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
         direction="row"
         justify="space-around">
         <Grid
-          container
-          direction="row"
-          justify="space-around"
-          xs={6}>
-          <Grid item>
-            <Button
-              data-cy="qr-back"
-              className="back"
-              onClick={this.props.onClickBack}>
-              Back
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              data-cy="reset-flow"
-              className="back"
-              onClick={this.props.onPopulateForm}>
-              Populate Form
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              type="submit"
-              data-cy="qr-scan-next"
-              className="next"
-              onSubmit={this.props.onSubmit}
-              onClick={this.props.onSubmit}>
-              Continue
-            </Button>
+          item
+          xs={6}
+        >
+          <Grid
+            container
+            direction="row"
+            justify="space-around"
+            >
+            <Grid item>
+              <Button
+                data-cy="qr-back"
+                className="back"
+                onClick={this.props.onClickBack}>
+                Back
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                data-cy="reset-flow"
+                className="back"
+                onClick={this.props.onPopulateForm}>
+                Populate Form
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                type="submit"
+                data-cy="qr-scan-next"
+                className="next"
+                onSubmit={this.props.onSubmit}
+                onClick={this.props.onSubmit}>
+                Continue
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

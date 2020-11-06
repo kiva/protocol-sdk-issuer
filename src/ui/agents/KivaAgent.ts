@@ -57,7 +57,7 @@ export default class KivaAgent implements Agent {
 
     async establishConnection(ignore: string) {
         try {
-            let connection: any = await this.axiosInstance.post('/v2/demo/mobile/connection', {});
+            let connection: any = await this.axiosInstance.post('connection', {});
             this._connectionId = connection.data.connection_id;
 
             const invitationData = btoa(JSON.stringify(connection.data.invitation));
@@ -71,7 +71,7 @@ export default class KivaAgent implements Agent {
 
     async getConnection(ignore: string) {
         try {
-            let connection: any = await this.axiosInstance.get('/v2/demo/mobile/connection/' + this._connectionId);
+            let connection: any = await this.axiosInstance.get('connection/' + this._connectionId);
 
             return Promise.resolve(connection.data);
         } catch (e) {
@@ -82,7 +82,7 @@ export default class KivaAgent implements Agent {
 
     async checkCredentialStatus(ignore: string) {
         try {
-            const credential: any = await this.axiosInstance.get('/v2/demo/mobile/issue/' + this._credentialId);
+            const credential: any = await this.axiosInstance.get('issue/' + this._credentialId);
 
             return Promise.resolve(credential.data);
         } catch (e) {
@@ -93,7 +93,7 @@ export default class KivaAgent implements Agent {
 
     async createCredential(credentialData: object) {
         try {
-            const credential: any = await this.axiosInstance.post('/v2/demo/mobile/issue', {
+            const credential: any = await this.axiosInstance.post('issue', {
                 connectionId: this._connectionId,
                 ...credentialData
             });

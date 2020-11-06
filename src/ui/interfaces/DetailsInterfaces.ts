@@ -6,6 +6,5 @@ export interface DetailsProps {
 }
 
 export interface DetailsState {
-    personalInfo: any,
-    selectedDetailsView: string
+    personalInfo: any
 }

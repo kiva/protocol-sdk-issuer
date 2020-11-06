@@ -82,8 +82,7 @@ class WebcamCaptureToolButtons extends React.Component<ButtonProps> {
         <Grid
           container
           direction="row"
-          justify="space-around"
-          xs={6}>
+          justify="space-around">
           <Grid item>
             <Button
               data-cy="qr-back"
