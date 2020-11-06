@@ -27,6 +27,7 @@ export default class ResultDetails extends React.Component<DetailsProps, Details
 
 
     renderFields(title: string, fields: any) {
+        debugger;
         this.processPII();
         const items: any[] = [];
         const wideItemKeys: string[] = [
