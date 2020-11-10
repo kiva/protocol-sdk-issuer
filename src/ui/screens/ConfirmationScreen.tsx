@@ -22,8 +22,7 @@ export default class ConfirmationScreen extends React.Component<ConfirmationProp
             <Grid container
                 direction="column"
                 justify="center"
-                alignItems="center"
-                spacing={16}>
+                alignItems="center">
                 <Grid item>
                     <Typography component="h2" variant="h6" gutterBottom>
                         {I18n.getKey('REVIEW')}

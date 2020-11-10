@@ -21,13 +21,13 @@ export default class ResultDetails extends React.Component<DetailsProps, Details
     constructor(props: DetailsProps) {
         super(props);
         this.state = {
-            personalInfo: this.props.personalInfo,
-            selectedDetailsView: "ncra"
+            personalInfo: this.props.personalInfo
         }
     }
 
 
     renderFields(title: string, fields: any) {
+        debugger;
         this.processPII();
         const items: any[] = [];
         const wideItemKeys: string[] = [
@@ -103,7 +103,7 @@ export default class ResultDetails extends React.Component<DetailsProps, Details
                         onClick={this.props.exportAction}>
                         {this.props.actionButtonCaption}
                     </Button>
-                    {this.state.selectedDetailsView === 'ncra' && this.renderFields(I18n.getKey('CREDENTIALING_AGENCY'), itemList)}
+                    {this.renderFields(I18n.getKey('CREDENTIALING_AGENCY'), itemList)}
                 </div>
             </div>
         </Paper>
