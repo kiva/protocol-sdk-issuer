@@ -1,5 +1,5 @@
 {
-  "name": "@kiva/protocol-sdk-verifier",
+  "name": "@kiva/protocol-sdk-issuer",
   "version": "1.0.1",
   "author": "Kiva Microfunds",
   "private": true,
