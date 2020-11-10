@@ -3,6 +3,9 @@ import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import {flowController} from "../KernelContainer";
+import _, { forEach } from "lodash";
+import {CONSTANTS} from '../../constants/constants';
+import {PIImap} from '../interfaces/ConfirmationProps';
 
 interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
@@ -11,6 +14,8 @@ interface Props {
 
 interface State {
 }
+
+const PII: PIImap = CONSTANTS.pii_map;
 
 export default class RegistrationForm extends React.Component<Props, State> {
 
@@ -46,7 +51,13 @@ export default class RegistrationForm extends React.Component<Props, State> {
   componentWillUnmount() {
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const initialCreationDataState: any = {};
+    forEach(_.keys(PII), (key) => {
+      initialCreationDataState[key] = this.props.credentialCreationData[key] || "";
+    });
+    // name, value
+    this.props.setCredentialCreationData(initialCreationDataState);
   }
 
   render() {
@@ -67,54 +78,23 @@ export default class RegistrationForm extends React.Component<Props, State> {
               container
               direction="row"
               justify="space-between">
-              <Grid item
-                    xs={6}
-                    md={5}>
-                <Input
-                  onChange={inputField => this.handleInputChange(inputField)}
-                  fullWidth
-                  value={this.props.credentialCreationData.firstName}
-                  name="firstName"
-                  id="firstName"
-                  placeholder="First Name"
-                />
-              </Grid>
-              <Grid item
-                    xs={6}
-                    md={5}>
-                <Input
-                  onChange={inputField => this.handleInputChange(inputField)}
-                  fullWidth
-                  value={this.props.credentialCreationData.lastName}
-                  name="lastName"
-                  id="lastName"
-                  placeholder="Last Name"
-                />
-              </Grid>
-              <Grid item
-                    xs={6}
-                    md={5}>
-                <Input
-                  onChange={inputField => this.handleInputChange(inputField)}
-                  value={this.props.credentialCreationData.birthDate}
-                  fullWidth
-                  name="birthDate"
-                  id="birthDate"
-                  placeholder="Date of Birth"
-                />
-              </Grid>
-              <Grid item
-                    xs={6}
-                    md={5}>
-                <Input
-                  onChange={inputField => this.handleInputChange(inputField)}
-                  value={this.props.credentialCreationData.nationalId}
-                  fullWidth
-                  name="nationalId"
-                  id="nationalId"
-                  placeholder="National ID"
-                />
-              </Grid>
+              {_.keys(this.props.credentialCreationData).map(
+                (field: any, idx: any) => {
+                  if (PII[field].type === "text") {
+                    return (
+                      <RegistrationInputField
+                        key={idx}
+                        setCredentialCreationData={this.props.setCredentialCreationData}
+                        handleInputChange={this.handleInputChange.bind(this)}
+                        inputField={field}
+                        credentialCreationData={this.props.credentialCreationData}
+                      />
+                    )
+                  } else {
+                    return;
+                  }
+                }
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -124,6 +104,34 @@ export default class RegistrationForm extends React.Component<Props, State> {
           onPopulateForm={() => this.onPopulateForm()}
         ></RegistrationFormButtons>
       </div>
+    );
+  }
+}
+
+
+interface InputProps {
+  handleInputChange(inputField: any): void,
+  inputField: string,
+  setCredentialCreationData(data: any): void,
+  credentialCreationData: any
+}
+
+class RegistrationInputField extends React.Component<InputProps> {
+
+  render() {
+    return (
+      <Grid item
+        xs={6}
+        md={5}>
+        <Input
+          onChange={inputField => this.props.handleInputChange(inputField)}
+          fullWidth
+          name={this.props.inputField}
+          id={this.props.inputField}
+          placeholder={PII[this.props.inputField].name}
+          value={this.props.credentialCreationData[this.props.inputField]}
+        />
+      </Grid>
     );
   }
 }

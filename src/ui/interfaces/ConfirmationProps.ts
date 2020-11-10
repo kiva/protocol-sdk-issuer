@@ -6,6 +6,7 @@ interface PIIdefinition {
     name: string,
     rendered?: boolean,
     wide?: boolean,
+    type?: string,
     alternateKey?: string,
     alternateName?: string
 }

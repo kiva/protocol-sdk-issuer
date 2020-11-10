@@ -1,9 +1,7 @@
 import * as React from 'react';
 import KivaAgent from '../agents/KivaAgent';
-import axios from 'axios';
 import {CONSTANTS} from "../../constants/constants";
 import {Agent} from "../interfaces/AgentInterface";
-import * as Sentry from "@sentry/browser";
 import I18n from '../utils/I18n';
 import Grid from '@material-ui/core/Grid';
 import {notify} from "react-notify-toast";
@@ -99,7 +97,6 @@ export default class CredentialIssuance extends React.Component<Props, State> {
             this.setInviteUrl(url);
             this.pollConnection(connectionId);
         } catch (e) {
-            Sentry.captureException(e);
             this.setConnectionError(I18n.getKey('UNKNOWN_ERROR'));
         }
     }
