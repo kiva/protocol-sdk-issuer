@@ -15,24 +15,29 @@
     "pii_map": {
         "nationalId": {
             "name": "National ID",
-            "rendered": true
+            "rendered": true,
+            "type": "text"
         },
         "firstName": {
             "name": "First Name",
-            "rendered": true
+            "rendered": true,
+            "type": "text"
         },
         "lastName": {
             "name": "Last Name",
-            "rendered": true
+            "rendered": true,
+            "type": "text"
         },
         "birthDate": {
             "name": "Birth Date",
             "rendered": true,
-            "wide": true
+            "wide": true,
+            "type": "text"
         },
         "faceImage": {
             "name": "Photo",
-            "alternateKey": "photoHash"
+            "alternateKey": "photoHash",
+            "type": "image/jpeg;base64"
         }
     },
     "env": {

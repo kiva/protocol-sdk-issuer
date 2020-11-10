@@ -80,7 +80,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
               justify="space-between">
               {_.keys(this.props.credentialCreationData).map(
                 (field: any, idx: any) => {
-                  if (field != "faceImage") {
+                  if (PII[field].type === "text") {
                     return (
                       <RegistrationInputField
                         key={idx}

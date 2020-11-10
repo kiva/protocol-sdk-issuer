@@ -1,6 +1,5 @@
 import * as React from 'react';
 import KivaAgent from '../agents/KivaAgent';
-import axios from 'axios';
 import {CONSTANTS} from "../../constants/constants";
 import {Agent} from "../interfaces/AgentInterface";
 import I18n from '../utils/I18n';
