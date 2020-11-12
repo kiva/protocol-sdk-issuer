@@ -56,10 +56,6 @@ This map defines the pieces of PII (Personally Identifiable Information) which w
 This is an object which assigns metadata to the values that will be returned from a successful eKYC request, and is used to verify that the backend response is complete and genuine.
 
 * `name`: This value is used for text values throughout the app, especially the Results page and the User Consent page.
-* `rendered`: This boolean determines whether the PII value is rendered on the Results page.
-* `alternateName`: If defined, this is the text value that will be used in the Results page rather than the value defined in `name`.
-* `wide`: Determines if the data should span two columns on the Results page. Defaults to `false`.
-* `alternateKey`: In some cases, the keys returned from the backend in a successful eKYC response will need to be translated to a different value. If defined, `alternateKey` can be used to define the new key that will be used.
 
 ### `colorMap`
 This allows for defining a color scheme. If this object is undefined, these are the default values that will be added to the application as a SCSS file:

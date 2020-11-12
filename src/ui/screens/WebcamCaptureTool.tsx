@@ -11,7 +11,7 @@ export interface Props {
 }
 
 export interface State {
-  faceImage?: string;
+  "photo~attach"?: string;
 }
 
 export default class WebcamCaptureTool extends React.Component<any,any> {
@@ -24,21 +24,21 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
 
   saveCredentialCreationData() {
     this.props.setCredentialCreationData({
-      faceImage: this.state.faceImage
+      "photo~attach": this.state["photo~attach"]
     });
     flowController.goTo('NEXT');
   }
 
   onReset() {
     this.setState({
-      faceImage: ""
+      "photo~attach": ""
     })
   }
 
   handleTakePhoto = (dataUri: string) => {
-    const faceImage = dataUri.replace("data:image/png;base64,","")
+    const photo = dataUri.replace("data:image/png;base64,","")
     this.setState({
-      faceImage
+      "photo~attach": photo
     });
   }
 

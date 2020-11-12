@@ -13,31 +13,45 @@
         }
     ],
     "pii_map": {
-        "nationalId": {
-            "name": "National ID",
-            "rendered": true,
-            "type": "text"
-        },
         "firstName": {
             "name": "First Name",
-            "rendered": true,
-            "type": "text"
+            "dataType": "text"
         },
         "lastName": {
             "name": "Last Name",
-            "rendered": true,
-            "type": "text"
+            "dataType": "text"
         },
-        "birthDate": {
-            "name": "Birth Date",
-            "rendered": true,
-            "wide": true,
-            "type": "text"
+        "companyEmail": {
+            "name": "Company Email",
+            "dataType": "text"
         },
-        "faceImage": {
+        "currentTitle": {
+            "name": "Current Title",
+            "dataType": "text"
+        },
+        "team": {
+            "name": "Team",
+            "dataType": "text"
+        },
+        "hireDate": {
+            "name": "Hire Date",
+            "dataType": "text"
+        },
+        "officeLocation": {
+            "name": "Office Location",
+            "dataType": "text"
+        },
+        "photo~attach": {
             "name": "Photo",
-            "alternateKey": "photoHash",
-            "type": "image/jpeg;base64"
+            "dataType": "image/jpeg;base64"
+        },
+        "type": {
+            "name": "Type",
+            "dataType": "text"
+        },
+        "endDate": {
+            "name": "End Date",
+            "dataType": "text"
         }
     },
     "env": {
