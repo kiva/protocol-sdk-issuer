@@ -94,8 +94,9 @@ export default class KivaAgent implements Agent {
     async createCredential(credentialData: object) {
         try {
             const credential: any = await this.axiosInstance.post('issue', {
+                profile: "employee.cred.def.json",
                 connectionId: this._connectionId,
-                ...credentialData
+                entityData: credentialData
             });
             this._credentialId = credential.data.credential_exchange_id;
             return Promise.resolve(credential.data);

@@ -6,7 +6,6 @@ import {ScreenDispatcher} from "./controllers/ScreenDispatcher";
 
 // Screens
 import ConfirmationScreen from './screens/ConfirmationScreen';
-import ResultDetails from './screens/ResultDetails';
 import AuthenticationOptionMenu from './screens/AuthenticationOptionMenu';
 
 // Utils
@@ -106,20 +105,6 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
         });
     };
 
-    renderWalletDetails() {
-        this.dispatchEkycComplete();
-        let detailsPage: any = "";
-        if (!this.state.isStandalone) {
-            detailsPage = <ResultDetails
-                personalInfo={this.state.personalInfo}
-                actionButtonCaption={I18n.getKey('EXPORT_PROFILE')}
-                exportAction={this.dispatchEkycComplete}
-                printButtonCaption={I18n.getKey('PRINT_PROFILE')}
-            />;
-        }
-        return detailsPage;
-    }
-
     renderHeader() {
         const headerImage: string = `/images/${CONSTANTS.headerImage}`;
         if (this.state.isStandalone) {
@@ -179,8 +164,6 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
         switch (this.state.step) {
         case 'menu':
             return this.renderOptionMenu();
-        case 'details':
-            return this.renderWalletDetails();
         case 'loading':
             return this.renderLoadingScreen();
         case 'confirmation':
@@ -228,6 +211,5 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
 const screenNames: any = {
     confirmation: 'Consent',
     loading: 'AppLoad',
-    details: 'CustomerInfo',
     authentication: 'FingerprintScan'
 };

@@ -40,10 +40,15 @@ export default class RegistrationForm extends React.Component<Props, State> {
     var generatedId = (Math.random() * 9 + 1) * Math.pow(10, 8 - 1);
     generatedId = parseInt(generatedId.toString(), 10);
     var dataToInput = {
-      firstName: "[SANDBOX: firstName]",
-      lastName: "[SANDBOX: lastName]",
-      birthDate: "2020-10-15",
-      nationalId: generatedId.toString()
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "companyEmail": "Company Email",
+      "currentTitle": "Current Title",
+      "team": "Team",
+      "hireDate": "Hire Date",
+      "officeLocation": "Office Location",
+      "type": "Type",
+      "endDate": "End Date"
     }
     this.props.setCredentialCreationData(dataToInput);
   }
@@ -80,7 +85,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
               justify="space-between">
               {_.keys(this.props.credentialCreationData).map(
                 (field: any, idx: any) => {
-                  if (PII[field].type === "text") {
+                  if (PII[field].dataType === "text") {
                     return (
                       <RegistrationInputField
                         key={idx}
