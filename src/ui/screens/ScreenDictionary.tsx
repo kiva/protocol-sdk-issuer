@@ -56,7 +56,6 @@ class Screen extends React.Component<ScreenProps, ScreenState> {
         this.setState({credential_issued});
     };
 
-
     renderIssuance() {
         return (
             <CredentialIssuance
