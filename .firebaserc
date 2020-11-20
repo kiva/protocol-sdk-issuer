@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "pro-cluster-kiva"
+  },
+  "targets": {
+    "pro-cluster-kiva": {
+      "hosting": {
+        "issuer": [
+          "pro-cluster-kiva-issue"
+        ]
+      }
+    }
+  }
+}

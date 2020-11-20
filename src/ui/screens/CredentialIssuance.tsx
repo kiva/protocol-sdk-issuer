@@ -53,7 +53,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
           connectionError: "",
           offered: false,
           issued: false,
-          token: "",
+          token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJrTXpRVEEyUkRrMVJqSTBOVEUyTlVZNU1rTkJRekF6TWtGRU4wSTROalk1T0RreVFqVkJNZyJ9.eyJodHRwczovL2VreWMuc2wua2l2YS5vcmcvZmlyc3ROYW1lIjoiSG9yYWNpbyIsImh0dHBzOi8vZWt5Yy5zbC5raXZhLm9yZy9sYXN0TmFtZSI6Ik51bmV6IiwiaHR0cHM6Ly9la3ljLnNsLmtpdmEub3JnL2JyYW5jaExvY2F0aW9uIjoiS0lWQS1IUSIsImh0dHBzOi8vZWt5Yy5zbC5raXZhLm9yZy9pbnN0aXR1dGlvbiI6IktpdmEgRW5naW5lZXJpbmcgQ29ycHMiLCJodHRwczovL2VreWMuc2wua2l2YS5vcmcvZnNwSWQiOiJVbm0yZ2k5ZFF1Znc2VUo4aEZCemFaIiwiaHR0cHM6Ly9la3ljLnNsLmtpdmEub3JnL2VreWNDaGFpbiI6IlVubTJnaTlkUXVmdzZVSjhoRkJ6YVoiLCJodHRwczovL2VreWMuc2wua2l2YS5vcmcvcm9sZXMiOiJvcGVyYXRvci1tYW5hZ2VtZW50LHNhbmRib3gtaGVscGVycywgc2FuZGJveC1tYW5hZ2VtZW50LCBjcmVkaXQtcmVwb3J0aW5nIiwiaHR0cHM6Ly9la3ljLnNsLmtpdmEub3JnL3JlY29yZFNlc3Npb24iOmZhbHNlLCJuaWNrbmFtZSI6ImhvcmFjaW8ubnVuZXoiLCJuYW1lIjoiaG9yYWNpby5udW5lekBraXZhLm9yZyIsInBpY3R1cmUiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci9mNjc2Njk1NDZlMTdiNDJkNmEzNDg1OGFkMmY3N2Q3Mz9zPTQ4MCZyPXBnJmQ9aHR0cHMlM0ElMkYlMkZjZG4uYXV0aDAuY29tJTJGYXZhdGFycyUyRmhvLnBuZyIsInVwZGF0ZWRfYXQiOiIyMDIwLTExLTIwVDAxOjU3OjMzLjM3MloiLCJlbWFpbCI6ImhvcmFjaW8ubnVuZXpAa2l2YS5vcmciLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9raXZhLXByb3RvY29sLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZTQ0NDhiZmVkNDZjNDBlN2Y5MTFkMDAiLCJhdWQiOiI3TkhwVHl5SDZ5UlBQdTZ2T0NFZE5SU213T1BGS2tsRCIsImlhdCI6MTYwNTgzNzQ1MywiZXhwIjoxNjA1ODczNDUzfQ.oT8i1zClRk1BGBYpqm5n7NXXnN8finoP1McICcV4CXuzR-Vmxl143Dw5AuWzgD9k2sthq1ogYEnqmT46jj0Iv2i2PHnqjJevuBZrlqIoGPHYun-kbGse_fnjYx6r_dedMXWYp4dezbgdlCoB5cEnZjhPkD97jt-pgn9Y2pHGHH5TjhToXX-N-K9Fa1t0NuY5_HJ7NazigwTr4tbKImhi9y7og1-ZEuIjvPjgEe25pOgZGRPBNt7X7UWJgCAJgAJfCp2IUbWgXKakYmli34nQ9oeYNg-m8XgKbfNLZBDRtlk7EyOu10mF6VGzNAP-QVY0EZ-uUuccpkAzRCthxvws4w",
         };
     }
 
@@ -115,7 +115,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
 
     pollCredentialStatus = async (credentialId: string) => {
         let credentialStatus: any = await agent.checkCredentialStatus(credentialId);
-        if (agent.isOffered(credentialStatus)){ 
+        if (agent.isOffered(credentialStatus)){
             // show offered state
             this.setState({
                 offered: true

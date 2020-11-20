@@ -35,7 +35,7 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
     constructor(props: KernelProps) {
         super(props);
         this.state = {
-            step: 'registrationUserTable',
+            step: 'confirmation',
             did: "",
             flowControllerStepOverride: '',
             header: I18n.getKey('SITE_TITLE'),

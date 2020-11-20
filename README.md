@@ -37,8 +37,6 @@ Once that's done, you can build and serve a development version of the applicati
 npm run start
 ```
 ​
-If you've ever used the `create-react-apps` NPM package, this should feel pretty familiar.
-​
 Please note that, while the `run start` command uses `get_started.json` by default, you can easily change the configuration file you're using by running the following.
 ​
 ```
