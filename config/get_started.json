@@ -10,6 +10,12 @@
             "title": "Scan QR code",
             "guardian": false,
             "sequence": ["webcam", "registrationForm", "issuance"]
+        },
+        {
+            "id": "QR",
+            "title": "OTP",
+            "guardian": false,
+            "sequence": ["webcam", "registrationForm", "otp"]
         }
     ],
     "pii_map": {

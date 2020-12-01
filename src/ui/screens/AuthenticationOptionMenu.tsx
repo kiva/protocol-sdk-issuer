@@ -50,7 +50,7 @@ export default class AuthenticationOptionMenu extends React.Component<AuthOption
                     })}
                 </div>
                 <Button id="select-auth-method" onClick={() => this.props.setNewAuthType(this.state.optionSelected)}>
-                    {I18n.getKey('CONTINUE')}
+                    Continue
                 </Button>
             </div>
         );

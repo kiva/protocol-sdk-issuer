@@ -5,6 +5,7 @@ import {ScreenContainerProps, ScreenContainerState, ScreenProps, ScreenState} fr
 import CredentialIssuance from "./CredentialIssuance";
 import RegistrationForm from "./RegistrationForm";
 import WebcamCaptureTool from "./WebcamCaptureTool";
+import OneTimePassword from "./OneTimePassword";
 
 export default class ScreenContainer extends React.Component<ScreenContainerProps, ScreenContainerState> {
 
@@ -91,6 +92,15 @@ class Screen extends React.Component<ScreenProps, ScreenState> {
         )
     }
 
+    renderOneTimePassword() {
+        return (
+            <OneTimePassword
+                setCredentialCreationData={this.setCredentialCreationData}
+                credentialCreationData={this.state.credentialCreationData}
+            />
+        )
+    }
+
     renderByName() {
         switch (this.props.screen) {
             case "issuance":
@@ -99,6 +109,8 @@ class Screen extends React.Component<ScreenProps, ScreenState> {
                 return this.renderRegistrationForm();
             case "webcam":
                 return this.renderWebcamCaptureTool();
+            case "otp":
+                return this.renderOneTimePassword();
             default:
                 return "";
         }

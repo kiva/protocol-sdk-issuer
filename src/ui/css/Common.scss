@@ -46,6 +46,17 @@
         color: $primary-color !important;
     }
   }
+
+  .otp-icon {
+    background: #fff;
+    border-radius: 50%;
+    fill: #27c9ce;
+    width: 56px;
+    height: 56px;
+    position: relative;
+    top: 15px;
+    left: -10px;
+  }
       
   .dialog-icon {
     width: 56px;
