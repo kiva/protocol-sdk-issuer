@@ -20,17 +20,17 @@ export default class KivaAgent implements Agent {
     }
 
     constructor(token: string, callback: any) {
+        debugger;
         const axiosConfig: AxiosRequestConfig = {
             baseURL: CONSTANTS.ekycURI,
             headers: {
                 Authorization: 'Bearer ' + token
             }
         };
-
         this.token = token;
         this.setError = callback;
         this.axiosInstance = axios.create(axiosConfig);
-        
+
     }
 
     isConnected(response: any): boolean {
@@ -112,8 +112,6 @@ export default class KivaAgent implements Agent {
     }
 }
 
-// TODO: Implement verification interfaces
-// TODO: Actually use these
 interface ConnectionInviteResponse {
     connection_id: string,
     invitation: ConnectionInvitation,

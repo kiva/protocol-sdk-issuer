@@ -1,5 +1,5 @@
 import React from 'react';
-import "../css/ImageUpload.css";
+// import "../css/ImageUpload.scss";
 import Grid from '@material-ui/core/Grid';
 
 export interface Props {
@@ -7,7 +7,7 @@ export interface Props {
 }
 
 export default class ImageUpload extends React.Component<Props> {
- 
+
     constructor(props: Props) {
       super(props);
       this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -25,13 +25,13 @@ export default class ImageUpload extends React.Component<Props> {
           }
         })
       }
- 
+
     async onChangeHandler(event: any) {
         const file = event.target.files[0]
         const base64 = await this.convertBase64(file)
         this.props.handleUploadPhoto(base64);
     }
- 
+
     render() {
         return (
             <form method="post" action="#" id="#">

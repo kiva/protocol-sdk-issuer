@@ -7,13 +7,13 @@
     "verification_options": [
         {
             "id": "QR",
-            "title": "Scan QR code",
+            "title": "Group A",
             "guardian": false,
             "sequence": ["webcam", "registrationForm", "issuance"]
         },
         {
             "id": "QR",
-            "title": "OTP",
+            "title": "Group B",
             "guardian": false,
             "sequence": ["webcam", "registrationForm", "otp"]
         }
