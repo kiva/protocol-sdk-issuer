@@ -31,7 +31,7 @@ export default class AuthenticationOptionMenu extends React.Component<AuthOption
         return (
             <div id="auth_option_menu" className="flex-block column">
                 <Typography className="auth_instructions" component="h2" variant="h6">
-                    Select a verification method
+                    Select a method for credential issuance
                 </Typography>
                 <div id="auth_options" className="flex-block row">
                     {this.props.verification_opts.map((option, idx) => {
