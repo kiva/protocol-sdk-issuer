@@ -45,20 +45,21 @@ export interface State {
   retrievingInviteUrl: boolean,
   offered: boolean,
   issued: boolean,
-  token: string
+  credentialData: object,
 }
 
 export default class CredentialIssuance extends React.Component<Props, State> {
-
   constructor(props: Props) {
     super(props);
+    const credentialData : any = props.credentialCreationData;
+    delete credentialData["phoneNumber"];
     this.state = {
       retrievingInviteUrl: true,
       inviteUrl: "",
       connectionError: "",
       offered: false,
       issued: false,
-      token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJrTXpRVEEyUkRrMVJqSTBOVEUyTlVZNU1rTkJRekF6TWtGRU4wSTROalk1T0RreVFqVkJNZyJ9.eyJpc3MiOiJodHRwczovL2tpdmEtcHJvdG9jb2wuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlNDQ0OGJmZWQ0NmM0MGU3ZjkxMWQwMCIsImF1ZCI6WyJodHRwczovL2tpdmEtcHJvdG9jb2wuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2tpdmEtcHJvdG9jb2wuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTYwNjgyOTYxNSwiZXhwIjoxNjA2OTE2MDE1LCJhenAiOiI3TkhwVHl5SDZ5UlBQdTZ2T0NFZE5SU213T1BGS2tsRCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.TE7SeHcFyi1oKJ8qQXyAeus-O6IHQQwOskMskp2YUhn2RMSCUHBhJvxUwLFJ-UsbF3XL0SgWZhmSeCK3TRj38g3zpOVfo1idwSFBmyhP2LkHA50yvkrzfirYaaJ1QgIpUtMfNQcUR2hajUbCKb5JkhcQlyzv0CupmwUDf34edNWQZlkeSgD_8QFogr32wlX0eM-oJfxdFXX4P2y-WOKaKuSmntBtWr__zrhkJf-A8nw95I8TioVr-nZYYLvHtyNTPt1z7GR8Tmb0LSj6cRYn8YvLjPPQbQUAlqmxP11kbZnrdOFD0M-XtVc7PoURB951pxqJxf1S1_Svs30H9RaqFA",
+      credentialData,
     };
     this.writeNewPost(props.credentialCreationData);
   }
@@ -73,13 +74,13 @@ export default class CredentialIssuance extends React.Component<Props, State> {
     this.startProcess();
   }
 
-  writeNewPost(data: any ) {
+  writeNewPost(data: any) {
     var postData = {
-      ... data,
+      ...data,
       created_at: new Date(),
     };
     var newPostKey = firebase.database().ref().child('entries').push().key;
-    var updates : any = {};
+    var updates: any = {};
     updates[`/entries/${newPostKey}`] = postData;
     return firebase.database().ref().update(updates);
   }
@@ -167,7 +168,8 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   createCredential = async () => {
     try {
       const id: string = this.settleConnectionId();
-      const credential: any = await agent.createCredential(this.props.credentialCreationData);
+
+      const credential: any = await agent.createCredential(this.state.credentialData);
       this.pollCredentialStatus(credential.credentialId);
     } catch (e) {
       console.log(e);
@@ -359,7 +361,10 @@ export default class CredentialIssuance extends React.Component<Props, State> {
           {this.renderBody()}
         </Grid>
         <QRScreenButtons
-          onClickBack={() => flowController.goTo('BACK')}
+          onClickBack={()=>{
+            window.opener.location.href="https://pro-cluster-kiva.web.app/";
+            window.close();
+          }}
         />
       </div>
     );
