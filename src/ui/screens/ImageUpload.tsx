@@ -37,7 +37,7 @@ export default class ImageUpload extends React.Component<Props> {
             <form method="post" action="#" id="#">
                 Upload Your File
                 <div className="form-group files">
-                    <input type="file" className="form-control" onChange={this.onChangeHandler} />
+                    <input type="file" accept="image/png" className="form-control" onChange={this.onChangeHandler} />
                 </div>
             </form>
         );
