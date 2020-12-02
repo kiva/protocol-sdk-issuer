@@ -6,6 +6,7 @@ import {flowController} from "../KernelContainer";
 import _, { forEach } from "lodash";
 import {CONSTANTS} from '../../constants/constants';
 import {PIImap} from '../interfaces/ConfirmationProps';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
@@ -24,10 +25,6 @@ export default class RegistrationForm extends React.Component<Props, State> {
     this.state = {
 
     };
-  }
-
-  next() {
-    flowController.goTo('NEXT');
   }
 
   handleInputChange(inputField: any) {
@@ -66,54 +63,62 @@ export default class RegistrationForm extends React.Component<Props, State> {
     this.props.setCredentialCreationData(initialCreationDataState);
   }
 
+  handleSubmit(event:any) {
+    event.preventDefault();
+    flowController.goTo('NEXT');
+  }
+
   render() {
     return (
-      <div className="registrationForm">
-        <Grid
-          style={{
-            paddingTop: "30px"
-          }}
-          container
-          direction="row"
-          justify="space-around">
+      <ValidatorForm
+          ref="form"
+          onSubmit={this.handleSubmit}
+        >
+          <div className="registrationForm">
           <Grid
-            item
-            xs={6}
-          >
+            style={{
+              paddingTop: "30px"
+            }}
+            container
+            direction="row"
+            justify="space-around">
             <Grid
-              container
-              direction="row"
-              justify="space-between">
-              {_.keys(this.props.credentialCreationData).map(
-                (field: any, idx: any) => {
-                  if (PII[field].dataType === "text") {
-                    return (
-                      <RegistrationInputField
-                        key={idx}
-                        setCredentialCreationData={this.props.setCredentialCreationData}
-                        handleInputChange={this.handleInputChange.bind(this)}
-                        inputField={field}
-                        credentialCreationData={this.props.credentialCreationData}
-                      />
-                    )
-                  } else {
-                    return;
+              item
+              xs={6}
+            >
+              <Grid
+                container
+                direction="row"
+                justify="space-between">
+                {_.keys(this.props.credentialCreationData).map(
+                  (field: any, idx: any) => {
+                    if (PII[field] && PII[field].dataType === "text") {
+                      return (
+                        <RegistrationInputField
+                          key={idx}
+                          setCredentialCreationData={this.props.setCredentialCreationData}
+                          handleInputChange={this.handleInputChange.bind(this)}
+                          inputField={field}
+                          credentialCreationData={this.props.credentialCreationData}
+                        />
+                      )
+                    } else {
+                      return;
+                    }
                   }
-                }
-              )}
+                )}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <RegistrationFormButtons
-          onClickBack={() => flowController.goTo('BACK')}
-          onSubmit={() => this.next()}
-          onPopulateForm={() => this.onPopulateForm()}
-        ></RegistrationFormButtons>
-      </div>
+          <RegistrationFormButtons
+            onClickBack={() => flowController.goTo('BACK')}
+            onPopulateForm={() => this.onPopulateForm()}
+          ></RegistrationFormButtons>
+        </div>
+      </ValidatorForm>
     );
   }
 }
-
 
 interface InputProps {
   handleInputChange(inputField: any): void,
@@ -123,19 +128,20 @@ interface InputProps {
 }
 
 class RegistrationInputField extends React.Component<InputProps> {
-
   render() {
     return (
       <Grid item
         xs={6}
         md={5}>
-        <Input
-          onChange={inputField => this.props.handleInputChange(inputField)}
+        <TextValidator
+          label={PII[this.props.inputField].name}
           fullWidth
+          onChange={(inputField: any) => this.props.handleInputChange(inputField)}
           name={this.props.inputField}
           id={this.props.inputField}
-          placeholder={PII[this.props.inputField].name}
           value={this.props.credentialCreationData[this.props.inputField]}
+          validators={['required']}
+          errorMessages={['this field is required']}
         />
       </Grid>
     );
@@ -143,8 +149,6 @@ class RegistrationInputField extends React.Component<InputProps> {
 }
 
 interface ButtonProps {
-  onSubmit(): void,
-
   onClickBack(): void,
 
   onPopulateForm(): void
@@ -189,10 +193,7 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
             <Grid item>
               <Button
                 type="submit"
-                data-cy="qr-scan-next"
-                className="next"
-                onSubmit={this.props.onSubmit}
-                onClick={this.props.onSubmit}>
+                className="next">
                 Continue
               </Button>
             </Grid>
