@@ -7,7 +7,6 @@ import 'react-html5-camera-photo/build/css/index.css';
 import ImageUpload from './ImageUpload';
 import _ from "lodash";
 import Typography from '@material-ui/core/Typography';
-
 export interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
   credentialCreationData: any

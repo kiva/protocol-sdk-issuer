@@ -159,6 +159,7 @@ class RegistrationInputField extends React.Component<InputProps> {
           id={this.props.inputField}
           placeholder="Enter phone number"
           value={this.props.credentialCreationData[this.props.inputField]}
+
           validators={['required']}
           errorMessages={['this field is required']}
         />

@@ -7,7 +7,6 @@ export interface Props {
 }
 
 export default class ImageUpload extends React.Component<Props> {
- 
     constructor(props: Props) {
       super(props);
       this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -25,19 +24,19 @@ export default class ImageUpload extends React.Component<Props> {
           }
         })
       }
- 
+      
     async onChangeHandler(event: any) {
         const file = event.target.files[0]
         const base64 = await this.convertBase64(file)
         this.props.handleUploadPhoto(base64);
     }
- 
+
     render() {
         return (
             <form method="post" action="#" id="#">
                 Upload Your File
                 <div className="form-group files">
-                    <input type="file" className="form-control" onChange={this.onChangeHandler} />
+                    <input type="file" accept="image/png" className="form-control" onChange={this.onChangeHandler} />
                 </div>
             </form>
         );
