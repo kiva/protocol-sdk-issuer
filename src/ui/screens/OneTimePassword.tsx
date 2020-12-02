@@ -6,6 +6,7 @@ import {flowController} from "../KernelContainer";
 import _, { forEach } from "lodash";
 import Typography from '@material-ui/core/Typography';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
@@ -25,7 +26,8 @@ export default class RegistrationForm extends React.Component<Props, State> {
     };
   }
 
-  next() {
+  handleSubmit(event:any) {
+    event.preventDefault();
     // make api call for otp here using this.props.credentialCreationData, and complete the flow.
     // on success, set credentialIssued = true;
     this.setState({ credentialIssued: true });
@@ -56,53 +58,57 @@ export default class RegistrationForm extends React.Component<Props, State> {
   render() {
     if (this.state.credentialIssued === false) {
       return (
-        <div className="registrationForm">
-          <Grid
-            style={{
-              paddingTop: "30px"
-            }}
-            container
-            direction="row"
-            justify="space-around">
+        <ValidatorForm
+          ref="form"
+          onSubmit={this.handleSubmit.bind(this)}
+        >
+          <div className="registrationForm">
             <Grid
-              item
-              xs={6}
-            >
+              style={{
+                paddingTop: "30px"
+              }}
+              container
+              direction="row"
+              justify="space-around">
               <Grid
-                container
-                justify="space-around">
-                <Typography component="h4" variant="h6">
-                  Enter Phone Number
-                </Typography>
-              </Grid>
-              <Grid
-                container
-                justify="space-around">
-                  Enter employee's phone #.  This will be used to create and access their Cloud Wallet.
-              </Grid>
+                item
+                xs={6}
+              >
+                <Grid
+                  container
+                  justify="space-around">
+                  <Typography component="h4" variant="h6">
+                    Enter Phone Number
+                  </Typography>
+                </Grid>
+                <Grid
+                  container
+                  justify="space-around">
+                    Enter employee's phone #.  This will be used to create and access their Cloud Wallet.
+                </Grid>
 
-              <Grid
-                container
-                direction="row"
-                style={{
-                  paddingTop: "30px"
-                }}
-                justify="space-around">
-                  <RegistrationInputField
-                    setCredentialCreationData={this.props.setCredentialCreationData}
-                    handleInputChange={this.handleInputChange.bind(this)}
-                    inputField="phoneNumber"
-                    credentialCreationData={this.props.credentialCreationData}
-                  />
+                <Grid
+                  container
+                  direction="row"
+                  style={{
+                    paddingTop: "30px"
+                  }}
+                  justify="space-around">
+                    <RegistrationInputField
+                      setCredentialCreationData={this.props.setCredentialCreationData}
+                      handleInputChange={this.handleInputChange.bind(this)}
+                      inputField="phoneNumber"
+                      credentialCreationData={this.props.credentialCreationData}
+                    />
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          <RegistrationFormButtons
-            onClickBack={() => flowController.goTo('BACK')}
-            onSubmit={() => this.next()}
-            onPopulateForm={() => this.onPopulateForm()}
-          ></RegistrationFormButtons>
-        </div>
+            <RegistrationFormButtons
+              onClickBack={() => flowController.goTo('BACK')}
+              onPopulateForm={() => this.onPopulateForm()}
+            ></RegistrationFormButtons>
+          </div>
+        </ValidatorForm>
       );
     } else {
       return (
@@ -146,13 +152,15 @@ class RegistrationInputField extends React.Component<InputProps> {
       <Grid item
         xs={6}
         md={5}>
-        <Input
+        <TextValidator
           onChange={inputField => this.props.handleInputChange(inputField)}
           fullWidth
           name={this.props.inputField}
           id={this.props.inputField}
           placeholder="Enter phone number"
           value={this.props.credentialCreationData[this.props.inputField]}
+          validators={['required']}
+          errorMessages={['this field is required']}
         />
       </Grid>
     );
@@ -160,8 +168,6 @@ class RegistrationInputField extends React.Component<InputProps> {
 }
 
 interface ButtonProps {
-  onSubmit(): void,
-
   onClickBack(): void,
 
   onPopulateForm(): void
@@ -206,10 +212,7 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
             <Grid item>
               <Button
                 type="submit"
-                data-cy="qr-scan-next"
-                className="next"
-                onSubmit={this.props.onSubmit}
-                onClick={this.props.onSubmit}>
+                className="next">
                 Continue
               </Button>
             </Grid>

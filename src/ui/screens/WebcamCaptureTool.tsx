@@ -5,28 +5,40 @@ import Camera from 'react-html5-camera-photo';
 import Button from '@material-ui/core/Button';
 import 'react-html5-camera-photo/build/css/index.css';
 import ImageUpload from './ImageUpload';
+import _ from "lodash";
+import Typography from '@material-ui/core/Typography';
+
 export interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
   credentialCreationData: any
 }
 
 export interface State {
-  "photo~attach"?: string;
+  "photo~attach"?: string,
+  showValidations: boolean
 }
 
 export default class WebcamCaptureTool extends React.Component<any,any> {
   constructor(props: any) {
     super(props);
     this.state = {
-
+      "photo~attach": this.props.credentialCreationData["photo~attach"] || null,
+      showValidations: false
     };
   }
 
+  photoIncluded() {
+    return !_.isEmpty(this.state["photo~attach"]);
+  }
+
   saveCredentialCreationData() {
-    this.props.setCredentialCreationData({
-      "photo~attach": this.state["photo~attach"]
-    });
-    flowController.goTo('NEXT');
+    this.setState({ showValidations: true });
+    if (this.photoIncluded()) {
+      this.props.setCredentialCreationData({
+        "photo~attach": this.state["photo~attach"]
+      });
+      flowController.goTo('NEXT');
+    }
   }
 
   onReset() {
@@ -59,13 +71,29 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
     )
   }
 
+  renderError() {
+    if (!this.photoIncluded() && this.state.showValidations) {
+      return (
+        <Typography
+          component="h2"
+          variant="h6"
+          style={{
+            color: 'red',
+            marginTop: '20px'
+          }}>
+          You need to add a photo before proceeding to the next step.
+        </Typography>
+      )
+    } else {
+      return;
+    }
+  }
+
   render() {
     if (this.state["photo~attach"]) {
       return (
-        <Grid
-          container
-          justify="space-around"
-          xs={12}>
+        <Grid container justify="center"
+          alignItems="center" direction="column">
           <img src={"data:image/png;base64," + this.state["photo~attach"]}></img>
           { this.renderPageButtons() }
         </Grid>
@@ -98,6 +126,7 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
                   />
                 </div>
               </Grid>
+              { this.renderError() }
               { this.renderPageButtons() }
             </Grid>
           </Grid>
