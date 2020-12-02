@@ -7,13 +7,13 @@
     "verification_options": [
         {
             "id": "QR",
-            "title": "Group A",
+            "title": "Issue Credential to Mobile Wallet",
             "guardian": false,
             "sequence": ["webcam", "registrationForm", "issuance"]
         },
         {
             "id": "QR",
-            "title": "Group B",
+            "title": "Create Cloud Wallet",
             "guardian": false,
             "sequence": ["webcam", "registrationForm", "otp"]
         }
@@ -45,6 +45,10 @@
         },
         "officeLocation": {
             "name": "Office Location",
+            "dataType": "text"
+        },
+        "phoneNumber": {
+            "name": "Phone Number",
             "dataType": "text"
         },
         "photo~attach": {

@@ -48,7 +48,8 @@ export default class RegistrationForm extends React.Component<Props, State> {
       "hireDate": "Hire Date",
       "officeLocation": "Office Location",
       "type": "Type",
-      "endDate": "End Date"
+      "endDate": "End Date",
+      "phoneNumber": "Phone Number"
     }
     this.props.setCredentialCreationData(dataToInput);
   }

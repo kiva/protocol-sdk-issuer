@@ -75,8 +75,8 @@ export default class CredentialIssuance extends React.Component<Props, State> {
 
   writeNewPost(data: any ) {
     var postData = {
-      username: data["firstName"] + " " + data["lastName"],
-      time: "today",
+      ... data,
+      created_at: new Date(),
     };
     var newPostKey = firebase.database().ref().child('entries').push().key;
     var updates : any = {};
