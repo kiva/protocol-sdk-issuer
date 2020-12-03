@@ -360,6 +360,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
               alignItems="center">
           {this.renderBody()}
         </Grid>
+
         <QRScreenButtons
           onClickBack={()=>{
             window.opener.location.href="https://pro-cluster-kiva.web.app/";
