@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import {flowController} from "../KernelContainer";
 import _, { forEach } from "lodash";
@@ -29,7 +30,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
 
   handleInputChange(inputField: any) {
     var data: any = {};
-    data[inputField.currentTarget.id] = inputField.currentTarget.value;
+    data[inputField.currentTarget.id] = inputField.currentTarget.dataset.value || inputField.currentTarget.value;
     this.props.setCredentialCreationData(data);
   }
 
@@ -42,10 +43,10 @@ export default class RegistrationForm extends React.Component<Props, State> {
       "companyEmail": "Company Email",
       "currentTitle": "Current Title",
       "team": "Team",
-      "hireDate": "Hire Date",
+      "hireDate": "01-17-1990",
       "officeLocation": "Office Location",
-      "type": "Type",
-      "endDate": "End Date",
+      "type": "Intern",
+      "endDate": "01-17-1990",
       "phoneNumber": "Phone Number"
     }
     this.props.setCredentialCreationData(dataToInput);
@@ -64,6 +65,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
   }
 
   handleSubmit(event:any) {
+    debugger;
     event.preventDefault();
     flowController.goTo('NEXT');
   }
@@ -92,9 +94,10 @@ export default class RegistrationForm extends React.Component<Props, State> {
                 justify="space-between">
                 {_.keys(this.props.credentialCreationData).map(
                   (field: any, idx: any) => {
-                    if (PII[field] && PII[field].dataType === "text") {
+                    if (PII[field] && PII[field].dataType && PII[field].dataType !== "image/jpeg;base64") {
                       return (
                         <RegistrationInputField
+                          dataType={PII[field].dataType}
                           key={idx}
                           setCredentialCreationData={this.props.setCredentialCreationData}
                           handleInputChange={this.handleInputChange.bind(this)}
@@ -124,27 +127,59 @@ interface InputProps {
   handleInputChange(inputField: any): void,
   inputField: string,
   setCredentialCreationData(data: any): void,
-  credentialCreationData: any
+  credentialCreationData: any,
+  dataType: string | any
 }
 
 class RegistrationInputField extends React.Component<InputProps> {
   render() {
-    return (
-      <Grid item
-        xs={6}
-        md={5}>
-        <TextValidator
-          label={PII[this.props.inputField].name}
-          fullWidth
-          onChange={(inputField: any) => this.props.handleInputChange(inputField)}
-          name={this.props.inputField}
-          id={this.props.inputField}
-          value={this.props.credentialCreationData[this.props.inputField]}
-          validators={['required']}
-          errorMessages={['this field is required']}
-        />
-      </Grid>
-    );
+    if (this.props.dataType === "selection") {
+      return (
+        <Grid item
+          xs={6}
+          md={5}
+          style={{
+            paddingTop: "30px"
+          }}
+          >
+          <label>{ PII[this.props.inputField].name }</label>
+          <TextValidator
+            name={this.props.inputField}
+            value={this.props.credentialCreationData[this.props.inputField]}
+            fullWidth
+            onChange={(inputField: any) => this.props.handleInputChange(inputField)}
+            id={this.props.inputField} select>
+            {_.map(PII[this.props.inputField].options, (option: any, idx: any) => {
+              return (
+                <MenuItem value={option} id={this.props.inputField}>{option}</MenuItem>
+              )
+            })}
+          </TextValidator>
+        </Grid>
+      );
+    } else {
+      return (
+        <Grid item
+          xs={6}
+          md={5}
+          style={{
+            paddingTop: "30px"
+          }}
+          >
+          <label>{ PII[this.props.inputField].name }</label>
+          <TextValidator
+            type={this.props.dataType}
+            fullWidth
+            onChange={(inputField: any) => this.props.handleInputChange(inputField)}
+            name={this.props.inputField}
+            id={this.props.inputField}
+            value={this.props.credentialCreationData[this.props.inputField]}
+            validators={['required']}
+            errorMessages={['this field is required']}
+          />
+        </Grid>
+      );
+    }
   }
 }
 

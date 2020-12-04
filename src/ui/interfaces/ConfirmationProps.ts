@@ -5,6 +5,7 @@ export interface ConfirmationProps {
 interface PIIdefinition {
     name: string,
     dataType?: string,
+    options?: Array<string>
 }
 
 /*
