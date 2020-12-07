@@ -41,7 +41,7 @@
         },
         "hireDate": {
             "name": "Hire Date",
-            "dataType": "text"
+            "dataType": "date"
         },
         "officeLocation": {
             "name": "Office Location",
@@ -57,11 +57,12 @@
         },
         "type": {
             "name": "Type",
-            "dataType": "text"
+            "dataType": "selection",
+            "options": ["Full Time", "Intern", "Contractor"]
         },
         "endDate": {
             "name": "End Date",
-            "dataType": "text"
+            "dataType": "date"
         }
     },
     "env": {
