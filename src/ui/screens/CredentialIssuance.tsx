@@ -108,15 +108,11 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   }
 
   getInviteUrl = async () => {
-    try {
       const connectionId: string = uuid4();
       const url: string = await agent.establishConnection(connectionId);
       this.props.setConnectionId(connectionId);
       this.setInviteUrl(url);
       this.pollConnection(connectionId);
-    } catch (e) {
-      this.setConnectionError(I18n.getKey('UNKNOWN_ERROR'));
-    }
   }
 
   pollConnection = async (connectionId: string) => {
@@ -325,15 +321,20 @@ export default class CredentialIssuance extends React.Component<Props, State> {
 
   renderError() {
     return (
-      <div className="centered status-report">
-        <ErrorIcon className="dialog-icon error"/>
-        <Typography id="instructions"
-                    component="h2"
-                    align="center"
-                    className="error-description">
-          {this.state.connectionError}
-        </Typography>
-      </div>
+      <Grid container justify="center" alignItems="center" direction="column" className="status-report">
+        <Grid item>
+            <ErrorIcon className="dialog-icon error"/>
+        </Grid>
+        <Grid item xs={4}>
+            <Typography
+                id="instructions"
+                component="h2"
+                align="center"
+                className="error-description">
+                {this.state.connectionError}
+            </Typography>
+        </Grid>
+      </Grid>
     );
   }
 

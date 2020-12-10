@@ -59,7 +59,6 @@ export default class AuthenticationOptionMenu extends React.Component<AuthOption
     render() {
         return this.renderMenu();
     }
-
 }
 
 class MenuOption extends React.Component<MenuOptionProps> {
