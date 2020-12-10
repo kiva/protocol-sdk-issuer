@@ -106,7 +106,7 @@ export default class KivaAgent implements Agent {
     }
 
     captureAndSendError(error: any, message: string) {
-        const errorDetails = (" (" + error.response.data.code + ": " + error.response.data.message + ")").toString();
+        const errorDetails = (` (${error.response.data.code}: ${error.response.data.message})`).toString();
         const msg: string = I18n.getKey(message) + errorDetails;
         this.setError(msg);
     }
