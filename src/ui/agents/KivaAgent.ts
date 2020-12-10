@@ -20,7 +20,6 @@ export default class KivaAgent implements Agent {
     }
 
     constructor(token: string, callback: any) {
-        debugger;
         const axiosConfig: AxiosRequestConfig = {
             baseURL: "https://gateway.protocol-dev.kiva.org/v2/kiva/api/",
             headers: {
@@ -107,7 +106,8 @@ export default class KivaAgent implements Agent {
     }
 
     captureAndSendError(error: any, message: string) {
-        const msg: string = I18n.getKey(message);
+        const errorDetails = ` (${error.response.data.code}: ${error.response.data.message})`;
+        const msg: string = I18n.getKey(message) + errorDetails;
         this.setError(msg);
     }
 }
