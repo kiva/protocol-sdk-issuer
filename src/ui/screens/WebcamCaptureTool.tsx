@@ -64,12 +64,21 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
   }
 
   handleUploadPhoto = (dataUri: string) => {
-    // This relies on the ImageUpload component returning base64 encoded images
-    // If that ever changes this will superbreak
-    const photo: PhotoAttach = this.determinePhotoType(dataUri);
-    this.setState({
-      "photo~attach": photo
-    });
+    let photo: PhotoAttach = {
+      data: dataUri,
+      encoding: 'base64',
+      type: 'image/png'
+    };
+
+    try {
+      photo = this.determinePhotoType(dataUri);
+    } catch (e) {
+      console.error("Couldn't parse the dataUri string to determine encoding type. Moving forward with the assumption that it is a PNG base64 string...")
+    } finally {
+      this.setState({
+        "photo~attach": photo
+      });
+    }
   }
 
   handleTakePhoto = (dataUri: string) => {

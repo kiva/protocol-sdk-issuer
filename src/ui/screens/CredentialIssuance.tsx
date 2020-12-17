@@ -62,7 +62,6 @@ export default class CredentialIssuance extends React.Component<Props, State> {
       issued: false,
       credentialData,
     };
-    console.log(this.state);
     this.writeNewPost(props.credentialCreationData);
   }
 
