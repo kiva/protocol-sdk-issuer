@@ -53,6 +53,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
     super(props);
     const credentialData : any = props.credentialCreationData;
     delete credentialData["phoneNumber"];
+    credentialData["photo~attach"] = JSON.stringify(credentialData["photo~attach"]);
     this.state = {
       retrievingInviteUrl: true,
       inviteUrl: "",
