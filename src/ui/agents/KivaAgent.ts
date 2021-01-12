@@ -29,7 +29,6 @@ export default class KivaAgent implements Agent {
         this.token = token;
         this.setError = callback;
         this.axiosInstance = axios.create(axiosConfig);
-
     }
 
     isConnected(response: any): boolean {

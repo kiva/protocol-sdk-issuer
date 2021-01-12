@@ -62,7 +62,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
       issued: false,
       credentialData,
     };
-    this.writeNewPost(props.credentialCreationData);
+    //this.writeNewPost(props.credentialCreationData);
   }
 
   componentWillUnmount() {
@@ -183,7 +183,6 @@ export default class CredentialIssuance extends React.Component<Props, State> {
     } else {
       updatedState.connectionError = I18n.getKey('NO_INVITE_URL');
     }
-
     this.setState(updatedState, this.writeQRtoCanvas);
   }
 
@@ -363,7 +362,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
           {this.renderBody()}
         </Grid>
 
-        <QRScreenButtons
+              <QRScreenButtons
           onClickBack={()=>{
             window.opener.location.href="https://pro-cluster-kiva.web.app/";
             window.close();
