@@ -21,7 +21,7 @@ export default class KivaAgent implements Agent {
 
     constructor(token: string, callback: any) {
         const axiosConfig: AxiosRequestConfig = {
-            baseURL: "https://gateway.protocol-dev.kiva.org/v2/kiva/api/",
+            baseURL: "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
             headers: {
                 Authorization: 'Bearer ' + token,
             }
@@ -34,10 +34,8 @@ export default class KivaAgent implements Agent {
 
     isConnected(response: any): boolean {
         const state: string = response.state;
-        if (state === "response" || state === "active") {
-            return true;
-        }
-        return false;
+        return state === "response" || state === "active";
+
     }
 
     isOffered(response: any): boolean {

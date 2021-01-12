@@ -58,7 +58,7 @@
         "type": {
             "name": "Type",
             "dataType": "selection",
-            "options": ["Full Time", "Intern", "Contractor"]
+            "options": ["Employee", "Intern", "Contractor", "Fellow", "Other"]
         },
         "endDate": {
             "name": "End Date",
@@ -80,7 +80,7 @@
             "inherits": ["prod"]
         },
         "qa": {
-            "ekycURI": "https://gateway.protocol-dev.kiva.org/v2/kiva/api/",
+            "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]
