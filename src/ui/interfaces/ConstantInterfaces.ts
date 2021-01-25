@@ -18,6 +18,7 @@ export interface Constants {
     permittedOrigins: string,
     permittedIframeHosts: string[],
     permittedOriginPatterns?: string,
+    permittedOpenerOrigins: string[],
     pii_map: PIImap,
     isProd?: boolean,
     direction: string,

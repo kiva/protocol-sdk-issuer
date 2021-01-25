@@ -73,6 +73,7 @@
                 "includeOnly": ["reset", "enableStandalone"]
             },
             "permittedIframeHosts": ["https://www.kiva.org"],
+            "permittedOpenerOrigins": ["https://pro-cluster-kiva.web.app"],
             "isProd": true
         },
         "sandbox": {
@@ -83,6 +84,7 @@
             "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
+            "permittedOpenerOrigins": ["https://pro-cluster-kiva.web.app", "http://localhost:3000"],
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]
         },
         "dev": {
