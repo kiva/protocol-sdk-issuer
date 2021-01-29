@@ -14,7 +14,6 @@ import listen from "./utils/listen";
 import Warden from "./utils/Warden";
 import I18n from "./utils/I18n";
 import FlowController from "./utils/FlowController";
-import AuthService from "./utils/AuthService";
 
 // Interfaces
 import {KernelProps, KernelState} from "./interfaces/KernelInterfaces";
@@ -44,7 +43,7 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
             isLoading: true,
             token: "",
             personalInfo: "",
-            isSandbox: IS_SANDBOX,
+            isSandbox: false,
             isStandalone: false,
             sessionId: false,
             authIndex: 0
@@ -54,7 +53,6 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
     }
 
     componentDidMount(): void {
-        const token: string = AuthService.getToken() || CONSTANTS.token;
         listen(window, "message", (e: any) => {
             const eventAction: string = e.data.action;
             const origin: string = e.origin;
@@ -72,8 +70,7 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
 
         });
         this.setState({
-            isLoading: false,
-            token
+            isLoading: false
         });
     }
 

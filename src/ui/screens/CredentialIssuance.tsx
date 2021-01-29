@@ -17,6 +17,7 @@ import QRCode from 'qrcode';
 import "../css/QRScreen.css";
 import {QRScreenButtons} from './QRScreenButtons';
 import firebase from "firebase";
+import AuthService from "../utils/AuthService";
 
 let agent: Agent;
 let cancelConnectionPolling: boolean;
@@ -87,10 +88,12 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   }
 
   determineCloudAgent = (): Agent => {
+    const token: string = AuthService.getToken() || CONSTANTS.token;
+
     switch (CONSTANTS.cloudAgent) {
       case "kiva":
       default:
-        return KivaAgent.init(this.props.token, this.setConnectionError);
+        return KivaAgent.init(token, this.setConnectionError);
     }
   }
 
