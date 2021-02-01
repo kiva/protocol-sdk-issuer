@@ -41,6 +41,7 @@ class ConstantBuilder {
             'agent_port',
             'cloudAgent',
             'headerImage',
+            'permittedOpenerOrigins',
             'token'
         ];
         constants.forEach((c, idx) => {
