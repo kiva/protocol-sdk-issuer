@@ -1,4 +1,4 @@
-export interface Agent {
+export interface KivaAgentInterface {
     establishConnection(connectionId: string): Promise<any>,
     getConnection(connectionId: string): Promise<any>,
     captureAndSendError: (error: any, message: string) => void,
