@@ -18,6 +18,10 @@
             "sequence": ["webcam", "registrationForm", "otp"]
         }
     ],
+    "phoneIntls": {
+        "only": false,
+        "countries": ["us", "tw"]
+    },
     "pii_map": {
         "firstName": {
             "name": "First Name",
@@ -49,7 +53,7 @@
         },
         "phoneNumber": {
             "name": "Phone Number",
-            "dataType": "text"
+            "dataType": "phoneNumber"
         },
         "photo~attach": {
             "name": "Photo",

@@ -26,7 +26,8 @@ export interface Constants {
     agent_port: string,
     cloudAgent: string,
     headerImage: string,
-    token: string
+    token: string,
+    phoneIntls?: CountryCodeConfig
 }
 
 export interface MessageMap {
