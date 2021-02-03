@@ -1,12 +1,9 @@
 import * as React from 'react';
-import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import {flowController} from "../KernelContainer";
-import _, { forEach } from "lodash";
 import Typography from '@material-ui/core/Typography';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PhoneInput from 'react-phone-input-2';
 
 import {CONSTANTS} from '../../constants/constants';

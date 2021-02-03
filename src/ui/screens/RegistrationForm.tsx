@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -46,8 +45,8 @@ export default class RegistrationForm extends React.Component<Props, State> {
   }
 
   onPopulateForm() {
-    var generatedId = (Math.random() * 9 + 1) * Math.pow(10, 8 - 1);
-    generatedId = parseInt(generatedId.toString(), 10);
+    // var generatedId = (Math.random() * 9 + 1) * Math.pow(10, 8 - 1);
+    // generatedId = parseInt(generatedId.toString(), 10);
     var dataToInput = {
       "firstName": "First Name",
       "lastName": "Last Name",
@@ -116,7 +115,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
                         />
                       );
                     } else {
-                      return;
+                      return "";
                     }
                   }
                 )}
