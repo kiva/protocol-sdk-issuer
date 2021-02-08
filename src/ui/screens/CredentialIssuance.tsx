@@ -1,11 +1,9 @@
 import * as React from 'react';
 import KivaAgent from '../agents/KivaAgent';
 import {CONSTANTS} from "../../constants/constants";
-import {Agent} from "../interfaces/AgentInterface";
 import I18n from '../utils/I18n';
 import Grid from '@material-ui/core/Grid';
 import {notify} from "react-notify-toast";
-import {flowController} from "../KernelContainer";
 import Typography from '@material-ui/core/Typography';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
@@ -16,10 +14,9 @@ import ErrorIcon from '@material-ui/icons/Error';
 import QRCode from 'qrcode';
 import "../css/QRScreen.css";
 import {QRScreenButtons} from './QRScreenButtons';
-import firebase from "firebase";
 import AuthService from "../utils/AuthService";
 
-let agent: Agent;
+let agent: KivaAgent;
 let cancelConnectionPolling: boolean;
 let cancelCredentialPolling: boolean;
 
@@ -63,7 +60,6 @@ export default class CredentialIssuance extends React.Component<Props, State> {
       issued: false,
       credentialData,
     };
-    //this.writeNewPost(props.credentialCreationData);
   }
 
   componentWillUnmount() {
@@ -76,20 +72,9 @@ export default class CredentialIssuance extends React.Component<Props, State> {
     this.startProcess();
   }
 
-  writeNewPost(data: any) {
-    var postData = {
-      ...data,
-      created_at: new Date(),
-    };
-    var newPostKey = firebase.database().ref().child('entries').push().key;
-    var updates: any = {};
-    updates[`/entries/${newPostKey}`] = postData;
-    return firebase.database().ref().update(updates);
-  }
 
-  determineCloudAgent = (): Agent => {
+  determineCloudAgent = (): KivaAgent => {
     const token: string = AuthService.getToken() || CONSTANTS.token;
-
     switch (CONSTANTS.cloudAgent) {
       case "kiva":
       default:

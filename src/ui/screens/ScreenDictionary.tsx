@@ -99,15 +99,6 @@ class Screen extends React.Component<ScreenProps, ScreenState> {
     )
   }
 
-  renderOneTimePassword() {
-    return (
-      <OneTimePassword
-        setCredentialCreationData={this.setCredentialCreationData}
-        credentialCreationData={this.state.credentialCreationData}
-      />
-    )
-  }
-
   renderByName() {
     switch (this.props.screen) {
       case "issuance":
@@ -123,7 +114,17 @@ class Screen extends React.Component<ScreenProps, ScreenState> {
     }
   }
 
-  render() {
-    return this.renderByName();
-  }
+    renderOneTimePassword() {
+        return (
+            <OneTimePassword
+                setCredentialCreationData={this.setCredentialCreationData}
+                credentialCreationData={this.state.credentialCreationData}
+                token={this.props.token}
+            />
+        )
+    }
+
+    render() {
+        return this.renderByName();
+    }
 }

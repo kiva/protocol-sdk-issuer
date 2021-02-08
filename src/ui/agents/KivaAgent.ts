@@ -1,14 +1,14 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 import I18n from '../utils/I18n';
 
-import {Agent} from '../interfaces/AgentInterface';
+import {KivaAgentInterface} from '../interfaces/KivaAgentInterface';
 import {PIImap} from '../interfaces/ConfirmationProps';
 
 import {CONSTANTS} from '../../constants/constants';
 
 const PII: PIImap = CONSTANTS.pii_map;
 
-export default class KivaAgent implements Agent {
+export default class KivaAgent implements KivaAgentInterface {
     protected setError: any;
     public token: string;
     public axiosInstance: AxiosInstance;
