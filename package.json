@@ -25,6 +25,7 @@
     "react-html5-camera-photo": "^1.5.4",
     "react-material-ui-form-validator": "^2.1.1",
     "react-notify-toast": "^0.5.0",
+    "react-phone-input-2": "^2.13.9",
     "react-router": "^3.2.6",
     "react-router-dom": "^5.2.0",
     "react-webcam": "^5.2.1",

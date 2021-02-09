@@ -1,11 +1,15 @@
 import * as React from 'react';
+
 import CloudWalletAgent from '../agents/CloudWalletAgent';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import {flowController} from "../KernelContainer";
 import Typography from '@material-ui/core/Typography';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import PhoneInput from 'react-phone-input-2';
+
+import 'react-phone-input-2/lib/high-res.css';
+
 import AuthService from "../utils/AuthService";
 import ErrorIcon from '@material-ui/icons/Error';
 import {CONSTANTS} from "../../constants/constants";
@@ -33,7 +37,7 @@ export default class OneTimePassword extends React.Component<Props, State> {
     };
   }
 
-  handleSubmit(event:any) {
+  handleSubmit(event: any) {
     event.preventDefault();
     this.createCredential();
   }
@@ -49,9 +53,15 @@ export default class OneTimePassword extends React.Component<Props, State> {
     }
   }
 
-  handleInputChange(inputField: any) {
+  handlePhoneNumberEnter = (event: any): void => {
+    if (event.hasOwnProperty("keyCode") && event.keyCode === 13) {
+      this.handleSubmit(event);
+    }
+  };
+
+  handleInputChange(input: string, prefix?: string) {
     var data: any = {};
-    data[inputField.currentTarget.id] = inputField.currentTarget.value;
+    data.phoneNumber = `${prefix || ""}${input}`;
     this.props.setCredentialCreationData(data);
   }
 
@@ -135,95 +145,64 @@ export default class OneTimePassword extends React.Component<Props, State> {
 
   renderOtp() {
     return (
-      <ValidatorForm
-        ref="form"
-        onSubmit={this.handleSubmit.bind(this)}
-      >
-        <div className="registrationForm">
+      <div className="registrationForm">
+        <Grid
+          style={{
+            paddingTop: "30px"
+          }}
+          container
+          direction="row"
+          justify="space-around">
           <Grid
-            style={{
-              paddingTop: "30px"
-            }}
-            container
-            direction="row"
-            justify="space-around">
+            item
+            xs={6}
+          >
             <Grid
-              item
-              xs={6}
-            >
-              <Grid
-                container
-                justify="space-around">
-                <Typography component="h4" variant="h6">
-                  Enter Phone Number
-                </Typography>
-              </Grid>
-              <Grid
-                container
-                justify="space-around">
-                  Enter employee's phone #.  This will be used to create and access their Cloud Wallet.
-              </Grid>
+              container
+              justify="space-around">
+              <Typography component="h4" variant="h6">
+                Enter Phone Number
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              justify="space-around">
+                Enter employee's phone #.  This will be used to create and access their Cloud Wallet.
+            </Grid>
 
-              <Grid
-                container
-                direction="row"
-                style={{
-                  paddingTop: "30px"
-                }}
-                justify="space-around">
-                  <RegistrationInputField
-                    setCredentialCreationData={this.props.setCredentialCreationData}
-                    handleInputChange={this.handleInputChange.bind(this)}
-                    inputField="phoneNumber"
-                    credentialCreationData={this.props.credentialCreationData}
-                  />
-              </Grid>
+            <Grid
+              container
+              direction="row"
+              style={{
+                paddingTop: "30px"
+              }}
+              justify="space-around">
+                <PhoneInput
+                  onlyCountries={CONSTANTS.phoneIntls!.only ? CONSTANTS.phoneIntls!.countries : undefined}
+                  preferredCountries={CONSTANTS.phoneIntls!.only ? undefined : CONSTANTS.phoneIntls!.countries}
+                  country={CONSTANTS.phoneIntls!.countries[0]}
+                  inputClass="phone-number-input"
+                  value={this.props.credentialCreationData.phoneNumber}
+                  inputProps={{
+                      name: 'phoneNoInput',
+                      required: true
+                  }}
+                  onChange={(input: any) => this.handleInputChange(input, "+")}
+                  onKeyDown={event => this.handlePhoneNumberEnter(event)}
+                />
             </Grid>
           </Grid>
-          <RegistrationFormButtons
-            onClickBack={() => flowController.goTo('BACK')}
-            onPopulateForm={() => this.onPopulateForm()}
-          ></RegistrationFormButtons>
-        </div>
-      </ValidatorForm>
-    );
-  }
-}
-
-
-interface InputProps {
-  handleInputChange(inputField: any): void,
-  inputField: string,
-  setCredentialCreationData(data: any): void,
-  credentialCreationData: any
-}
-
-class RegistrationInputField extends React.Component<InputProps> {
-
-  render() {
-    return (
-      <Grid item
-        xs={6}
-        md={5}>
-        <TextValidator
-          onChange={inputField => this.props.handleInputChange(inputField)}
-          fullWidth
-          name={this.props.inputField}
-          id={this.props.inputField}
-          placeholder="Enter phone number"
-          value={this.props.credentialCreationData[this.props.inputField]}
-          validators={['required']}
-          errorMessages={['this field is required']}
-        />
-      </Grid>
+        </Grid>
+        <RegistrationFormButtons
+          onClickBack={() => flowController.goTo('BACK')}
+        ></RegistrationFormButtons>
+      </div>
     );
   }
 }
 
 interface ButtonProps {
-  onClickBack(): void,
-
-  onPopulateForm(): void
+  onClickBack(): void
 }
 
 class RegistrationFormButtons extends React.Component<ButtonProps> {
@@ -252,14 +231,6 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
                 className="back"
                 onClick={this.props.onClickBack}>
                 Back
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                data-cy="reset-flow"
-                className="back"
-                onClick={this.props.onPopulateForm}>
-                Populate Form
               </Button>
             </Grid>
             <Grid item>

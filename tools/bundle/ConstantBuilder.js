@@ -42,6 +42,7 @@ class ConstantBuilder {
             'cloudAgent',
             'headerImage',
             'permittedOpenerOrigins',
+            'phoneIntls',
             'token'
         ];
         constants.forEach((c, idx) => {
