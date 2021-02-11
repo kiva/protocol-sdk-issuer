@@ -31,7 +31,7 @@ export default class AuthenticationOptionMenu extends React.Component<AuthOption
         return (
             <div id="auth_option_menu" className="flex-block column">
                 <Typography className="auth_instructions" component="h2" variant="h6">
-                    Select a verification method
+                  Select a issuing method
                 </Typography>
                 <div id="auth_options" className="flex-block row">
                     {this.props.verification_opts.map((option, idx) => {
@@ -50,7 +50,7 @@ export default class AuthenticationOptionMenu extends React.Component<AuthOption
                     })}
                 </div>
                 <Button id="select-auth-method" onClick={() => this.props.setNewAuthType(this.state.optionSelected)}>
-                    {I18n.getKey('CONTINUE')}
+                    Continue
                 </Button>
             </div>
         );
@@ -59,7 +59,6 @@ export default class AuthenticationOptionMenu extends React.Component<AuthOption
     render() {
         return this.renderMenu();
     }
-
 }
 
 class MenuOption extends React.Component<MenuOptionProps> {

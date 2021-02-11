@@ -19,18 +19,6 @@
                 font-size: 1.75rem;
             }
         }
-        .recommended {
-            &::before {
-                content: "Recommended";
-                padding-left: 10px;
-                padding-bottom: 5px;
-                background: $primary-color;
-                color: $secondary-color;
-                width: 45%;
-                border-radius: 0 0 20px 0;
-                font-weight: 500;
-            }
-        }
         .selected {
             border: 2px solid $primary-color;
         }

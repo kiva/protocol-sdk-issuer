@@ -7,6 +7,7 @@ import {ScreenDispatcher} from "./controllers/ScreenDispatcher";
 // Screens
 import ConfirmationScreen from './screens/ConfirmationScreen';
 import AuthenticationOptionMenu from './screens/AuthenticationOptionMenu';
+import RegistrationUserTable from "./screens/RegistrationUserTable";
 
 // Utils
 import listen from "./utils/listen";
@@ -42,7 +43,7 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
             isLoading: true,
             token: "",
             personalInfo: "",
-            isSandbox: IS_SANDBOX,
+            isSandbox: false,
             isStandalone: false,
             sessionId: false,
             authIndex: 0
@@ -69,8 +70,7 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
 
         });
         this.setState({
-            isLoading: false,
-            token: CONSTANTS.token
+            isLoading: false
         });
     }
 
@@ -168,9 +168,22 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
             return this.renderLoadingScreen();
         case 'confirmation':
             return this.renderConfirmationScreen();
+        case "registrationUserTable":
+            return this.renderRegistrationUserTable();
         default:
             return this.renderScreen(this.state.step);
         }
+    }
+
+    renderRegistrationUserTable() {
+        return (
+            <RegistrationUserTable
+                showRegisterNewUser={this.showRegisterNewUser.bind(this)}></RegistrationUserTable>
+        )
+    }
+
+    showRegisterNewUser() {
+        this.setState({ step: "confirmation" });
     }
 
     renderNormalFlow() {
@@ -210,6 +223,7 @@ export class KernelContainer extends React.Component<KernelProps, KernelState> {
 // Obfuscating step names for the moment
 const screenNames: any = {
     confirmation: 'Consent',
+    registrationUserTable: 'RegistrationUserTable',
     loading: 'AppLoad',
     authentication: 'FingerprintScan'
 };

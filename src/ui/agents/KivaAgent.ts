@@ -1,14 +1,14 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 import I18n from '../utils/I18n';
 
-import {Agent} from '../interfaces/AgentInterface';
+import {KivaAgentInterface} from '../interfaces/KivaAgentInterface';
 import {PIImap} from '../interfaces/ConfirmationProps';
 
 import {CONSTANTS} from '../../constants/constants';
 
 const PII: PIImap = CONSTANTS.pii_map;
 
-export default class KivaAgent implements Agent {
+export default class KivaAgent implements KivaAgentInterface {
     protected setError: any;
     public token: string;
     public axiosInstance: AxiosInstance;
@@ -21,24 +21,20 @@ export default class KivaAgent implements Agent {
 
     constructor(token: string, callback: any) {
         const axiosConfig: AxiosRequestConfig = {
-            baseURL: CONSTANTS.ekycURI,
+            baseURL: "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
             headers: {
-                Authorization: 'Bearer ' + token
+                Authorization: 'Bearer ' + token,
             }
         };
-
         this.token = token;
         this.setError = callback;
         this.axiosInstance = axios.create(axiosConfig);
-        
     }
 
     isConnected(response: any): boolean {
         const state: string = response.state;
-        if (state === "response" || state === "active") {
-            return true;
-        }
-        return false;
+        return state === "response" || state === "active";
+
     }
 
     isOffered(response: any): boolean {
@@ -107,13 +103,12 @@ export default class KivaAgent implements Agent {
     }
 
     captureAndSendError(error: any, message: string) {
-        const msg: string = I18n.getKey(message);
+        const errorDetails = ` (${error.response.data.code}: ${error.response.data.message})`;
+        const msg: string = I18n.getKey(message) + errorDetails;
         this.setError(msg);
     }
 }
 
-// TODO: Implement verification interfaces
-// TODO: Actually use these
 interface ConnectionInviteResponse {
     connection_id: string,
     invitation: ConnectionInvitation,

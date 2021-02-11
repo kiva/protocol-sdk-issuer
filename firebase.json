@@ -1,0 +1,19 @@
+{
+  "hosting": [{
+    "target": "issuer",
+    "public": "build",
+    "predeploy": "sh ./tools/bundle/create_bundle.sh config/get_started.json",
+    "postdeploy": "rm -rf build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }]
+}

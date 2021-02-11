@@ -3,15 +3,25 @@
     "locale": "en",
     "agent_port": "7567",
     "cloudAgent": "kiva",
+    "token": "auth0 token here",
     "verification_options": [
         {
             "id": "QR",
-            "title": "Scan QR code",
-            "description": "Customer will verify their identity via a QR code on their phone.",
+            "title": "Issue Credential to Mobile Wallet",
             "guardian": false,
             "sequence": ["webcam", "registrationForm", "issuance"]
+        },
+        {
+            "id": "QR",
+            "title": "Create Cloud Wallet",
+            "guardian": false,
+            "sequence": ["webcam", "registrationForm", "otp"]
         }
     ],
+    "phoneIntls": {
+        "only": false,
+        "countries": ["us", "tw"]
+    },
     "pii_map": {
         "firstName": {
             "name": "First Name",
@@ -35,11 +45,15 @@
         },
         "hireDate": {
             "name": "Hire Date",
-            "dataType": "text"
+            "dataType": "date"
         },
         "officeLocation": {
             "name": "Office Location",
             "dataType": "text"
+        },
+        "phoneNumber": {
+            "name": "Phone Number",
+            "dataType": "phoneNumber"
         },
         "photo~attach": {
             "name": "Photo",
@@ -47,11 +61,12 @@
         },
         "type": {
             "name": "Type",
-            "dataType": "text"
+            "dataType": "selection",
+            "options": ["Employee", "Intern", "Contractor", "Fellow", "Other"]
         },
         "endDate": {
             "name": "End Date",
-            "dataType": "text"
+            "dataType": "date"
         }
     },
     "env": {
@@ -62,6 +77,7 @@
                 "includeOnly": ["reset", "enableStandalone"]
             },
             "permittedIframeHosts": ["https://www.kiva.org"],
+            "permittedOpenerOrigins": ["https://pro-cluster-kiva.web.app"],
             "isProd": true
         },
         "sandbox": {
@@ -69,9 +85,10 @@
             "inherits": ["prod"]
         },
         "qa": {
-            "ekycURI": "QA!",
+            "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
+            "permittedOpenerOrigins": ["https://pro-cluster-kiva.web.app", "http://localhost:3000"],
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]
         },
         "dev": {

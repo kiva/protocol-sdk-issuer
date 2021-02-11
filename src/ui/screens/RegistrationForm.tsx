@@ -1,11 +1,18 @@
 import * as React from 'react';
-import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import {flowController} from "../KernelContainer";
+import Typography from '@material-ui/core/Typography';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import PhoneInput from 'react-phone-input-2';
 import _, { forEach } from "lodash";
+
+import {flowController} from "../KernelContainer";
 import {CONSTANTS} from '../../constants/constants';
 import {PIImap} from '../interfaces/ConfirmationProps';
+
+import "../css/RegistrationForm.css";
+import 'react-phone-input-2/lib/high-res.css';
 
 interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
@@ -26,29 +33,31 @@ export default class RegistrationForm extends React.Component<Props, State> {
     };
   }
 
-  next() {
-    flowController.goTo('NEXT');
-  }
-
   handleInputChange(inputField: any) {
     var data: any = {};
-    data[inputField.currentTarget.id] = inputField.currentTarget.value;
+    data[inputField.currentTarget.id] = inputField.currentTarget.dataset.value || inputField.currentTarget.value;
+    this.props.setCredentialCreationData(data);
+  }
+
+  handleStringInput = (input: string, key: string, prefix?: string) => {
+    const data: any = {};
+    data[key] = `${prefix || ""}${input}`;
     this.props.setCredentialCreationData(data);
   }
 
   onPopulateForm() {
-    var generatedId = (Math.random() * 9 + 1) * Math.pow(10, 8 - 1);
-    generatedId = parseInt(generatedId.toString(), 10);
+    // var generatedId = (Math.random() * 9 + 1) * Math.pow(10, 8 - 1);
+    // generatedId = parseInt(generatedId.toString(), 10);
     var dataToInput = {
       "firstName": "First Name",
       "lastName": "Last Name",
       "companyEmail": "Company Email",
       "currentTitle": "Current Title",
       "team": "Team",
-      "hireDate": "Hire Date",
+      "hireDate": "1990-01-17",
       "officeLocation": "Office Location",
-      "type": "Type",
-      "endDate": "End Date"
+      "type": "Intern",
+      "endDate": "1990-01-17"
     }
     this.props.setCredentialCreationData(dataToInput);
   }
@@ -65,85 +74,165 @@ export default class RegistrationForm extends React.Component<Props, State> {
     this.props.setCredentialCreationData(initialCreationDataState);
   }
 
+  handleSubmit(event:any) {
+    event.preventDefault();
+    flowController.goTo('NEXT');
+  }
+
   render() {
     return (
-      <div className="registrationForm">
-        <Grid
-          style={{
-            paddingTop: "30px"
-          }}
-          container
-          direction="row"
-          justify="space-around">
+      <ValidatorForm
+          ref="form"
+          onSubmit={this.handleSubmit}
+        >
+          <div className="registrationForm">
           <Grid
-            item
-            xs={6}
-          >
+            style={{
+              paddingTop: "30px"
+            }}
+            container
+            direction="row"
+            justify="space-around">
             <Grid
               container
-              direction="row"
-              justify="space-between">
-              {_.keys(this.props.credentialCreationData).map(
-                (field: any, idx: any) => {
-                  if (PII[field].dataType === "text") {
-                    return (
-                      <RegistrationInputField
-                        key={idx}
-                        setCredentialCreationData={this.props.setCredentialCreationData}
-                        handleInputChange={this.handleInputChange.bind(this)}
-                        inputField={field}
-                        credentialCreationData={this.props.credentialCreationData}
-                      />
-                    )
-                  } else {
-                    return;
+              justify="space-around">
+              <Typography component="h4" variant="h6">
+                Enter Credential Details
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              justify="space-around">
+                Details on this page will be issued to the employee in a credential.
+            </Grid>
+            <Grid
+              item
+              xs={6}
+            >
+              <Grid
+                container
+                direction="row"
+                justify="space-between">
+                {_.keys(this.props.credentialCreationData).map(
+                  (field: any, idx: any) => {
+                    if (PII[field] && PII[field].dataType && PII[field].dataType !== "image/jpeg;base64") {
+                      return (
+                        <RegistrationInputField
+                          dataType={PII[field].dataType}
+                          key={idx}
+                          setCredentialCreationData={this.props.setCredentialCreationData}
+                          handleInputChange={this.handleInputChange.bind(this)}
+                          handleStringInput={this.handleStringInput}
+                          inputField={field}
+                          credentialCreationData={this.props.credentialCreationData}
+                        />
+                      );
+                    } else {
+                      return "";
+                    }
                   }
-                }
-              )}
+                )}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <RegistrationFormButtons
-          onClickBack={() => flowController.goTo('BACK')}
-          onSubmit={() => this.next()}
-          onPopulateForm={() => this.onPopulateForm()}
-        ></RegistrationFormButtons>
-      </div>
+          <RegistrationFormButtons
+            onClickBack={() => flowController.goTo('BACK')}
+            onPopulateForm={() => this.onPopulateForm()}
+          ></RegistrationFormButtons>
+        </div>
+      </ValidatorForm>
     );
   }
 }
 
-
 interface InputProps {
   handleInputChange(inputField: any): void,
+  handleStringInput(input: string, key: string, prefix?: string): void,
   inputField: string,
   setCredentialCreationData(data: any): void,
-  credentialCreationData: any
+  credentialCreationData: any,
+  dataType: string | any
 }
 
 class RegistrationInputField extends React.Component<InputProps> {
-
   render() {
-    return (
-      <Grid item
-        xs={6}
-        md={5}>
-        <Input
-          onChange={inputField => this.props.handleInputChange(inputField)}
-          fullWidth
-          name={this.props.inputField}
-          id={this.props.inputField}
-          placeholder={PII[this.props.inputField].name}
-          value={this.props.credentialCreationData[this.props.inputField]}
-        />
-      </Grid>
-    );
+    if (this.props.dataType === "selection") {
+      return (
+        <Grid item
+          xs={6}
+          md={5}
+          style={{
+            paddingTop: "30px"
+          }}
+          >
+          <label>{ PII[this.props.inputField].name }</label>
+          <TextValidator
+            name={this.props.inputField}
+            key={this.props.inputField}
+            value={this.props.credentialCreationData[this.props.inputField]}
+            fullWidth
+            onChange={(inputField: any) => this.props.handleInputChange(inputField)}
+            id={this.props.inputField} select>
+            {_.map(PII[this.props.inputField].options, (option: any, idx: any) => {
+              return (
+                <MenuItem value={option} id={this.props.inputField}>{option}</MenuItem>
+              )
+            })}
+          </TextValidator>
+        </Grid>
+      );
+    } else if (this.props.dataType === "phoneNumber") {
+      return (
+        <Grid item
+          xs={6}
+          md={5}
+          style={{
+            paddingTop: "30px"
+          }}
+          >
+          <label id="phone-label">{ PII[this.props.inputField].name }</label>
+          <PhoneInput
+            onlyCountries={CONSTANTS.phoneIntls!.only ? CONSTANTS.phoneIntls!.countries : undefined}
+            preferredCountries={CONSTANTS.phoneIntls!.only ? undefined : CONSTANTS.phoneIntls!.countries}
+            country={CONSTANTS.phoneIntls!.countries[0]}
+            inputClass="phone-number-input"
+            value={this.props.credentialCreationData[this.props.inputField]}
+            inputProps={{
+                name: 'phoneNoInput',
+                id: this.props.inputField,
+                required: true
+            }}
+            onChange={(input: any) => this.props.handleStringInput(input, this.props.inputField, "+")}
+          />
+        </Grid>
+      );
+    } else {
+      return (
+        <Grid item
+          xs={6}
+          md={5}
+          style={{
+            paddingTop: "30px"
+          }}
+          >
+          <label>{ PII[this.props.inputField].name }</label>
+          <TextValidator
+            type={this.props.dataType}
+            fullWidth
+            onChange={(inputField: any) => this.props.handleInputChange(inputField)}
+            name={this.props.inputField}
+            id={this.props.inputField}
+            value={this.props.credentialCreationData[this.props.inputField]}
+            validators={['required']}
+            errorMessages={['this field is required']}
+          />
+        </Grid>
+      );
+    }
   }
 }
 
 interface ButtonProps {
-  onSubmit(): void,
-
   onClickBack(): void,
 
   onPopulateForm(): void
@@ -188,10 +277,7 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
             <Grid item>
               <Button
                 type="submit"
-                data-cy="qr-scan-next"
-                className="next"
-                onSubmit={this.props.onSubmit}
-                onClick={this.props.onSubmit}>
+                className="next">
                 Continue
               </Button>
             </Grid>

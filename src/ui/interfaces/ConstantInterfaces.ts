@@ -18,6 +18,7 @@ export interface Constants {
     permittedOrigins: string,
     permittedIframeHosts: string[],
     permittedOriginPatterns?: string,
+    permittedOpenerOrigins: string[],
     pii_map: PIImap,
     isProd?: boolean,
     direction: string,
@@ -25,7 +26,8 @@ export interface Constants {
     agent_port: string,
     cloudAgent: string,
     headerImage: string,
-    token: string
+    token: string,
+    phoneIntls?: CountryCodeConfig
 }
 
 export interface MessageMap {
