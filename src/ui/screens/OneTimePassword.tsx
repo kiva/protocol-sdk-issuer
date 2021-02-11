@@ -161,13 +161,13 @@ export default class OneTimePassword extends React.Component<Props, State> {
               container
               justify="space-around">
               <Typography component="h4" variant="h6">
-                Enter Phone Number
+                Enter Authentication Details
               </Typography>
             </Grid>
             <Grid
               container
               justify="space-around">
-                Enter employee's phone #.  This will be used to create and access their Cloud Wallet.
+                Enter the employee's preferred phone #. This will be used by the employee to create and access their Cloud Wallet.
             </Grid>
 
             <Grid
