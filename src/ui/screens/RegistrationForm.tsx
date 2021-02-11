@@ -2,6 +2,7 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PhoneInput from 'react-phone-input-2';
 import _, { forEach } from "lodash";
@@ -92,6 +93,18 @@ export default class RegistrationForm extends React.Component<Props, State> {
             container
             direction="row"
             justify="space-around">
+            <Grid
+              container
+              justify="space-around">
+              <Typography component="h4" variant="h6">
+                Enter Credential Details
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              justify="space-around">
+                Details on this page will be issued to the employee in a credential.
+            </Grid>
             <Grid
               item
               xs={6}
