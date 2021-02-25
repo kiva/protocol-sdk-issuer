@@ -9,7 +9,7 @@ import _, { forEach } from "lodash";
 
 import {flowController} from "../KernelContainer";
 import {CONSTANTS} from '../../constants/constants';
-import {PIImap} from '../interfaces/ConfirmationProps';
+import {CredentialKeyMap} from '../interfaces/ConfirmationProps';
 
 import "../css/RegistrationForm.css";
 import 'react-phone-input-2/lib/high-res.css';
@@ -22,7 +22,7 @@ interface Props {
 interface State {
 }
 
-const PII: PIImap = CONSTANTS.pii_map;
+const PII: CredentialKeyMap = CONSTANTS.pii_map;
 
 export default class RegistrationForm extends React.Component<Props, State> {
 

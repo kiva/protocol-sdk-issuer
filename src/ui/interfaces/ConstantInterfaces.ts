@@ -1,4 +1,4 @@
-import {PIImap} from "./ConfirmationProps";
+import {CredentialKeyMap} from "./ConfirmationProps";
 import {AuthOption} from "./AuthOptionInterfaces";
 
 export interface ReqAttributes {
@@ -19,7 +19,7 @@ export interface Constants {
     permittedIframeHosts: string[],
     permittedOriginPatterns?: string,
     permittedOpenerOrigins: string[],
-    pii_map: PIImap,
+    credentialKeyMap: CredentialKeyMap,
     isProd?: boolean,
     direction: string,
     agencyInfo: AgencyInfo,

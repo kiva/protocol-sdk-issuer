@@ -48,7 +48,7 @@ class ConstantBuilder {
             this.setVariable(c);
         });
         this.setTextDirection();
-        this.createPIIMap();
+        this.createCredentialKeyMap();
     }
 
     setTextDirection() {
@@ -60,27 +60,14 @@ class ConstantBuilder {
     }
 
 
-    createPIIMap() {
-        this.variables['pii_map'] = {};
-
-        const pii_map = this.variables['pii_map'];
-
+    createCredentialKeyMap() {
         if (this.conf.credentialDefinition) {
             if ('string' === typeof this.conf.credentialDefinition) {
-                this.conf.credentialKeys && this.parseCredentialKeys(pii_map);
+                const credentialConfig = fs.readFileSync(__dirname + '/../../credentialDefinitions/' + this.conf.credentialDefinition, 'utf8');
+                this.variables['credentialKeyMap'] = JSON.parse(credentialConfig);
             } else {
                 // Assumes that the credentialDefinition is an object. Don't yet know how this would be used, and might not be the right implementation
                 // TODO: Write logic that creates an opinion about the schema of credentialDefinition as an object.
-            }
-        }
-    }
-
-    parseCredentialKeys(pii_map) {
-        const keys = this.conf.credentialKeys;
-        for (let k in keys) {
-            if (keys[k].credentials[this.conf.credentialDefinition]) {
-                pii_map[k] = keys[k];
-                delete pii_map[k].credentials;
             }
         }
     }
