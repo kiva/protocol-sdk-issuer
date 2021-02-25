@@ -9,7 +9,7 @@ import I18n from '../utils/I18n';
 import '../css/Common.css';
 import '../css/ConfirmationScreen.css';
 
-import {ConfirmationProps, PIIFieldState} from '../interfaces/ConfirmationProps';
+import {ConfirmationProps, CredentialKeyFieldState} from '../interfaces/ConfirmationProps';
 
 import {CONSTANTS} from "../../constants/constants";
 
@@ -55,7 +55,7 @@ export default class ConfirmationScreen extends React.Component<ConfirmationProp
     }
 }
 
-class PIIFields extends React.Component<{}, PIIFieldState> {
+class PIIFields extends React.Component<{}, CredentialKeyFieldState> {
     constructor(props: any) {
         super(props);
 
@@ -74,9 +74,9 @@ class PIIFields extends React.Component<{}, PIIFieldState> {
         const columnTwo: string[] = [];
 
         let i = 0;
-        for (let field in CONSTANTS.pii_map) {
+        for (let field in CONSTANTS.credentialKeyMap) {
             let currentArray = i % 2 === 0 ? columnOne : columnTwo;
-            currentArray.push(CONSTANTS.pii_map[field].name);
+            currentArray.push(CONSTANTS.credentialKeyMap[field].name);
             i++;
         }
 

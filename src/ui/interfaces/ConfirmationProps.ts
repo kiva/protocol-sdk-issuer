@@ -19,7 +19,7 @@ export interface CredentialKeyMap {
     [index: string]: CredentialKeyDefinition
 }
 
-export interface PIIFieldState {
+export interface CredentialKeyFieldState {
     columnOne: string[],
     columnTwo: string[]
 }
