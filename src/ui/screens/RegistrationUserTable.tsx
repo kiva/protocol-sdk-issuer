@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {DataGrid, ColDef, ValueGetterParams} from '@material-ui/data-grid';
+import {DataGrid, ColDef} from '@material-ui/data-grid';
 import {PIImap} from '../interfaces/ConfirmationProps';
 import {CONSTANTS} from '../../constants/constants';
 import _ from "lodash";

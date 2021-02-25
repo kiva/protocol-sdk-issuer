@@ -32,6 +32,7 @@ const messageMap = {
     NO_INVITE_URL: "Errors.qr.noInviteUrl",
     QR_CONNECTION_ERROR: "Errors.qr.connectionError",
     QR_NO_CONNECTION_NOTIFY: "Errors.qr.notConnected",
+    QR_NOT_FOUND: "Errors.qr.noConnectionFound",
     // Details Screen
     PLACE_OF_BIRTH: "PII.birthPlace",
     CREDENTIALING_AGENCY: "Details.credentialingAgency",

@@ -25,9 +25,6 @@ import {actionList, CONSTANTS} from "../constants/constants";
 import './css/KernelContainer.css';
 import './css/Common.css';
 
-const EKYC_URI: string = CONSTANTS.ekycURI;
-const IS_SANDBOX: boolean = CONSTANTS.isProd ? EKYC_URI.indexOf("sandbox") !== -1 : true;
-
 export let flowController: FlowController;
 
 export class KernelContainer extends React.Component<KernelProps, KernelState> {

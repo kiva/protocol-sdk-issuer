@@ -2,7 +2,7 @@ export interface ConfirmationProps {
     integrationName: string
 }
 
-interface PIIdefinition {
+export interface PIIdefinition {
     name: string,
     dataType: string,
     options?: Array<string>

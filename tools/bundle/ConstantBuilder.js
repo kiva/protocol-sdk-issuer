@@ -32,10 +32,9 @@ class ConstantBuilder {
     setAll() {
         const constants = [
             'agencyInfo',
-            'ekycURI',
+            'controllerUrlBase',
             'permittedOrigins',
             'permittedOriginPatterns',
-            'pii_map',
             'isProd',
             'verification_options',
             'agent_port',
@@ -49,6 +48,7 @@ class ConstantBuilder {
             this.setVariable(c);
         });
         this.setTextDirection();
+        this.createPIIMap();
     }
 
     setTextDirection() {
@@ -58,6 +58,33 @@ class ConstantBuilder {
             this.variables['direction'] = 'ltr';
         }
     }
+
+
+    createPIIMap() {
+        this.variables['pii_map'] = {};
+
+        const pii_map = this.variables['pii_map'];
+
+        if (this.conf.credentialDefinition) {
+            if ('string' === typeof this.conf.credentialDefinition) {
+                this.conf.credentialKeys && this.parseCredentialKeys(pii_map);
+            } else {
+                // Assumes that the credentialDefinition is an object. Don't yet know how this would be used, and might not be the right implementation
+                // TODO: Write logic that creates an opinion about the schema of credentialDefinition as an object.
+            }
+        }
+    }
+
+    parseCredentialKeys(pii_map) {
+        const keys = this.conf.credentialKeys;
+        for (let k in keys) {
+            if (keys[k].credentials[this.conf.credentialDefinition]) {
+                pii_map[k] = keys[k];
+                delete pii_map[k].credentials;
+            }
+        }
+    }
+
 }
 
 module.exports = ConstantBuilder;

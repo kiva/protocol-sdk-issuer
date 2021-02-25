@@ -13,7 +13,7 @@ interface CountryCodeConfig {
 }
 
 export interface Constants {
-    ekycURI: string,
+    controllerUrlBase: string,
     verification_options: AuthOption[],
     permittedOrigins: string,
     permittedIframeHosts: string[],
@@ -27,7 +27,9 @@ export interface Constants {
     cloudAgent: string,
     headerImage: string,
     token: string,
-    phoneIntls?: CountryCodeConfig
+    phoneIntls?: CountryCodeConfig,
+    // Ultimately this should be "string | CredentialDefinition", but figuring out the CredentialDefinition type is TBD
+    credentialDefinition: any
 }
 
 export interface MessageMap {

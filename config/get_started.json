@@ -22,56 +22,90 @@
         "only": false,
         "countries": ["us", "tw"]
     },
-    "pii_map": {
+    "credentialDefinition": "employee.cred.def.json",
+    "credentialKeys": {
         "firstName": {
             "name": "First Name",
-            "dataType": "text"
+            "dataType": "text",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "lastName": {
             "name": "Last Name",
-            "dataType": "text"
+            "dataType": "text",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "companyEmail": {
             "name": "Company Email",
-            "dataType": "text"
+            "dataType": "text",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "currentTitle": {
             "name": "Current Title",
-            "dataType": "text"
+            "dataType": "text",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "team": {
             "name": "Team",
-            "dataType": "text"
+            "dataType": "text",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "hireDate": {
             "name": "Hire Date",
-            "dataType": "date"
+            "dataType": "date",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "officeLocation": {
             "name": "Office Location",
-            "dataType": "text"
+            "dataType": "text",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "phoneNumber": {
             "name": "Phone Number",
-            "dataType": "phoneNumber"
+            "dataType": "phoneNumber",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "photo~attach": {
             "name": "Photo",
-            "dataType": "image/jpeg;base64"
+            "dataType": "image/jpeg;base64",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "type": {
             "name": "Type",
             "dataType": "selection",
-            "options": ["Employee", "Intern", "Contractor", "Fellow", "Other"]
+            "options": ["Employee", "Intern", "Contractor", "Fellow", "Other"],
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         },
         "endDate": {
             "name": "End Date",
-            "dataType": "date"
+            "dataType": "date",
+            "credentials": {
+                "employee.cred.def.json": true
+            }
         }
     },
     "env": {
         "prod": {
-            "ekycURI": "PRODUCTION!",
+            "controllerUrlBase": "PRODUCTION!",
             "permittedOrigins": "https://www.kiva.org",
             "actions": {
                 "includeOnly": ["reset", "enableStandalone"]
@@ -81,18 +115,18 @@
             "isProd": true
         },
         "sandbox": {
-            "ekycURI": "SANDBOX!",
+            "controllerUrlBase": "https://sandbox-gateway.protocol-prod.kiva.org",
             "inherits": ["prod"]
         },
         "qa": {
-            "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
+            "controllerUrlBase": "http://localhost:8080",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
             "permittedOpenerOrigins": ["https://pro-cluster-kiva.web.app", "http://localhost:3000"],
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]
         },
         "dev": {
-            "ekycURI": "DEV!",
+            "controllerUrlBase": "http://localhost:8080",
             "inherits": ["qa"]
         }
     }

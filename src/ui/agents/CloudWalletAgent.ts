@@ -2,10 +2,6 @@ import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 import I18n from '../utils/I18n';
 
 import {CloudWalletAgentInterface} from '../interfaces/CloudWalletAgentInterface';
-import {PIImap} from '../interfaces/ConfirmationProps';
-import {CONSTANTS} from '../../constants/constants';
-
-const PII: PIImap = CONSTANTS.pii_map;
 
 export default class CloudWalletAgent implements CloudWalletAgentInterface {
     protected setError: any;
