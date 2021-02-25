@@ -67,7 +67,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
 
   componentWillMount() {
     const initialCreationDataState: any = {};
-    forEach(_.keys(PII), (key) => {
+    forEach(_.keys(CredentialKeys), (key) => {
       initialCreationDataState[key] = this.props.credentialCreationData[key] || "";
     });
     // name, value
@@ -115,10 +115,10 @@ export default class RegistrationForm extends React.Component<Props, State> {
                 justify="space-between">
                 {_.keys(this.props.credentialCreationData).map(
                   (field: any, idx: any) => {
-                    if (PII[field] && PII[field].dataType && PII[field].dataType !== "image/jpeg;base64") {
+                    if (CredentialKeys[field] && CredentialKeys[field].dataType && CredentialKeys[field].dataType !== "image/jpeg;base64") {
                       return (
                         <RegistrationInputField
-                          dataType={PII[field].dataType}
+                          dataType={CredentialKeys[field].dataType}
                           key={idx}
                           setCredentialCreationData={this.props.setCredentialCreationData}
                           handleInputChange={this.handleInputChange.bind(this)}
@@ -165,7 +165,7 @@ class RegistrationInputField extends React.Component<InputProps> {
             paddingTop: "30px"
           }}
           >
-          <label>{ PII[this.props.inputField].name }</label>
+          <label>{ CredentialKeys[this.props.inputField].name }</label>
           <TextValidator
             name={this.props.inputField}
             key={this.props.inputField}
@@ -173,7 +173,7 @@ class RegistrationInputField extends React.Component<InputProps> {
             fullWidth
             onChange={(inputField: any) => this.props.handleInputChange(inputField)}
             id={this.props.inputField} select>
-            {_.map(PII[this.props.inputField].options, (option: any, idx: any) => {
+            {_.map(CredentialKeys[this.props.inputField].options, (option: any, idx: any) => {
               return (
                 <MenuItem value={option} id={this.props.inputField}>{option}</MenuItem>
               )
@@ -190,7 +190,7 @@ class RegistrationInputField extends React.Component<InputProps> {
             paddingTop: "30px"
           }}
           >
-          <label id="phone-label">{ PII[this.props.inputField].name }</label>
+          <label id="phone-label">{ CredentialKeys[this.props.inputField].name }</label>
           <PhoneInput
             onlyCountries={CONSTANTS.phoneIntls!.only ? CONSTANTS.phoneIntls!.countries : undefined}
             preferredCountries={CONSTANTS.phoneIntls!.only ? undefined : CONSTANTS.phoneIntls!.countries}
@@ -215,7 +215,7 @@ class RegistrationInputField extends React.Component<InputProps> {
             paddingTop: "30px"
           }}
           >
-          <label>{ PII[this.props.inputField].name }</label>
+          <label>{ CredentialKeys[this.props.inputField].name }</label>
           <TextValidator
             type={this.props.dataType}
             fullWidth
