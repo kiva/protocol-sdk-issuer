@@ -32,10 +32,9 @@ class ConstantBuilder {
     setAll() {
         const constants = [
             'agencyInfo',
-            'ekycURI',
+            'controllerUrlBase',
             'permittedOrigins',
             'permittedOriginPatterns',
-            'pii_map',
             'isProd',
             'verification_options',
             'agent_port',
@@ -49,6 +48,7 @@ class ConstantBuilder {
             this.setVariable(c);
         });
         this.setTextDirection();
+        this.createCredentialKeyMap();
     }
 
     setTextDirection() {
@@ -58,6 +58,20 @@ class ConstantBuilder {
             this.variables['direction'] = 'ltr';
         }
     }
+
+
+    createCredentialKeyMap() {
+        if (this.conf.credentialDefinition) {
+            if ('string' === typeof this.conf.credentialDefinition) {
+                const credentialConfig = fs.readFileSync(__dirname + '/../../credentialDefinitions/' + this.conf.credentialDefinition, 'utf8');
+                this.variables['credentialKeyMap'] = JSON.parse(credentialConfig);
+            } else {
+                // Assumes that the credentialDefinition is an object. Don't yet know how this would be used, and might not be the right implementation
+                // TODO: Write logic that creates an opinion about the schema of credentialDefinition as an object.
+            }
+        }
+    }
+
 }
 
 module.exports = ConstantBuilder;

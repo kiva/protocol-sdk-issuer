@@ -12,8 +12,6 @@ import "../css/AuthOptionMenu.css";
 
 import {AuthOptionProps, AuthOptionState, MenuOptionProps} from "../interfaces/AuthOptionInterfaces";
 
-import I18n from '../utils/I18n';
-
 export default class AuthenticationOptionMenu extends React.Component<AuthOptionProps, AuthOptionState> {
 
     constructor(props: AuthOptionProps) {

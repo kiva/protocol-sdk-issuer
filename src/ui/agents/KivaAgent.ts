@@ -1,40 +1,37 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 import I18n from '../utils/I18n';
+import BaseAgent from './BaseAgent';
 
-import {KivaAgentInterface} from '../interfaces/KivaAgentInterface';
-import {PIImap} from '../interfaces/ConfirmationProps';
+import {IAgent} from '../interfaces/AgentInterfaces';
 
 import {CONSTANTS} from '../../constants/constants';
 
-const PII: PIImap = CONSTANTS.pii_map;
-
-export default class KivaAgent implements KivaAgentInterface {
+export default class KivaAgent extends BaseAgent implements IAgent {
     protected setError: any;
     public token: string;
     public axiosInstance: AxiosInstance;
     private _connectionId?: string;
     private _credentialId?: string;
 
-    static init(token: string, callback: any): KivaAgent {
-        return new KivaAgent(token, callback);
+    static init(token: string): KivaAgent {
+        return new KivaAgent(token);
     }
 
-    constructor(token: string, callback: any) {
+    constructor(token: string) {
+        super();
         const axiosConfig: AxiosRequestConfig = {
-            baseURL: "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
+            baseURL: CONSTANTS.controllerUrlBase + "/v2/kiva/api/",
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         };
         this.token = token;
-        this.setError = callback;
         this.axiosInstance = axios.create(axiosConfig);
     }
 
     isConnected(response: any): boolean {
         const state: string = response.state;
         return state === "response" || state === "active";
-
     }
 
     isOffered(response: any): boolean {
@@ -51,61 +48,52 @@ export default class KivaAgent implements KivaAgentInterface {
         return false;
     }
 
+    getData(axiosData: any) {
+        return axiosData.data;
+    }
+
     async establishConnection(ignore: string) {
-        try {
-            let connection: any = await this.axiosInstance.post('connection', {});
-            this._connectionId = connection.data.connection_id;
-
-            const invitationData = btoa(JSON.stringify(connection.data.invitation));
-
-            return Promise.resolve(invitationData);
-        } catch (e) {
-            this.captureAndSendError(e, 'QR_CONNECTION_ERROR');
-            return Promise.reject('Kiva Agent connection failed');
-        }
+        return super.establish(
+            this.axiosInstance.post("connection", {},),
+            (connection: any) => {
+                this._connectionId = connection.data.connection_id;
+                return btoa(JSON.stringify(connection.data.invitation));
+            },
+            I18n.getKey("QR_CONNECTION_ERROR")
+        );
     }
 
     async getConnection(ignore: string) {
-        try {
-            let connection: any = await this.axiosInstance.get('connection/' + this._connectionId);
+        return super.establish(
+            this.axiosInstance.get("connection/" + this._connectionId, {},),
+            this.getData,
+            I18n.computeKey({
+                connectionId: this._connectionId
+            }, 'QR_NOT_FOUND')
+        );
+    }
 
-            return Promise.resolve(connection.data);
-        } catch (e) {
-            this.captureAndSendError(e, 'UNKNOWN_ERROR');
-            return Promise.reject(`Couldn't find record of connection { ${this._connectionId} }`);
-        }
+    async createCredential(entityData: object) {
+        return super.offer(
+            this.axiosInstance.post('issue', {
+                profile: CONSTANTS.credentialDefinition,
+                connectionId: this._connectionId,
+                entityData
+            }),
+            (credentialData: any) => {
+                this._credentialId = credentialData.data.credential_exchange_id
+                return credentialData.data;
+            },
+            I18n.getKey("UNKNOWN_ERROR")
+        );
     }
 
     async checkCredentialStatus(ignore: string) {
-        try {
-            const credential: any = await this.axiosInstance.get('issue/' + this._credentialId);
-
-            return Promise.resolve(credential.data);
-        } catch (e) {
-            this.captureAndSendError(e, 'UNKNOWN_ERROR');
-            return Promise.reject(e);
-        }
-    }
-
-    async createCredential(credentialData: object) {
-        try {
-            const credential: any = await this.axiosInstance.post('issue', {
-                profile: "employee.cred.def.json",
-                connectionId: this._connectionId,
-                entityData: credentialData
-            });
-            this._credentialId = credential.data.credential_exchange_id;
-            return Promise.resolve(credential.data);
-        } catch (e) {
-            this.captureAndSendError(e, 'UNKNOWN_ERROR');
-            return Promise.reject(e);
-        }
-    }
-
-    captureAndSendError(error: any, message: string) {
-        const errorDetails = ` (${error.response.data.code}: ${error.response.data.message})`;
-        const msg: string = I18n.getKey(message) + errorDetails;
-        this.setError(msg);
+        return super.issue(
+            this.axiosInstance.get('issue/' + this._credentialId),
+            this.getData,
+            I18n.getKey("UNKNOWN_ERROR")
+        );
     }
 }
 

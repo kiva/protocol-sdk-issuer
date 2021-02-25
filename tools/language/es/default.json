@@ -26,7 +26,8 @@
         "qr": {
             "noInviteUrl": "Se produjo un error creando el código QR. Por favor intente de nuevo. Si el problema persiste, comuníquese con su equipo de IT.",
             "connectionError": "Se produjo un error estableciendo una conexión. Por favor intente de nuevo. Si el problema persiste, comuníquese con su equipo de IT.",
-            "notConnected": "Por favor escanee el código QR y establezca una conexión antes de verificar."
+            "notConnected": "Por favor escanee el código QR y establezca una conexión antes de verificar.",
+            "noConnectionFound": "Ningún record con el código [ {{connectionId}} ] fue encontrado."
         }
     },
     "ConfirmationScreen": {

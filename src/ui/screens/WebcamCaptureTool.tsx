@@ -130,7 +130,7 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
       return (
         <Grid container justify="center"
           alignItems="center" direction="column">
-          <img src={`data:${type};${encoding},${data}`}></img>
+          <img src={`data:${type};${encoding},${data}`} alt="This will be included with your issued credential"></img>
           { this.renderPageButtons() }
         </Grid>
       )

@@ -2,7 +2,7 @@ export interface ConfirmationProps {
     integrationName: string
 }
 
-interface PIIdefinition {
+export interface CredentialKeyDefinition {
     name: string,
     dataType: string,
     options?: Array<string>
@@ -15,15 +15,11 @@ interface PIIdefinition {
  * You can see a larger explanation of the term (and concept) at https://en.wikipedia.org/wiki/Personal_data
  *
  */
-export interface PIImap {
-    [index: string]: PIIdefinition
+export interface CredentialKeyMap {
+    [index: string]: CredentialKeyDefinition
 }
 
-export interface PIIFieldsProps {
-    fields: PIImap
-}
-
-export interface PIIFieldState {
+export interface CredentialKeyFieldState {
     columnOne: string[],
     columnTwo: string[]
 }

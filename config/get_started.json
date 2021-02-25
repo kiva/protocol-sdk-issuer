@@ -22,56 +22,10 @@
         "only": false,
         "countries": ["us", "tw"]
     },
-    "pii_map": {
-        "firstName": {
-            "name": "First Name",
-            "dataType": "text"
-        },
-        "lastName": {
-            "name": "Last Name",
-            "dataType": "text"
-        },
-        "companyEmail": {
-            "name": "Company Email",
-            "dataType": "text"
-        },
-        "currentTitle": {
-            "name": "Current Title",
-            "dataType": "text"
-        },
-        "team": {
-            "name": "Team",
-            "dataType": "text"
-        },
-        "hireDate": {
-            "name": "Hire Date",
-            "dataType": "date"
-        },
-        "officeLocation": {
-            "name": "Office Location",
-            "dataType": "text"
-        },
-        "phoneNumber": {
-            "name": "Phone Number",
-            "dataType": "phoneNumber"
-        },
-        "photo~attach": {
-            "name": "Photo",
-            "dataType": "image/jpeg;base64"
-        },
-        "type": {
-            "name": "Type",
-            "dataType": "selection",
-            "options": ["Employee", "Intern", "Contractor", "Fellow", "Other"]
-        },
-        "endDate": {
-            "name": "End Date",
-            "dataType": "date"
-        }
-    },
+    "credentialDefinition": "employee.cred.def.json",
     "env": {
         "prod": {
-            "ekycURI": "PRODUCTION!",
+            "controllerUrlBase": "PRODUCTION!",
             "permittedOrigins": "https://www.kiva.org",
             "actions": {
                 "includeOnly": ["reset", "enableStandalone"]
@@ -81,18 +35,18 @@
             "isProd": true
         },
         "sandbox": {
-            "ekycURI": "SANDBOX!",
+            "controllerUrlBase": "https://sandbox-gateway.protocol-prod.kiva.org",
             "inherits": ["prod"]
         },
         "qa": {
-            "ekycURI": "https://sandbox-gateway.protocol-prod.kiva.org/v2/kiva/api/",
+            "controllerUrlBase": "http://localhost:8080",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
             "permittedOpenerOrigins": ["https://pro-cluster-kiva.web.app", "http://localhost:3000"],
             "permittedIframeHosts": ["https://www.kiva.org", "http://localhost:3000", "http://localhost:8080"]
         },
         "dev": {
-            "ekycURI": "DEV!",
+            "controllerUrlBase": "http://localhost:8080",
             "inherits": ["qa"]
         }
     }

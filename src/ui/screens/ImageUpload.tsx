@@ -1,6 +1,5 @@
 import React from 'react';
 import "../css/ImageUpload.scss";
-import Grid from '@material-ui/core/Grid';
 
 export interface Props {
     handleUploadPhoto: Function

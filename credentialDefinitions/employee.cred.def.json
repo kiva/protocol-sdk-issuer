@@ -1,0 +1,47 @@
+{
+    "firstName": {
+        "name": "First Name",
+        "dataType": "text"
+    },
+    "lastName": {
+        "name": "Last Name",
+        "dataType": "text"
+    },
+    "companyEmail": {
+        "name": "Company Email",
+        "dataType": "text"
+    },
+    "currentTitle": {
+        "name": "Current Title",
+        "dataType": "text"
+    },
+    "team": {
+        "name": "Team",
+        "dataType": "text"
+    },
+    "hireDate": {
+        "name": "Hire Date",
+        "dataType": "date"
+    },
+    "officeLocation": {
+        "name": "Office Location",
+        "dataType": "text"
+    },
+    "phoneNumber": {
+        "name": "Phone Number",
+        "dataType": "phoneNumber"
+    },
+    "photo~attach": {
+        "name": "Photo",
+        "dataType": "image/jpeg;base64"
+    },
+    "type": {
+        "name": "Type",
+        "dataType": "selection",
+        "options": ["Employee", "Intern", "Contractor", "Fellow", "Other"]
+    },
+    "endDate": {
+        "name": "End Date",
+        "dataType": "date"
+    }
+}

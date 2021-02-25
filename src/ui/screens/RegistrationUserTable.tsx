@@ -1,23 +1,23 @@
 import * as React from 'react';
-import {DataGrid, ColDef, ValueGetterParams} from '@material-ui/data-grid';
-import {PIImap} from '../interfaces/ConfirmationProps';
+import {DataGrid, ColDef} from '@material-ui/data-grid';
+import {CredentialKeyMap} from '../interfaces/ConfirmationProps';
 import {CONSTANTS} from '../../constants/constants';
 import _ from "lodash";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-const PII: PIImap = CONSTANTS.pii_map;
+const CredentialData: CredentialKeyMap = CONSTANTS.credentialKeyMap;
 const columns: ColDef[] = [];
 const numRows = 4;
 const rows: any[] = [];
 for (let i = 0; i < numRows; i++) {
   rows.push({id: i});
 }
-_.keys(PII).forEach((key, index) => {
+_.keys(CredentialData).forEach((key, index) => {
   columns.push({
     field: key,
-    headerName: PII[key].name,
+    headerName: CredentialData[key].name,
     width: 130
   });
   for (let i = 0; i < numRows; i++) {

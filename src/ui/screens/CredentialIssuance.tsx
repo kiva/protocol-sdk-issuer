@@ -13,8 +13,11 @@ import {v4 as uuid4} from "uuid";
 import ErrorIcon from '@material-ui/icons/Error';
 import QRCode from 'qrcode';
 import "../css/QRScreen.css";
+import {IAgent} from "../interfaces/AgentInterfaces";
 import {QRScreenButtons} from './QRScreenButtons';
 import AuthService from "../utils/AuthService";
+
+const pollInterval: number = 200;
 
 let agent: KivaAgent;
 let cancelConnectionPolling: boolean;
@@ -47,6 +50,9 @@ export interface State {
 }
 
 export default class CredentialIssuance extends React.Component<Props, State> {
+
+  public readonly agent: IAgent;
+
   constructor(props: Props) {
     super(props);
     const credentialData : any = props.credentialCreationData;
@@ -60,6 +66,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
       issued: false,
       credentialData,
     };
+    this.agent = this.determineCloudAgent();
   }
 
   componentWillUnmount() {
@@ -68,7 +75,6 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    agent = this.determineCloudAgent();
     this.startProcess();
   }
 
@@ -78,7 +84,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
     switch (CONSTANTS.cloudAgent) {
       case "kiva":
       default:
-        return KivaAgent.init(token, this.setConnectionError);
+        return KivaAgent.init(token);
     }
   }
 
@@ -97,43 +103,62 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   }
 
   getInviteUrl = async () => {
-      const connectionId: string = uuid4();
-      const url: string = await agent.establishConnection(connectionId);
-      this.props.setConnectionId(connectionId);
-      this.setInviteUrl(url);
-      this.pollConnection(connectionId);
+      try {
+        const connectionId: string = uuid4();
+        const url: string = await this.agent.establishConnection(connectionId);
+        this.props.setConnectionId(connectionId);
+        this.setInviteUrl(url);
+        this.pollConnection(connectionId);
+      } catch (e) {
+        console.log(e);
+        this.setConnectionError(e);
+      }
   }
 
   pollConnection = async (connectionId: string) => {
-    let connectionStatus: any = await agent.getConnection(connectionId);
-    if (agent.isConnected(connectionStatus)) {
-      this.props.verifyConnection(true);
-      cancelConnectionPolling = true;
-      this.startCredentialCreation();
-    }
-    if (!cancelConnectionPolling) {
-      this.pollConnection(connectionId);
+    try {
+      let connectionStatus: any = await this.agent.getConnection(connectionId);
+      if (this.agent.isConnected(connectionStatus)) {
+          this.props.verifyConnection(true);
+          cancelConnectionPolling = true;
+          this.startCredentialCreation();
+      } else if (!cancelConnectionPolling) {
+          setTimeout(() => {
+              this.pollConnection(connectionId);
+          }, pollInterval);
+      }
+    } catch (e) {
+      console.log(e);
+      this.setConnectionError(e);
     }
   }
 
   pollCredentialStatus = async (credentialId: string) => {
-    let credentialStatus: any = await agent.checkCredentialStatus(credentialId);
-    if (agent.isOffered(credentialStatus)) {
-      // show offered state
-      this.setState({
-        offered: true
-      });
-      this.props.verifyOffered(true);
-    } else if (agent.isIssued(credentialStatus)) {
-      // show issued state
-      this.props.verifyIssuance(true);
-      this.setState({
-        issued: true
-      });
-      cancelCredentialPolling = true;
-    }
-    if (!cancelCredentialPolling) {
-      this.pollCredentialStatus(credentialId);
+    try {
+      let credentialStatus: any = await this.agent.checkCredentialStatus(credentialId);
+      console.log(credentialStatus);
+      if (agent.isOffered(credentialStatus)) {
+        // show offered state
+        this.setState({
+          offered: true
+        });
+        this.props.verifyOffered(true);
+      } else if (agent.isIssued(credentialStatus)) {
+        // show issued state
+        this.props.verifyIssuance(true);
+        this.setState({
+          issued: true
+        });
+        cancelCredentialPolling = true;
+      }
+      if (!cancelCredentialPolling) {
+        setTimeout(() => {
+          this.pollConnection(credentialId);
+        }, pollInterval);
+      }
+    } catch (e) {
+      console.log(e);
+      this.setConnectionError(I18n.getKey("UNKNOWN_ERROR"))
     }
   }
 
@@ -145,19 +170,13 @@ export default class CredentialIssuance extends React.Component<Props, State> {
     }
   }
 
-  settleConnectionId = (connectionId?: string): string => {
-    const id: string = connectionId || this.props.connectionId;
-    return id;
-  }
-
   createCredential = async () => {
     try {
-      const id: string = this.settleConnectionId();
-
-      const credential: any = await agent.createCredential(this.state.credentialData);
+      const credential: any = await this.agent.createCredential(this.state.credentialData);
       this.pollCredentialStatus(credential.credentialId);
     } catch (e) {
       console.log(e);
+      this.setConnectionError(I18n.getKey("UNKNOWN_ERROR"));
     }
   }
 
