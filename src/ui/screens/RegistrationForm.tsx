@@ -22,7 +22,7 @@ interface Props {
 interface State {
 }
 
-const PII: CredentialKeyMap = CONSTANTS.pii_map;
+const CredentialKeys: CredentialKeyMap = CONSTANTS.credentialKeyMap;
 
 export default class RegistrationForm extends React.Component<Props, State> {
 

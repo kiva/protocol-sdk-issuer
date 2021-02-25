@@ -50,10 +50,10 @@ This configuration is an array of `AuthOption` objects, which contain the follow
 * `guardian`: A boolean to indicate whether the eKYC verification requires a third party in order to succeed, or whether the verification method can (but does not necessarily have to) rely completely on agent-to-agent communication.
 * `sequence`: This is an array of IDs that determines the order of navigation for the application. Each ID should have a corresponding React component in the [ScreenDictionary component](https://github.com/kiva/protocol-sdk-verifier/blob/master/src/ui/screens/ScreenDictionary.tsx).
 
-### `pii_map`
+### `credentialKeyMap`
 This map defines the pieces of PII (Personally Identifiable Information) which will be requested as part of an organization's eKYC verification. ([More information about PII can be found here](https://en.wikipedia.org/wiki/Personal_data))
 
-This is an object which assigns metadata to the values that will be returned from a successful eKYC request, and is used to verify that the backend response is complete and genuine.
+This is an object which assigns metadata to the values that will be returned from a successful eKYC request, and is used to verify that the backend response is complete and genuine. It is created at build time using the `credentialDefinition` key to look up a file within the `credentialDefinitions` directory.
 
 * `name`: This value is used for text values throughout the app, especially the Results page and the User Consent page.
 
