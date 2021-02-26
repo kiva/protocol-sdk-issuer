@@ -35,6 +35,7 @@ class ConstantBuilder {
             'controllerUrlBase',
             'permittedOrigins',
             'permittedOriginPatterns',
+            'credentialDefinition',
             'isProd',
             'verification_options',
             'agent_port',
