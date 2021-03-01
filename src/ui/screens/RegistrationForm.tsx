@@ -51,7 +51,8 @@ export default class RegistrationForm extends React.Component<Props, State> {
     var dataToInput = {
       "firstName": "First Name",
       "lastName": "Last Name",
-      "companyEmail": "Company Email",
+      "companyEmail": "",
+      "phoneNumber": "+12345678909",
       "currentTitle": "Current Title",
       "team": "Team",
       "hireDate": "1990-01-17",

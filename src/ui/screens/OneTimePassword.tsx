@@ -1,4 +1,6 @@
 import * as React from 'react';
+import I18n from '../utils/I18n';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import CloudWalletAgent from '../agents/CloudWalletAgent';
 import Grid from '@material-ui/core/Grid';
@@ -24,6 +26,7 @@ interface Props {
 
 interface State {
   credentialIssued: boolean,
+  credentialIssuanceRequested: boolean,
   connectionError: string
 }
 
@@ -33,6 +36,7 @@ export default class OneTimePassword extends React.Component<Props, State> {
     super(props);
     this.state = {
       credentialIssued: false,
+      credentialIssuanceRequested: false,
       connectionError: ""
     };
   }
@@ -44,6 +48,7 @@ export default class OneTimePassword extends React.Component<Props, State> {
 
   createCredential = async () => {
     try {
+      this.setState({ credentialIssuanceRequested: true });
       const credential: any = await agent.createCredential(this.props.credentialCreationData);
       console.log(credential);
       this.setState({ credentialIssued: true });
@@ -113,9 +118,35 @@ export default class OneTimePassword extends React.Component<Props, State> {
       return this.renderError();
     } else if (this.state.credentialIssued) {
       return this.renderCredentialIssued();
+    } else if (this.state.credentialIssuanceRequested){
+      return this.renderRetrieving();
     } else {
       return this.renderOtp();
     }
+  }
+
+  renderRetrieving(text?: string) {
+    const header: string = text || I18n.getKey('CREDENTIAL_ISSUANCE_REQUESTED');
+    return (
+      <div className="flex-block column">
+        <Grid container
+          direction="column"
+          justify="center"
+          alignItems="center">
+          <div className="centered-flex-content">
+            <Typography component="h2"
+              variant="h6"
+              gutterBottom
+              className="qr-loading-title">
+              {header}
+            </Typography>
+            <div id="qr-loader">
+              <CircularProgress className="dialog-icon verifying"/>
+            </div>
+          </div>
+        </Grid>
+      </div>
+    );
   }
 
   renderCredentialIssued() {
@@ -195,6 +226,7 @@ export default class OneTimePassword extends React.Component<Props, State> {
         </Grid>
         <RegistrationFormButtons
           onClickBack={() => flowController.goTo('BACK')}
+          onSubmit={() => this.createCredential()}
         ></RegistrationFormButtons>
       </div>
     );
@@ -202,6 +234,8 @@ export default class OneTimePassword extends React.Component<Props, State> {
 }
 
 interface ButtonProps {
+  onSubmit(): void,
+
   onClickBack(): void
 }
 
@@ -236,6 +270,8 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
             <Grid item>
               <Button
                 type="submit"
+                onSubmit={this.props.onSubmit}
+                onClick={this.props.onSubmit}
                 className="next">
                 Continue
               </Button>

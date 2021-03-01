@@ -45,6 +45,7 @@
             "retrieving": "Retrieving your QR code. Please be patient...",
             "scanQR": "Citizen should scan the QR code with their mobile Wallet.",
             "connected": "Connection established!  Creating credential...",
+            "credentialIssuanceRequested":"Issuing credential.  Please be patient...", 
             "resetConnection": "Reset"
         }
     }
