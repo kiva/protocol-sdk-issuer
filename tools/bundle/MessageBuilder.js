@@ -40,7 +40,8 @@ const messageMap = {
     RETRIEVING_QR: "QR.text.retrieving",
     SCAN_QR: "QR.text.scanQR",
     CONNECTION_ESTABLISHED: "QR.text.connected",
-    RESET_FLOW: "QR.text.resetConnection"
+    RESET_FLOW: "QR.text.resetConnection",
+    CREDENTIAL_ISSUANCE_REQUESTED: "QR.text.credentialIssuanceRequested"
 };
 
 class MessageBuilder {

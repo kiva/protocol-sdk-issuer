@@ -41,7 +41,7 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
     this.setState({ showValidations: true });
     if (this.photoIncluded()) {
       this.props.setCredentialCreationData({
-        "photo~attach": this.state["photo~attach"]
+        "photo~attach": this.state["photo~attach"].data
       });
       flowController.goTo('NEXT');
     }

@@ -32,8 +32,7 @@ export default class CloudWalletAgent implements CloudWalletAgentInterface {
                   {
                      pluginType:"SMS_OTP",
                      filters: {
-                        "govId1": "company@email.com",
-                        "govId2": "company@email.com"
+                        "govId1": credentialData.companyEmail
                      },
                      "params": {
                         "phoneNumber": credentialData.phoneNumber
