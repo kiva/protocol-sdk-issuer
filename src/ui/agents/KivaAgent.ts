@@ -97,6 +97,7 @@ export default class KivaAgent extends BaseAgent implements IAgent {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface ConnectionInviteResponse {
     connection_id: string,
     invitation: ConnectionInvitation,
@@ -111,6 +112,7 @@ interface ConnectionInvitation {
     label: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface ConnectionStatus {
     connectionId: string,
     routingState: string,

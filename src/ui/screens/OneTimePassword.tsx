@@ -32,204 +32,204 @@ interface State {
 
 export default class OneTimePassword extends React.Component<Props, State> {
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      credentialIssued: false,
-      credentialIssuanceRequested: false,
-      connectionError: ""
-    };
-  }
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            credentialIssued: false,
+            credentialIssuanceRequested: false,
+            connectionError: ""
+        };
+    }
 
-  handleSubmit(event: any) {
-    event.preventDefault();
-    this.createCredential();
-  }
+    handleSubmit(event: any) {
+        event.preventDefault();
+        this.createCredential();
+    }
 
   createCredential = async () => {
-    try {
-      this.setState({ credentialIssuanceRequested: true });
-      const credential: any = await agent.createCredential(this.props.credentialCreationData);
-      console.log(credential);
-      this.setState({ credentialIssued: true });
-    } catch (e) {
-      console.log(e);
-      this.setState({ connectionError: `${e.response.data.code}: ${e.response.data.message}` });
-    }
+      try {
+          this.setState({ credentialIssuanceRequested: true });
+          const credential: any = await agent.createCredential(this.props.credentialCreationData);
+          console.log(credential);
+          this.setState({ credentialIssued: true });
+      } catch (e) {
+          console.log(e);
+          this.setState({ connectionError: `${e.response.data.code}: ${e.response.data.message}` });
+      }
   }
 
   handlePhoneNumberEnter = (event: any): void => {
-    if (event.hasOwnProperty("keyCode") && event.keyCode === 13) {
-      this.handleSubmit(event);
-    }
+      if (event.hasOwnProperty("keyCode") && event.keyCode === 13) {
+          this.handleSubmit(event);
+      }
   };
 
   handleInputChange(input: string, prefix?: string) {
-    var data: any = {};
-    data.phoneNumber = `${prefix || ""}${input}`;
-    this.props.setCredentialCreationData(data);
+      var data: any = {};
+      data.phoneNumber = `${prefix || ""}${input}`;
+      this.props.setCredentialCreationData(data);
   }
 
   onPopulateForm() {
-    var dataToInput = {
-      "phoneNumber": "Phone Number"
-    }
-    this.props.setCredentialCreationData(dataToInput);
+      var dataToInput = {
+          "phoneNumber": "Phone Number"
+      }
+      this.props.setCredentialCreationData(dataToInput);
   }
 
   componentWillUnmount() {
   }
 
   componentWillMount() {
-    const token: string = AuthService.getToken() || CONSTANTS.token;
-    agent = CloudWalletAgent.init(token, this.setConnectionError);
-    this.props.setCredentialCreationData({
-      phoneNumber: ""
-    });
+      const token: string = AuthService.getToken() || CONSTANTS.token;
+      agent = CloudWalletAgent.init(token, this.setConnectionError);
+      this.props.setCredentialCreationData({
+          phoneNumber: ""
+      });
   }
 
   setConnectionError = (connectionError: string) => {
-    this.setState({
-      connectionError
-    });
+      this.setState({
+          connectionError
+      });
   }
 
   renderError() {
-    return (
-      <Grid container justify="center" alignItems="center" direction="column" className="status-report">
-        <Grid item>
-            <ErrorIcon className="dialog-icon error"/>
-        </Grid>
-        <Grid item xs={4}>
-            <Typography
-                id="instructions"
-                component="h2"
-                align="center"
-                className="error-description">
-                {this.state.connectionError}
-            </Typography>
-        </Grid>
-      </Grid>
-    );
+      return (
+          <Grid container justify="center" alignItems="center" direction="column" className="status-report">
+              <Grid item>
+                  <ErrorIcon className="dialog-icon error"/>
+              </Grid>
+              <Grid item xs={4}>
+                  <Typography
+                      id="instructions"
+                      component="h2"
+                      align="center"
+                      className="error-description">
+                      {this.state.connectionError}
+                  </Typography>
+              </Grid>
+          </Grid>
+      );
   }
 
   render() {
-    if (this.state.connectionError) {
-      return this.renderError();
-    } else if (this.state.credentialIssued) {
-      return this.renderCredentialIssued();
-    } else if (this.state.credentialIssuanceRequested){
-      return this.renderRetrieving();
-    } else {
-      return this.renderOtp();
-    }
+      if (this.state.connectionError) {
+          return this.renderError();
+      } else if (this.state.credentialIssued) {
+          return this.renderCredentialIssued();
+      } else if (this.state.credentialIssuanceRequested){
+          return this.renderRetrieving();
+      } else {
+          return this.renderOtp();
+      }
   }
 
   renderRetrieving(text?: string) {
-    const header: string = text || I18n.getKey('CREDENTIAL_ISSUANCE_REQUESTED');
-    return (
-      <div className="flex-block column">
-        <Grid container
-          direction="column"
-          justify="center"
-          alignItems="center">
-          <div className="centered-flex-content">
-            <Typography component="h2"
-              variant="h6"
-              gutterBottom
-              className="qr-loading-title">
-              {header}
-            </Typography>
-            <div id="qr-loader">
-              <CircularProgress className="dialog-icon verifying"/>
-            </div>
+      const header: string = text || I18n.getKey('CREDENTIAL_ISSUANCE_REQUESTED');
+      return (
+          <div className="flex-block column">
+              <Grid container
+                  direction="column"
+                  justify="center"
+                  alignItems="center">
+                  <div className="centered-flex-content">
+                      <Typography component="h2"
+                          variant="h6"
+                          gutterBottom
+                          className="qr-loading-title">
+                          {header}
+                      </Typography>
+                      <div id="qr-loader">
+                          <CircularProgress className="dialog-icon verifying"/>
+                      </div>
+                  </div>
+              </Grid>
           </div>
-        </Grid>
-      </div>
-    );
+      );
   }
 
   renderCredentialIssued() {
-    return (
-      <Grid
-        style={{
-          paddingTop: "30px"
-        }}
-        container
-        direction="row"
-        justify="space-around">
-        <Grid
-          item
-          xs={6}
-        >
+      return (
           <Grid
-            container
-            justify="space-around">
-            <Typography component="h4" variant="h4">
-            <CheckCircleIcon className="otp-icon" />Cloud Wallet created and credentials issued.
-            </Typography>
+              style={{
+                  paddingTop: "30px"
+              }}
+              container
+              direction="row"
+              justify="space-around">
+              <Grid
+                  item
+                  xs={6}
+              >
+                  <Grid
+                      container
+                      justify="space-around">
+                      <Typography component="h4" variant="h4">
+                          <CheckCircleIcon className="otp-icon" />Cloud Wallet created and credentials issued.
+                      </Typography>
+                  </Grid>
+              </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    )
+      )
   }
 
   renderOtp() {
-    return (
-      <div className="registrationForm">
-        <Grid
-          style={{
-            paddingTop: "30px"
-          }}
-          container
-          direction="row"
-          justify="space-around">
-          <Grid
-            item
-            xs={6}
-          >
-            <Grid
-              container
-              justify="space-around">
-              <Typography component="h4" variant="h6">
-                Enter Authentication Details
-              </Typography>
-            </Grid>
-            <Grid
-              container
-              justify="space-around">
-                Enter the employee's preferred phone #. This will be used by the employee to create and access their Cloud Wallet.
-            </Grid>
-
-            <Grid
-              container
-              direction="row"
-              style={{
-                paddingTop: "30px"
-              }}
-              justify="space-around">
-                <PhoneInput
-                  onlyCountries={CONSTANTS.phoneIntls!.only ? CONSTANTS.phoneIntls!.countries : undefined}
-                  preferredCountries={CONSTANTS.phoneIntls!.only ? undefined : CONSTANTS.phoneIntls!.countries}
-                  country={CONSTANTS.phoneIntls!.countries[0]}
-                  inputClass="phone-number-input"
-                  value={this.props.credentialCreationData.phoneNumber}
-                  inputProps={{
-                      name: 'phoneNoInput',
-                      required: true
+      return (
+          <div className="registrationForm">
+              <Grid
+                  style={{
+                      paddingTop: "30px"
                   }}
-                  onChange={(input: any) => this.handleInputChange(input, "+")}
-                  onKeyDown={event => this.handlePhoneNumberEnter(event)}
-                />
-            </Grid>
-          </Grid>
-        </Grid>
-        <RegistrationFormButtons
-          onClickBack={() => flowController.goTo('BACK')}
-          onSubmit={() => this.createCredential()}
-        ></RegistrationFormButtons>
-      </div>
-    );
+                  container
+                  direction="row"
+                  justify="space-around">
+                  <Grid
+                      item
+                      xs={6}
+                  >
+                      <Grid
+                          container
+                          justify="space-around">
+                          <Typography component="h4" variant="h6">
+                Enter Authentication Details
+                          </Typography>
+                      </Grid>
+                      <Grid
+                          container
+                          justify="space-around">
+                Enter the employee's preferred phone #. This will be used by the employee to create and access their Cloud Wallet.
+                      </Grid>
+
+                      <Grid
+                          container
+                          direction="row"
+                          style={{
+                              paddingTop: "30px"
+                          }}
+                          justify="space-around">
+                          <PhoneInput
+                              onlyCountries={CONSTANTS.phoneIntls!.only ? CONSTANTS.phoneIntls!.countries : undefined}
+                              preferredCountries={CONSTANTS.phoneIntls!.only ? undefined : CONSTANTS.phoneIntls!.countries}
+                              country={CONSTANTS.phoneIntls!.countries[0]}
+                              inputClass="phone-number-input"
+                              value={this.props.credentialCreationData.phoneNumber}
+                              inputProps={{
+                                  name: 'phoneNoInput',
+                                  required: true
+                              }}
+                              onChange={(input: any) => this.handleInputChange(input, "+")}
+                              onKeyDown={event => this.handlePhoneNumberEnter(event)}
+                          />
+                      </Grid>
+                  </Grid>
+              </Grid>
+              <RegistrationFormButtons
+                  onClickBack={() => flowController.goTo('BACK')}
+                  onSubmit={() => this.createCredential()}
+              ></RegistrationFormButtons>
+          </div>
+      );
   }
 }
 
@@ -240,45 +240,45 @@ interface ButtonProps {
 }
 
 class RegistrationFormButtons extends React.Component<ButtonProps> {
-  render() {
-    return (
-      <Grid
-        id="dialog-box"
-        container
-        style={{
-          paddingTop: "45px"
-        }}
-        direction="row"
-        justify="space-around">
-        <Grid
-          item
-          xs={6}
-        >
-          <Grid
-            container
-            direction="row"
-            justify="space-around"
-            >
-            <Grid item>
-              <Button
-                data-cy="qr-back"
-                className="back"
-                onClick={this.props.onClickBack}>
+    render() {
+        return (
+            <Grid
+                id="dialog-box"
+                container
+                style={{
+                    paddingTop: "45px"
+                }}
+                direction="row"
+                justify="space-around">
+                <Grid
+                    item
+                    xs={6}
+                >
+                    <Grid
+                        container
+                        direction="row"
+                        justify="space-around"
+                    >
+                        <Grid item>
+                            <Button
+                                data-cy="qr-back"
+                                className="back"
+                                onClick={this.props.onClickBack}>
                 Back
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                type="submit"
-                onSubmit={this.props.onSubmit}
-                onClick={this.props.onSubmit}
-                className="next">
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                type="submit"
+                                onSubmit={this.props.onSubmit}
+                                onClick={this.props.onSubmit}
+                                className="next">
                 Continue
-              </Button>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    )
-  }
+        )
+    }
 }

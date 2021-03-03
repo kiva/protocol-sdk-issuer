@@ -7,22 +7,22 @@ export interface Props {
 
 export default class ImageUpload extends React.Component<Props> {
     constructor(props: Props) {
-      super(props);
-      this.onChangeHandler = this.onChangeHandler.bind(this);
+        super(props);
+        this.onChangeHandler = this.onChangeHandler.bind(this);
     }
 
     convertBase64(file: File) {
         return new Promise((resolve, reject) => {
-          const fileReader = new FileReader();
-          fileReader.readAsDataURL(file)
-          fileReader.onload = () => {
-            resolve(fileReader.result);
-          }
-          fileReader.onerror = (error) => {
-            reject(error);
-          }
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file)
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            }
+            fileReader.onerror = (error) => {
+                reject(error);
+            }
         })
-      }
+    }
 
     async onChangeHandler(event: any) {
         const file = event.target.files[0]

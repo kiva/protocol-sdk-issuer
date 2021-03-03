@@ -8,22 +8,22 @@ export interface QRButtonProps {
 }
 
 export class QRScreenButtons extends React.Component<QRButtonProps> {
-  render() {
-    return (
-      <Grid container
-        className="qrButtons buttonListNew row"
-        direction="row"
-        justify="center"
-        alignItems="center">
-        <Grid item>
-          <Button
-            data-cy="qr-back"
-            className="back"
-            onClick={this.props.onClickBack}>
-            {I18n.getKey('BACK')}
-          </Button>
-        </Grid>
-      </Grid>
-    );
-  }
+    render() {
+        return (
+            <Grid container
+                className="qrButtons buttonListNew row"
+                direction="row"
+                justify="center"
+                alignItems="center">
+                <Grid item>
+                    <Button
+                        data-cy="qr-back"
+                        className="back"
+                        onClick={this.props.onClickBack}>
+                        {I18n.getKey('BACK')}
+                    </Button>
+                </Grid>
+            </Grid>
+        );
+    }
 }

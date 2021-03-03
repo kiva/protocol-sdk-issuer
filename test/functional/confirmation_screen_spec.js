@@ -30,6 +30,7 @@ describe("The Confirmation Screen", () => {
 
     it('doesn\'t have unexpected PII fields', () => {
         cy.get('.Confirmation.screen li', {timeout: 200}).should(list => {
+            // eslint-disable-next-line no-unused-expressions
             expect(list.length === infoFields.length, 'Verifying there are no unexpected fields').to.be.true;
         });
     });
