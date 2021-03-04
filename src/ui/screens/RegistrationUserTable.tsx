@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {DataGrid, ColDef} from '@material-ui/data-grid';
+import {DataGrid, GridColDef} from '@material-ui/data-grid';
 import {CredentialKeyMap} from '../interfaces/ConfirmationProps';
 import {CONSTANTS} from '../../constants/constants';
 import _ from "lodash";
@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 const CredentialData: CredentialKeyMap = CONSTANTS.credentialKeyMap;
-const columns: ColDef[] = [];
+const columns: GridColDef[] = [];
 const numRows = 4;
 const rows: any[] = [];
 for (let i = 0; i < numRows; i++) {
