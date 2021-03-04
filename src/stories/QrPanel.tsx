@@ -7,7 +7,7 @@ export interface QrPanelProps {
 }
 
 export const QrPanel: React.FC<QrPanelProps> = ({
-  success
- }) => (
-  <img src={success ? QrPanelSvgSuccess : QrPanelSvg} alt="plugin" />
- )
+    success
+}) => (
+    <img src={success ? QrPanelSvgSuccess : QrPanelSvg} alt="plugin" />
+)

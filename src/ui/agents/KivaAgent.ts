@@ -96,29 +96,3 @@ export default class KivaAgent extends BaseAgent implements IAgent {
         );
     }
 }
-
-interface ConnectionInviteResponse {
-    connection_id: string,
-    invitation: ConnectionInvitation,
-    invitation_url: string
-}
-
-interface ConnectionInvitation {
-    "@type": string,
-    "@id": string,
-    serviceEndpoint: string,
-    recipientKeys: string[],
-    label: string
-}
-
-interface ConnectionStatus {
-    connectionId: string,
-    routingState: string,
-    initiator: string,
-    invitation_mode: string,
-    updated_at: string,
-    state: string,
-    invitation_key: string,
-    accept: string,
-    created_at: string
-}

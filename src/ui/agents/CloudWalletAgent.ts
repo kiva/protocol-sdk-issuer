@@ -29,18 +29,18 @@ export default class CloudWalletAgent implements CloudWalletAgentInterface {
             const credential: any = await this.axiosInstance.post('guardian/onboard', {
                 profile: "employee.cred.def.json",
                 guardianData:[
-                  {
-                     pluginType:"SMS_OTP",
-                     filters: {
-                         "externalIds": {
-                            "companyEmail": credentialData.companyEmail
-                         }
-                     },
-                     "params": {
-                        "phoneNumber": credentialData.phoneNumber
-                     }
-                  }
-               ],
+                    {
+                        pluginType:"SMS_OTP",
+                        filters: {
+                            "externalIds": {
+                                "companyEmail": credentialData.companyEmail
+                            }
+                        },
+                        "params": {
+                            "phoneNumber": credentialData.phoneNumber
+                        }
+                    }
+                ],
                 entityData: credentialData
             });
             return Promise.resolve(credential.data);
