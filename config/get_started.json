@@ -3,7 +3,6 @@
     "locale": "en",
     "agent_port": "7567",
     "cloudAgent": "kiva",
-    "token": "auth0 token here",
     "verification_options": [
         {
             "id": "QR",
