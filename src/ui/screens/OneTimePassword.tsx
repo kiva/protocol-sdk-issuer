@@ -165,7 +165,7 @@ export default class OneTimePassword extends React.Component<Props, State> {
                   <Grid
                       container
                       justify="space-around">
-                      <Typography component="h4" variant="h4">
+                      <Typography data-cy="cloud-wallet-success" component="h4" variant="h4">
                           <CheckCircleIcon className="otp-icon" />Cloud Wallet created and credentials issued.
                       </Typography>
                   </Grid>
@@ -191,13 +191,14 @@ export default class OneTimePassword extends React.Component<Props, State> {
                       <Grid
                           container
                           justify="space-around">
-                          <Typography component="h4" variant="h6">
+                          <Typography component="h4" variant="h6" data-cy="instructions-title">
                 Enter Authentication Details
                           </Typography>
                       </Grid>
                       <Grid
                           container
-                          justify="space-around">
+                          justify="space-around"
+                          data-cy="instructions-body">
                 Enter the employee's preferred phone #. This will be used by the employee to create and access their Cloud Wallet.
                       </Grid>
 

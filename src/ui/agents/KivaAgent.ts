@@ -81,7 +81,7 @@ export default class KivaAgent extends BaseAgent implements IAgent {
                 entityData
             }),
             (credentialData: any) => {
-                this._credentialId = credentialData.data.credential_exchange_id
+                this._credentialId = credentialData.data.credential_exchange_id;
                 return credentialData.data;
             },
             I18n.getKey("UNKNOWN_ERROR")

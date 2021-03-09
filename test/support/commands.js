@@ -34,3 +34,39 @@ Cypress.Commands.add("postActionMessage", (stateObject, waitPeriod) => {
         }
     });
 });
+
+Cypress.Commands.add("selectAuthMenuItem", () => {
+    cy.get('#auth_options .auth_option');
+});
+
+Cypress.Commands.add("otpInput", (inputCode) => {
+    let i = 0;
+    for (i; i < 6; i++) {
+        let selector = `[name="otp-digit-${i}"]`;
+
+        cy.get(selector).clear().type(inputCode[i]);
+    }
+});
+
+Cypress.Commands.add("goToQRScreen", () => {
+    cy.visit('/');
+    cy.get('.accept').click();
+    cy.get('#select-auth-method').click();
+    cy.get('#inner-circle').click();
+    cy.get('[data-cy="image-select-continue"]').click();
+    cy.get('[data-cy="populate-form"]').click();
+    cy.get('.next').click();
+});
+
+Cypress.Commands.add("goToSMSScreen", () => {
+    cy.visit('/');
+    cy.get('.accept').click();
+    cy.selectAuthMenuItem().eq(1).click();
+    cy.get('#select-auth-method').click();
+    cy.get('#inner-circle').click();
+    cy.get('[data-cy="image-select-continue"]').click();
+    cy.get('[data-cy="populate-form"]').click();
+    cy.get('.next').click();
+});
+
+// TODO: Command for setting up QR code intercepts
