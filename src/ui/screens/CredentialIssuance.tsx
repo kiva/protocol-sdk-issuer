@@ -19,7 +19,6 @@ import AuthService from "../utils/AuthService";
 
 const pollInterval: number = 200;
 
-let agent: KivaAgent;
 let cancelConnectionPolling: boolean;
 let cancelCredentialPolling: boolean;
 
@@ -135,14 +134,8 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   pollCredentialStatus = async (credentialId: string) => {
       try {
           let credentialStatus: any = await this.agent.checkCredentialStatus(credentialId);
-          console.log(credentialStatus);
-          if (agent.isOffered(credentialStatus)) {
-              // show offered state
-              this.setState({
-                  offered: true
-              });
-              this.props.verifyOffered(true);
-          } else if (agent.isIssued(credentialStatus)) {
+          console.log(credentialStatus)
+          if (this.agent.isIssued(credentialStatus)) {
               // show issued state
               this.props.verifyIssuance(true);
               this.setState({
@@ -152,7 +145,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
           }
           if (!cancelCredentialPolling) {
               setTimeout(() => {
-                  this.pollConnection(credentialId);
+                  this.pollCredentialStatus(credentialId);
               }, pollInterval);
           }
       } catch (e) {
@@ -172,6 +165,13 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   createCredential = async () => {
       try {
           const credential: any = await this.agent.createCredential(this.state.credentialData);
+          if (this.agent.isOffered(credential)) {
+              // show offered state
+              this.setState({
+                  offered: true
+              });
+              this.props.verifyOffered(true);
+          } 
           this.pollCredentialStatus(credential.credentialId);
       } catch (e) {
           console.log(e);
@@ -256,6 +256,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
                   justify="space-around">
                   <Grid item>
                       <CreditCardIcon
+                          id="credential-offer-icon"
                           style={{
                               margin: "0 auto",
                               fontSize: 190,
@@ -263,7 +264,6 @@ export default class CredentialIssuance extends React.Component<Props, State> {
                           }}
                           className={classNames({
                               'credential-icon': true,
-                              verified: true,
                               hidden: !this.props.connected
                           })}/>
                   </Grid>
@@ -360,7 +360,7 @@ export default class CredentialIssuance extends React.Component<Props, State> {
 
   render() {
       return (
-          <div className="flex-block column">
+          <div id="QR_scan" className="flex-block column">
               <Grid container
                   direction="column"
                   justify="center"

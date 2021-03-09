@@ -36,7 +36,7 @@
         "dataType": "image/jpeg;base64"
     },
     "type": {
-        "name": "Type",
+        "name": "Employment Type",
         "dataType": "selection",
         "options": ["Employee", "Intern", "Contractor", "Fellow", "Other"]
     },

@@ -51,7 +51,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
       var dataToInput = {
           "firstName": "First Name",
           "lastName": "Last Name",
-          "companyEmail": "",
+          "companyEmail": "testEmail@kiva.org",
           "phoneNumber": "+12345678909",
           "currentTitle": "Current Title",
           "team": "Team",
@@ -86,7 +86,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
               ref="form"
               onSubmit={this.handleSubmit}
           >
-              <div className="registrationForm">
+              <div data-cy="registration-form" className="registrationForm">
                   <Grid
                       style={{
                           paddingTop: "30px"
@@ -166,17 +166,20 @@ class RegistrationInputField extends React.Component<InputProps> {
                         paddingTop: "30px"
                     }}
                 >
-                    <label>{ CredentialKeys[this.props.inputField].name }</label>
+                    <label htmlFor={this.props.inputField}>{ CredentialKeys[this.props.inputField].name }</label>
                     <TextValidator
                         name={this.props.inputField}
                         key={this.props.inputField}
                         value={this.props.credentialCreationData[this.props.inputField]}
                         fullWidth
                         onChange={(inputField: any) => this.props.handleInputChange(inputField)}
-                        id={this.props.inputField} select>
+                        id={`container-${this.props.inputField}`}
+                        inputProps={{
+                          id: this.props.inputField
+                        }} select>
                         {_.map(CredentialKeys[this.props.inputField].options, (option: any, idx: any) => {
                             return (
-                                <MenuItem value={option} id={this.props.inputField}>{option}</MenuItem>
+                                <MenuItem key={this.props.inputField} value={option} id={this.props.inputField}>{option}</MenuItem>
                             )
                         })}
                     </TextValidator>
@@ -191,7 +194,7 @@ class RegistrationInputField extends React.Component<InputProps> {
                         paddingTop: "30px"
                     }}
                 >
-                    <label id="phone-label">{ CredentialKeys[this.props.inputField].name }</label>
+                    <label htmlFor={this.props.inputField} id="phone-label">{ CredentialKeys[this.props.inputField].name }</label>
                     <PhoneInput
                         onlyCountries={CONSTANTS.phoneIntls!.only ? CONSTANTS.phoneIntls!.countries : undefined}
                         preferredCountries={CONSTANTS.phoneIntls!.only ? undefined : CONSTANTS.phoneIntls!.countries}
@@ -199,7 +202,7 @@ class RegistrationInputField extends React.Component<InputProps> {
                         inputClass="phone-number-input"
                         value={this.props.credentialCreationData[this.props.inputField]}
                         inputProps={{
-                            name: 'phoneNoInput',
+                            name: this.props.inputField,
                             id: this.props.inputField,
                             required: true
                         }}
@@ -216,7 +219,7 @@ class RegistrationInputField extends React.Component<InputProps> {
                         paddingTop: "30px"
                     }}
                 >
-                    <label>{ CredentialKeys[this.props.inputField].name }</label>
+                    <label htmlFor={this.props.inputField}>{ CredentialKeys[this.props.inputField].name }</label>
                     <TextValidator
                         type={this.props.dataType}
                         fullWidth
@@ -269,7 +272,7 @@ class RegistrationFormButtons extends React.Component<ButtonProps> {
                         </Grid>
                         <Grid item>
                             <Button
-                                data-cy="reset-flow"
+                                data-cy="populate-form"
                                 className="back"
                                 onClick={this.props.onPopulateForm}>
                 Populate Form
