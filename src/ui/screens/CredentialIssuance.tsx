@@ -134,7 +134,6 @@ export default class CredentialIssuance extends React.Component<Props, State> {
   pollCredentialStatus = async (credentialId: string) => {
       try {
           let credentialStatus: any = await this.agent.checkCredentialStatus(credentialId);
-          console.log(credentialStatus)
           if (this.agent.isIssued(credentialStatus)) {
               // show issued state
               this.props.verifyIssuance(true);
