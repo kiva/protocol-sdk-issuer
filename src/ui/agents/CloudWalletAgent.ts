@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 import I18n from '../utils/I18n';
+import {CONSTANTS} from '../../constants/constants';
 
 import {CloudWalletAgentInterface} from '../interfaces/CloudWalletAgentInterface';
 
@@ -27,7 +28,7 @@ export default class CloudWalletAgent implements CloudWalletAgentInterface {
     async createCredential(credentialData: any) {
         try {
             const credential: any = await this.axiosInstance.post('guardian/onboard', {
-                profile: "employee.cred.def.json",
+                profile: CONSTANTS.credentialDefinition,
                 guardianData:[
                     {
                         pluginType:"SMS_OTP",

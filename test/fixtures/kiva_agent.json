@@ -1,0 +1,54 @@
+{
+    "common": {
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        }
+    },
+    "establishConnection": {
+        "method": "POST",
+        "endpoint": "/v2/kiva/api/connection",
+        "success": {
+            "connection_id": "Claudius",
+            "invitation": {
+                "@type": "something",
+                "@id": "another thing",
+                "label": "Kiva!",
+                "recipientKeys": ["hello there"],
+                "serviceEndpoint": "endpoint.com",
+                "imageUrl": "tumblr.com"
+            }
+        }
+    },
+    "getConnection": {
+        "method": "GET",
+        "endpoint": "/v2/kiva/api/connection/**",
+        "inactive": {
+            "state": "definitelyNotActive"
+        },
+        "active": {
+            "state": "active"
+        }
+    },
+    "offerCredential": {
+        "method": "POST",
+        "endpoint": "/v2/kiva/api/issue",
+        "offered": {
+            "credential_exchange_id": "Growly",
+            "state": "offer_sent"
+        },
+        "notOffered": {
+            "credential_exchange_id": "Growly",
+            "state": "offerNotSent"
+        }
+    },
+    "issueCredential": {
+        "method": "GET",
+        "endpoint": "/v2/kiva/api/issue/**",
+        "issued": {
+            "state": "credential_issued"
+        },
+        "notIssued": {
+            "state": "credentialTotallyNotIssued"
+        }
+    }
+}
