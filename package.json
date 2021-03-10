@@ -72,6 +72,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "serve-build": "serve -s build",
     "statFileGen": "sh ./tools/bundle/static_file_generator.sh ${CONF_FILE:-config/get_started.json}",
     "createQaBundle": "sh ./tools/bundle/create_bundle.sh ${CONF_FILE:-config/get_started.json}",
     "cy:open": "cypress open",
