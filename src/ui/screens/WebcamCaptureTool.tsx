@@ -111,6 +111,7 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
               <Typography
                   component="h2"
                   variant="h6"
+                  data-cy="image-capture-error-message"
                   style={{
                       color: 'red',
                       marginTop: '20px'
@@ -130,20 +131,19 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
           return (
               <Grid container justify="center"
                   alignItems="center" direction="column">
-                  <img src={`data:${type};${encoding},${data}`} alt="This will be included with your issued credential"></img>
+                  <img id="credential-image" src={`data:${type};${encoding},${data}`} alt="This will be included with your issued credential"></img>
                   { this.renderPageButtons() }
               </Grid>
           )
       } else {
           return (
-              <Grid container justify="space-around">
+              <Grid container direction="row" justify="space-around" data-cy="image-selection">
                   <Grid
                       item
                       xs={8}>
-                      <Grid container justify="space-around">
+                      <Grid container direction="row" justify="space-around" data-cy="image-upload">
                           <Grid
                               item
-                              direction="row"
                               xs={6}
                               md={5}>
                               <ImageUpload
@@ -198,7 +198,7 @@ class WebcamCaptureToolButtons extends React.Component<ButtonProps> {
                     justify="space-around">
                     <Grid item>
                         <Button
-                            data-cy="qr-back"
+                            data-cy="image-select-back"
                             className="back"
                             onClick={this.props.onClickBack}>
               Back
@@ -215,7 +215,7 @@ class WebcamCaptureToolButtons extends React.Component<ButtonProps> {
                     <Grid item>
                         <Button
                             type="submit"
-                            data-cy="qr-scan-next"
+                            data-cy="image-select-continue"
                             className="next"
                             onSubmit={this.props.onSubmit}
                             onClick={this.props.onSubmit}>

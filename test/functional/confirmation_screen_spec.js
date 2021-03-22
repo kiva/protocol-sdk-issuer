@@ -1,9 +1,15 @@
 const infoFields = [
-    'National ID',
     'First Name',
     'Last Name',
-    'Birth Date',
-    'Photo'
+    'Company Email',
+    'Phone Number',
+    'Current Title',
+    'Team',
+    'Office Location',
+    'Employment Type',
+    'Photo',
+    'Hire Date',
+    'End Date'
 ];
 
 describe("The Confirmation Screen", () => {
@@ -30,13 +36,13 @@ describe("The Confirmation Screen", () => {
 
     it('doesn\'t have unexpected PII fields', () => {
         cy.get('.Confirmation.screen li', {timeout: 200}).should(list => {
-            // eslint-disable-next-line no-unused-expressions
+            /* eslint no-unused-expressions: 0 */
             expect(list.length === infoFields.length, 'Verifying there are no unexpected fields').to.be.true;
         });
     });
 
-    it('advances to the ID selection screen when user Accepts', () => {
+    it('advances to the Authentication Options Menu when user Accepts', () => {
         cy.contains('Accept').click();
-        cy.get('#auth_option_menu').should('be.visible');
+        cy.get('#auth_options').should('be.visible');
     });
 });
