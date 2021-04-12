@@ -3,7 +3,6 @@ import I18n from '../utils/I18n';
 import BaseAgent from './BaseAgent';
 
 import {IAgent} from '../interfaces/AgentInterfaces';
-
 import {CONSTANTS} from '../../constants/constants';
 
 export default class KivaAgent extends BaseAgent implements IAgent {
