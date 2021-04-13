@@ -8,6 +8,9 @@ import ImageUpload from './ImageUpload';
 import _ from "lodash";
 import Typography from '@material-ui/core/Typography';
 
+const PHOTO_WIDTH = 250;
+const PHOTO_HEIGHT = 180;
+
 export interface Props {
   setCredentialCreationData(credentialCreationData: any): void,
   credentialCreationData: any
@@ -41,7 +44,7 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
         this.setState({ showValidations: true });
         if (this.photoIncluded()) {
             this.props.setCredentialCreationData({
-                "photo~attach": this.state["photo~attach"]
+                "photo~attach": JSON.stringify(this.state["photo~attach"])
             });
             flowController.goTo('NEXT');
         }
@@ -53,7 +56,7 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
         })
     }
 
-    determinePhotoType(dataUri: string): PhotoAttach {
+    determinePhotoType(dataUri: any): PhotoAttach {
         const parts: string[] = dataUri.split(",", 2);
         const type: string = parts[0].split(":")[1].split(";")[0];
         return {
@@ -63,36 +66,46 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
         };
     }
 
-  handleUploadPhoto = (dataUri: string) => {
-      let photo: PhotoAttach = {
-          data: dataUri,
-          encoding: 'base64',
-          type: 'image/png'
-      };
+    // Takes a data URI and returns the Data URI corresponding to the resized image at the wanted size.
+    resizeDataURL = async (datas: PhotoAttach) => {
+        return new Promise(async (resolve, reject) => {
+            var img = document.createElement('img');
+            img.onload = function()
+            {
+                var canvas = document.createElement('canvas');
+                var ctx: any = canvas.getContext('2d');
+                canvas.width = PHOTO_WIDTH;
+                canvas.height = PHOTO_HEIGHT;
+                try {
+                    ctx.drawImage(this, 0, 0, PHOTO_WIDTH, PHOTO_HEIGHT);
+                    var dataURI = canvas.toDataURL();
+                    resolve(dataURI);
+                } catch {
+                    reject();
+                }
 
-      try {
-          photo = this.determinePhotoType(dataUri);
-      } catch (e) {
-          console.error("Couldn't parse the dataUri string to determine encoding type. Moving forward with the assumption that it is a PNG base64 string...")
-      } finally {
-          this.setState({
-              "photo~attach": photo
-          });
-      }
-  }
+            };
+            img.src = `data:${datas.type};${datas.encoding},${datas.data}`
+        })
+    }
 
-  handleTakePhoto = (dataUri: string) => {
-      // The Camera component only ever uses PNGs, so we'll use that assumption and hardcode values accordingly
-      const data: string = dataUri.replace("data:image/png;base64,","")
-      const photo: PhotoAttach = {
-          data,
-          type: 'image/png',
-          encoding: 'base64'
-      };
+  savePhoto = async (dataUri: string) => {
+    let photo: PhotoAttach = {
+        data: dataUri,
+        encoding: 'base64',
+        type: 'image/png'
+    };
 
-      this.setState({
-          "photo~attach": photo
-      });
+    try {
+        photo = this.determinePhotoType(dataUri);
+    } catch (e) {
+        console.error("Couldn't parse the dataUri string to determine encoding type. Moving forward with the assumption that it is a PNG base64 string...")
+    } finally {
+        const resizedPhoto = await this.resizeDataURL(photo);
+        this.setState({
+            "photo~attach": this.determinePhotoType(resizedPhoto)
+        });
+    }
   }
 
   renderPageButtons() {
@@ -126,50 +139,50 @@ export default class WebcamCaptureTool extends React.Component<any,any> {
 
   render() {
       // This condition will rely on base64 encoding for the image
-      if (this.state["photo~attach"]) {
-          const {data, encoding, type} = this.state["photo~attach"];
-          return (
+      const imageData = this.state["photo~attach"];
+      if (imageData) {
+        return (
               <Grid container justify="center"
                   alignItems="center" direction="column">
-                  <img id="credential-image" src={`data:${type};${encoding},${data}`} alt="This will be included with your issued credential"></img>
+                  <img id="credential-image" src={`data:${imageData.type};${imageData.encoding},${imageData.data}`} alt="This will be included with your issued credential"></img>
                   { this.renderPageButtons() }
               </Grid>
           )
-      } else {
-          return (
-              <Grid container direction="row" justify="space-around" data-cy="image-selection">
-                  <Grid
-                      item
-                      xs={8}>
-                      <Grid container direction="row" justify="space-around" data-cy="image-upload">
-                          <Grid
-                              item
-                              xs={6}
-                              md={5}>
-                              <ImageUpload
-                                  handleUploadPhoto={this.handleUploadPhoto}></ImageUpload>
-                          </Grid>
-                          <Grid
-                              item
-                              xs={6}
-                              md={5}
-                          >
-                              <div className="camera-container">
-                  Or take a photo
-                                  <Camera
-                                      isFullscreen = { false }
-                                      onTakePhoto = { (dataUri : any) => { this.handleTakePhoto(dataUri); } }
-                                  />
-                              </div>
-                          </Grid>
-                          { this.renderError() }
-                          { this.renderPageButtons() }
-                      </Grid>
-                  </Grid>
-              </Grid>
-          );
-      }
-  }
+        } else {
+            return (
+                <Grid container direction="row" justify="space-around" data-cy="image-selection">
+                    <Grid
+                        item
+                        xs={8}>
+                        <Grid container direction="row" justify="space-around" data-cy="image-upload">
+                            <Grid
+                                item
+                                xs={6}
+                                md={5}>
+                                <ImageUpload
+                                    handleUploadPhoto={this.savePhoto}></ImageUpload>
+                            </Grid>
+                            <Grid
+                                item
+                                xs={6}
+                                md={5}
+                            >
+                                <div className="camera-container">
+                                    Or take a photo
+                                    <Camera
+                                        isFullscreen = { false }
+                                        onTakePhoto = { (dataUri : any) => { this.savePhoto(dataUri); } }
+                                    />
+                                </div>
+                            </Grid>
+                            { this.renderError() }
+                            { this.renderPageButtons() }
+                        </Grid>
+                    </Grid>
+                </Grid>
+            );
+        }
+    }
 };
 
 
