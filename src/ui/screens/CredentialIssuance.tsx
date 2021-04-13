@@ -36,7 +36,7 @@ export interface Props {
   offered: boolean,
   issued: boolean,
   token: string,
-  credentialCreationData: object
+  credentialCreationData: any
 }
 
 export interface State {

@@ -30,7 +30,7 @@ class Screen extends React.Component<ScreenProps, ScreenState> {
     constructor(props: ScreenProps) {
         super(props);
         this.state = {
-            credentialCreationData: {},
+            credentialCreationData: "",
             screen: props.screen,
             connectionId: "",
             agent_connected: false,

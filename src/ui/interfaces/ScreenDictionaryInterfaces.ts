@@ -19,5 +19,5 @@ export interface ScreenState {
     agent_connected: boolean,
     credential_offered: boolean,
     credential_issued: boolean,
-    credentialCreationData: object
+    credentialCreationData: any
 }

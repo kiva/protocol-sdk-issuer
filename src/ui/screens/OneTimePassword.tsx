@@ -83,9 +83,7 @@ export default class OneTimePassword extends React.Component<Props, State> {
   componentWillMount() {
       const token: string = AuthService.getToken() || CONSTANTS.token;
       agent = CloudWalletAgent.init(token, this.setConnectionError);
-      this.props.setCredentialCreationData({
-          phoneNumber: ""
-      });
+      this.props.setCredentialCreationData({ phoneNumber: "" });
   }
 
   setConnectionError = (connectionError: string) => {
