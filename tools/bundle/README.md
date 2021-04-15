@@ -41,7 +41,7 @@ This script accepts two parameters.
 
 One is an environment name: either `--prod`, `--sandbox` or `--dev`. These will be used to set the value passed to the `static_file_generator` script, and then to the `Build.js` script. If this option isn't provided, the default value for the environment is `qa`.
 
-The second is a string that is a path to a configuration JSON file. You can [read more about configuration files here](https://github.com/kiva/protocol-sdk-verifier/tree/master/config).
+The second is a string that is a path to a configuration JSON file. You can [read more about configuration files here](https://github.com/kiva/protocol-sdk-issuer/tree/master/config).
 
 ### Changing configuration files for development
 When running `npm run start` to start the application locally, you can change which configuration file you're pointing to by setting a new value for the `$CONF_FILE` environment variable on your local machine.

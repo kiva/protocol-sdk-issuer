@@ -14,9 +14,9 @@ An easy option for making the SDK work out of the box is to set up the Kiva Arie
 ​
 ## Setting up your config file
 ​
-This SDK relies on a configuration file (you can read more about why that's the case, and how the file is used, [here](https://github.com/kiva/protocol-sdk-verifier/tree/master/config)), and for convenience's sake we've created a [sample config that you can use to get started right away](https://github.com/kiva/protocol-sdk-verifier/tree/master/config/get_started.json).
+This SDK relies on a configuration file (you can read more about why that's the case, and how the file is used, [here](https://github.com/kiva/protocol-sdk-issuer/tree/master/config)), and for convenience's sake we've created a [sample config that you can use to get started right away](https://github.com/kiva/protocol-sdk-issuer/tree/master/config/get_started.json).
 ​
-There's plenty of stuff you can do to customize your UI using the config, which you can read about [here](https://github.com/kiva/protocol-sdk-verifier/tree/master/config), but here are the important points for getting started.
+There's plenty of stuff you can do to customize your UI using the config, which you can read about [here](https://github.com/kiva/protocol-sdk-issuer/tree/master/config), but here are the important points for getting started.
 ​
 1. Modify `controllerUrlBase` to use the base URL for whatever endpoint you're using for a Cloud agent. By default, we are using `http://localhost:3014`, because that's the default port that the Kiva cloud agent uses when you're using the backend locally.
 2. If you are running a local agent on your machine, you can instead modify the `agent_port` config to point to the localhost port where your agent is running.
@@ -52,7 +52,7 @@ export CONF_FILE=path/to/your/config.json
 To create an optimized build package, we recommend you run the following command.
 ​
 ```
-npm run createQaBundle
+npm run build
 ```
 ​
 To serve the package locally, you can run
@@ -60,3 +60,25 @@ To serve the package locally, you can run
 ```
 serve -s build
 ```
+
+## Creating a Production Bundle for Deployment
+
+This SDK is designed to support multiple deployments using just one codebase, with environment-specific variables [provided by a configuration file](https://github.com/kiva/protocol-sdk-issuer/tree/master/config).
+
+To run a deployment for a specific configuration file, you can run this command from the root directory of this repo.
+
+```
+sh ./tools/bundle/create_bundle.sh <YOUR CONFIG>
+```
+
+This will create a production bundle using `react-scripts` and will populate variables using the file specified by `<YOUR CONFIG>`.
+
+Configuration files also support custom environments, though at the moment we only support environments with the following names: `dev`, `qa`, `sandbox` and `prod`. (We are currently working on making this support less restrictive.)
+
+In order to build a bundle for a specific environment, you can run this command.
+
+```
+sh ./tools/bundle/create_bundle.sh <YOUR CONFIG> --<dev/sandbox/prod>
+```
+
+If no environment is specified, the default is `qa`.
