@@ -25,13 +25,13 @@ if (root) {
 }
 
 var firebaseConfig = {
-    apiKey: "AIzaSyD0S_QNKrJrcmXS9B_6C2xlyaUX01K4HsM",
-    authDomain: "pro-cluster-kiva.firebaseapp.com",
-    databaseURL: "https://pro-cluster-kiva.firebaseio.com",
-    projectId: "pro-cluster-kiva",
-    storageBucket: "pro-cluster-kiva.appspot.com",
-    messagingSenderId: "118533391027",
-    appId: "1:118533391027:web:306d5ba3cb4bf0568666c6"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
 };
 export const Kernel = firebase.initializeApp(firebaseConfig);
 
