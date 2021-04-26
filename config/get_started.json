@@ -38,7 +38,7 @@
             "inherits": ["prod"]
         },
         "qa": {
-            "controllerUrlBase": "http://localhost:8080",
+            "controllerUrlBase": "https://sandbox-gateway.protocol-prod.kiva.org",
             "isProd": true,
             "permittedOrigins": "http://localhost:8080,http://localhost:3000,https://www.kiva.org",
             "permittedOpenerOrigins": ["https://pro-cluster-kiva.web.app", "http://localhost:3000"],
