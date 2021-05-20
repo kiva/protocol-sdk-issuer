@@ -75,7 +75,20 @@ export default class RegistrationForm extends React.Component<Props, State> {
       this.props.setCredentialCreationData(initialCreationDataState);
   }
 
+  formatCredentialData() {
+    const data = this.props.credentialCreationData;
+    const dates: any = {};
+    const dateFields = _.keys(_.pickBy(CredentialKeys, (key) => {
+        return key.dataType === "date";
+    }));
+    _.each(dateFields, (field) => {
+        dates[field] = String(Date.parse(data[field]));
+    });
+    this.props.setCredentialCreationData(dates);
+  }
+
   handleSubmit(event:any) {
+      this.formatCredentialData();
       event.preventDefault();
       flowController.goTo('NEXT');
   }
@@ -84,7 +97,7 @@ export default class RegistrationForm extends React.Component<Props, State> {
       return (
           <ValidatorForm
               ref="form"
-              onSubmit={this.handleSubmit}
+              onSubmit={this.handleSubmit.bind(this)}
           >
               <div data-cy="registration-form" className="registrationForm">
                   <Grid
