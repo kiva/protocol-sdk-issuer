@@ -82,7 +82,10 @@ export default class RegistrationForm extends React.Component<Props, State> {
         return key.dataType === "date";
     }));
     _.each(dateFields, (field) => {
-        dates[field] = String(Date.parse(data[field]));
+        dates[field] = String(Math.round(Date.parse(data[field])/1000));
+        if (dates[field] === "NaN") {
+            dates[field] = `${dates[field]} -> (Not A Valid Date)`
+        }
     });
     this.props.setCredentialCreationData(dates);
   }
