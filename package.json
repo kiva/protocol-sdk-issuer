@@ -63,7 +63,7 @@
     "analyze": "npm-run-all -s build analyze-build",
     "compile": "tsc",
     "watch-css": "node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
+    "start-js": "PORT=5555 react-scripts start",
     "start": "npm-run-all -p statFileGen watch-css start-js",
     "build": "sh ./tools/bundle/create_bundle.sh ${CONF_FILE:-config/get_started.json}",
     "build-qa": "npm run build",
